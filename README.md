@@ -10,6 +10,32 @@
 3. Create a .gitignore file
     - touch .gitignore
     - Add *.sqlite, *.pyc, __pycache__ to .gitignore file
+4. Run migrations
+    - python3 manage.py migrate
+5. Create superuser
+    - python3 manage.py createsuperuser
+    - Provide username
+    - Provide an email address
+    - Provide a password
+
+## Allauth set up
+1. Install django-allauth
+    - pip3 install django-allauth
+2. Set up reference guide https://django-allauth.readthedocs.io/en/latest/installation.html
+3. Add the AUTHENTICATION_BACKENDS from reference guide
+4. Add in the following INSTALLED_APPS from reference guide
+    - 'django.contrib.sites',
+    - 'allauth',
+    - 'allauth.account',
+    - 'allauth.socialaccount',
+5. Add SITE_ID = 1 to settings.py file
+6. Add a path to allauth accounts in urls.py file
+    - path('accounts', include('allauth.urls')),
+7. Run new migrations
+    python3 manage.py migrate
+8. Open the site and log in to django admin and go to 'sites'
+9. Update the domain of the default site to blackhills.graphics.example.com
+10. Update the display name to Blackhills graphics
 
 
 
