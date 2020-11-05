@@ -2,7 +2,7 @@
 
 # PeterKellett - Milestone Project 4
 
-## Project set up
+## Project initial set up
 1. Install Django 
     - pip3 install django (v20.2.4 installed)
 2. Create the project root files
@@ -18,7 +18,8 @@
     - Provide an email address
     - Provide a password
 
-## Allauth set up
+## Allauth
+### Allauth set up 1
 1. Install django-allauth
     - pip3 install django-allauth
 2. Set up reference guide https://django-allauth.readthedocs.io/en/latest/installation.html
@@ -37,6 +38,22 @@
 9. Update the domain of the default site to blackhills.graphics.example.com
 10. Update the display name to Blackhills graphics
 
+### Allauth set up 2
+1. To enable emails be printed to the console without an smtp server for emails add following code to settings.py:
+Ref: https://django-allauth.readthedocs.io/en/latest/faq.html?highlight=EMAIL_BACKEND#when-i-sign-up-i-run-into-connectivity-errors-connection-refused-et-al
+Ref: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+    - EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+2. Set up AUTHENTICATION methods
+Ref: https://django-allauth.readthedocs.io/en/latest/configuration.html?highlight=ACCOUNT_AUTHENTICATION_METHOD#configuration
+    - ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+    - ACCOUNT_EMAIL_REQUIRED = True
+    - ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+    - ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+    - ACCOUNT_USERNAME_MIN_LENGTH = 4
+    - LOGIN_URL = '/accounts/login/'
+    - LOGIN_REDIRECT_URL = '/'
+3. MAnually set superuser email to both verified and primary via django site admim
+4. 
 
 
 
