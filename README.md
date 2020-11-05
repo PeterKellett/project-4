@@ -113,6 +113,23 @@ This holds the code for:
         ],
 
 
+## CSS stylesheet
+1. mkdir static
+2. mkdir static/css
+3. Connect these new folders in settings.py
+    - STATIC_URL = '/static/'
+    - STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+## Media files
+1. mkdir Media
+2. Connect the media folder in settings.py
+    - MEDIA_URL = '/media/'
+    - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+3. Add the following to the root urls.py file
+    - from django.conf import settings
+    - from django.conf.urls.static import static
+    - '+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
+
 
 
 ## Gitpod Reminders
