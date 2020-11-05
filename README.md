@@ -73,7 +73,22 @@ This holds the code for:
     - Links to 3rd party source libraries
     - The title tags
 - The body tags
-    - 
+    - The header container
+    - The messages container
+ Content is divided into blocks so sections can be extended by other pages if required.  
+
+ Block sections added are:
+ - block meta
+ - block extra_meta
+ - block corecss
+ - block extra_css
+ - block corejs
+ - block extra_js
+ - block extra_title
+ - block page_header
+ - block content
+ - block postloadjs
+
 #### Source libraries
 1. Bootstrap4 starter template with css and js option 2 chosen.
 
