@@ -39,11 +39,11 @@
 10. Update the display name to Blackhills graphics
 
 ### Allauth set up 2
-1. To enable emails be printed to the console without an smtp server for emails add following code to settings.py:
-Ref: https://django-allauth.readthedocs.io/en/latest/faq.html?highlight=EMAIL_BACKEND#when-i-sign-up-i-run-into-connectivity-errors-connection-refused-et-al
+1. To enable emails be printed to the console without an smtp server for emails add following code to settings.py:  
+Ref: https://django-allauth.readthedocs.io/en/latest/faq.html?highlight=EMAIL_BACKEND#when-i-sign-up-i-run-into-connectivity-errors-connection-refused-et-al  
 Ref: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
     - EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-2. Set up AUTHENTICATION methods
+2. Set up AUTHENTICATION methods  
 Ref: https://django-allauth.readthedocs.io/en/latest/configuration.html?highlight=ACCOUNT_AUTHENTICATION_METHOD#configuration
     - ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
     - ACCOUNT_EMAIL_REQUIRED = True
@@ -52,7 +52,7 @@ Ref: https://django-allauth.readthedocs.io/en/latest/configuration.html?highligh
     - ACCOUNT_USERNAME_MIN_LENGTH = 4
     - LOGIN_URL = '/accounts/login/'
     - LOGIN_REDIRECT_URL = '/'
-3. MAnually set superuser email to both verified and primary via django site admim
+3. Manually set superuser email to both verified and primary via django site admim
 4. Freeze all pip3 installs to requirements.txt
     - pip3 freeze > requirements.txt
 
@@ -93,8 +93,24 @@ This holds the code for:
 1. Bootstrap4 starter template with css and js option 2 chosen.
 
 
-
-
+# Apps  
+## Home App  
+1. Create app  
+    - python3 manage.py startapp home
+2. Add a templates/home folder inside this app folder
+    - mkdir -p home/templates/home
+3. Add an index.html file to this directory.
+    - This is for all the home page content.
+4. Add a view for this page in views.py
+    - def index view and return the index.html page  
+5. In the home app create a new file urls.py and set the imports and url pattern to the home page  
+6. Return to root level urls.py file to include the home urls  
+7. Add the home app to our INSTALLED_APPS list in settings.py 
+8. Add the templates for the root level templates directory and the allauth directory to TEMPLATES DIRS settings
+    - 'DIRS': [  
+            os.path.join(BASE_DIR, 'templates'),  
+            os.path.join(BASE_DIR, 'templates', 'allauth'),  
+        ],
 
 
 
