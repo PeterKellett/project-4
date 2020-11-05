@@ -53,7 +53,34 @@ Ref: https://django-allauth.readthedocs.io/en/latest/configuration.html?highligh
     - LOGIN_URL = '/accounts/login/'
     - LOGIN_REDIRECT_URL = '/'
 3. MAnually set superuser email to both verified and primary via django site admim
-4. 
+4. Freeze all pip3 installs to requirements.txt
+    - pip3 freeze > requirements.txt
+
+## Templates  
+### Allauth templates 
+1. mkdir templates
+2. mkdir templates/allauth  
+3. Copy over all allauth built in templates from root folder
+    - CLI: cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/* ./templates/allauth
+4. Remove openid and tests folders as they are not required.
+
+
+### Site base.html template
+This holds the code for:  
+- {% load static %}
+- The head tags
+    - The meta tags
+    - Links to 3rd party source libraries
+    - The title tags
+- The body tags
+    - 
+#### Source libraries
+1. Bootstrap4 starter template with css and js option 2 chosen.
+
+
+
+
+
 
 
 
