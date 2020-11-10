@@ -121,7 +121,7 @@ This holds the code for:
     - STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 ## Media files
-1. mkdir Media
+1. mkdir media
 2. Connect the media folder in settings.py
     - MEDIA_URL = '/media/'
     - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
