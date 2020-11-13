@@ -1,6 +1,24 @@
 <img src="https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png" style="margin: 0;">
 
-# PeterKellett - Milestone Project 4
+# PeterKellett - Milestone Project 4  
+
+## User stories
+### As a User  
+1. As a user I would like to view a nicely designed site with logical navigation applied.
+2. As a user I would like to view sample designs done by the company previously.
+3. As a user I would like to be able to see any testimonials left by previous users.
+4. As a user I would like to be able to contact the company in a simple straightforward way.
+5. As a user I would like to be able to order a particular graphic and spcify it's size.
+6. As a user I would like to be assured that any contact information provided is dealt in a secure manner.
+
+### As an Owner  
+1. As an owner I would like to be able to showcase a sample of my previous work.
+2. As an owner I would like to be notified of any orders submitted and be able view them as a superuser and that they are not accessible to anybody else.
+3. As an owner I would like to be able to contact the person who submitted the order.
+4. As an owner I would like top be able to keep the final product secure until a verified payment is made whereby the final product is immediately released to the client.
+5. As an owner I would like to be able to gather a testimonial from each client.
+6. As an owner I would like the finished products and the client testimonial to be automatically added to the site showcase area.  
+ 
 
 ## Project initial set up
 1. Install Django 
@@ -131,6 +149,22 @@ This holds the code for:
     - '+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
 
 
+## User stories
+### As a User  
+1. As a user I would like to view a nicely designed site with logical navigation applied.
+2. As a user I would like to view sample designs done by the company previously.
+3. As a user I would like to be able to see any testimonials left by previous users.
+4. As a user I would like to be able to contact the company in a simple straightforward way.
+5. As a user I would like to be able to order a particular graphic and spcify it's size.
+6. As a user I would like to be assured that any contact information provided is dealt in a secure manner.
+
+### As an Owner  
+1. As an owner I would like to be able to showcase a sample of my previous work.
+2. As an owner I would like to be notified of any orders submitted and be able view them as a superuser and that they are not accessible to anybody else.
+3. As an owner I would like to be able to contact the person who submitted the order.
+4. As an owner I would like top be able to keep the final product secure until a verified payment is made whereby the final product is immediately released to the client.
+5. As an owner I would like to be able to gather a testimonial from each client.
+6. As an owner I would like the finished products and the client testimonial to be automatically added to the site showcase area.  
 
 ## Gitpod Reminders
 
