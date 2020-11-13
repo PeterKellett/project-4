@@ -148,6 +148,12 @@ This holds the code for:
     - from django.conf.urls.static import static
     - '+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
 
+## Crispy forms  
+1. pip3 install django-crispy-forms  
+2. Add this install to settings.py INSTALLED_APPS  
+3. CRISPY_TEMPLATE_PACK = 'bootstrap4'
+4. Add to templates-builtins in settings.py
+
 
 ## User stories
 ### As a User  
