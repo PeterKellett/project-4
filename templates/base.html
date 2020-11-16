@@ -60,7 +60,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <ul class="navbar-nav mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
@@ -75,7 +75,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Testimonials</a>
-                    </li>                      
+                    </li>
+                </ul>    
+                <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">                
                     {% if request.user.is_authenticated %} 
                         {% if request.user.is_superuser %}
                             <li class="nav-item">
@@ -88,12 +90,14 @@
                         <li class="nav-item">
                             <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
                         </li>
-                    {% else %}
-                        <a href="{% url 'account_signup' %}" class="nav-link">Register</a>
-                        <a href="{% url 'account_login' %}" class="nav-link">Login</a>
-                    {% endif %}
-                    
-                    
+                    {% else %}                       
+                        <li class="nav-item">
+                            <a href="{% url 'account_signup' %}" class="nav-link">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'account_login' %}" class="nav-link">Login</a>
+                        </li>                        
+                    {% endif %}                   
                 </ul>
             </div>
         </nav>
@@ -107,9 +111,52 @@
 
 	{% block content %}{% endblock %}
 
-    <div class="container-fluid footer mt-2">
+    <div class="container-fluid footer pt-2">
         <div class="row">
-            
+            <div class="col-12 col-lg-4 my-auto mx-auto">
+                <img width="80%" height="auto" class="" src="/media/secure-payment-stripe.png" alt="Card image cap" /> 
+            </div>
+            <div class="col-6 col-lg-4">
+                <h5 class="text-center">Quick links</h5>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home2' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Testimonials</a>
+                    </li>
+                </ul>    
+            </div>
+            <div class="col-6 col-lg-4">
+                <h5 class="text-center">Contacts</h5>
+                <ul class="navbar-nav mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-phone-square-alt">+353 (0)1 1234567</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fab fa-twitter-square"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
     </div>
 

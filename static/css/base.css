@@ -21,7 +21,7 @@ body {
     text-transform: uppercase;
 }
 
-header {
+header, .footer {
     background-image: linear-gradient(to right, #d0b3b7, #985d65, #d0b3b7);
 }
 
