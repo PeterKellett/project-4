@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends 'base.html' %} {% load static %} {% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+        <div class="col-12">
+            <h1 class=" m-2 m-lg-5 p-2 p-lg-4 home-headline text-center">
+                Products
+            </h1>
+            {{ products }}
+        </div>
+	</div>
+</div>
+
+<section class="services">
+    
+    
+</section>
+
+{% endblock %}
