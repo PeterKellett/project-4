@@ -149,6 +149,16 @@ header a {
 	color: #17a2b8; /* text-info */
 }
 
+/*----Products--*/
+.side-bar {
+    background-color: yellow;
+    
+}
+
+.fa-star {
+    color: yellow;
+}
+/*----Footer--*/
 .footer a {
     color: #000;
 }
