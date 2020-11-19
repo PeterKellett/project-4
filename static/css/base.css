@@ -149,3 +149,6 @@ header a {
 	color: #17a2b8; /* text-info */
 }
 
+.footer a {
+    color: #000;
+}
