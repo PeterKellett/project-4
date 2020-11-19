@@ -3,4 +3,11 @@ from .models import Category
 
 
 # Register your models here.
-admin.site.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'friendly_name',
+        'name',
+    )
+
+
+admin.site.register(Category, CategoryAdmin)
