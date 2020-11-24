@@ -33,6 +33,15 @@ header a {
     font-family: 'Roboto', sans-serif;
 }
 
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 99999999999;
+}
+
+
+
 .banner {
     background-color: black;
     color: white;

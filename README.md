@@ -182,11 +182,11 @@ Block sections added are:
 
 ### Category model
 
-Fields | Attribute | Attribute | Attribute |
--------|------------|----------|-----------|
-Primary_key | Int | Auto increment |
-name | CharField | Not Null | max length 254 |
-friendly_name | CharField | Blank = True | max length 254 |
+Fields | Type | Max Length | Null | Blank |  
+-------|------|------|----------|------|  
+Primary_key | Int | Auto increment | False | False
+name | CharField | 254 | False | False
+friendly_name | CharField | 254 | True | True
 
 ### Products model   
 Fields | Type | Max Length | Null | Blank |  
@@ -213,6 +213,13 @@ street_address2 | Text | 254 | True | True
 county | Text | 254 | True | True  
 country | Country | 254 | True True 
 order_history | Foreign_Key OrderHistory |  | True | True  
+subscriptions | Foreign_Key Subscriptions |  | True | True  
+
+### Subscription model  
+Fields | Type | max Length | Null | Blank |  
+-------|------|------|----------|------| 
+Primary_key | Int | Auto increment | False | False  
+name | Char | 254 | False | False 
 
 ## Gitpod Reminders
 

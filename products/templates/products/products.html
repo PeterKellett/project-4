@@ -11,7 +11,7 @@
 	<div class="row">
         <div class="col-3 side-bar">
             {% for category in categories %}
-                <p>{{ category.name }}</p>
+                <p>{{ category.name.title }}</p>
             {% endfor %}
             
         </div>
@@ -19,7 +19,12 @@
             <h1>
                 Products
             </h1>
-        
+            <form method="GET" action="{% url 'products' %}">
+                <input type="text" name="q" placeholder="Search">
+                <button type="submit" value="Submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
 	
             <div class="row">
                 {% for product in products %}
