@@ -116,7 +116,6 @@ Block sections added are:
 # Apps
 
 ## Home App
-
 1. Create app
    - python3 manage.py startapp home
 2. Add a templates/home folder inside this app folder
@@ -133,6 +132,10 @@ Block sections added are:
       os.path.join(BASE_DIR, 'templates'),
       os.path.join(BASE_DIR, 'templates', 'allauth'),
       ],
+
+### Home views  
+- index  
+
 
 ## CSS stylesheet
 
@@ -177,6 +180,24 @@ Block sections added are:
 8. Customise the admin of the categories model in products/admin.py  
 
 ## Adding Products  
+
+## Shopping Bag App  
+- New file for context processor: shopping_bag/contexts.py  
+- Add this to the list of context processors in settings.py TEMPLATES section
+
+### Shopping Bag context processor  
+- shopping_bag_contents  
+
+### Shopping Bag views  
+- view_shopping_bag  
+- add_to_shopping_bag  
+- 
+
+### shopping bag urls  
+- path('', views.view_shopping_bag, name='view_shopping_bag'),
+- path('add/<item_id>/', views.add_to_shopping_bag, name='add_to_shopping_bag'),  
+
+
 
 ## Models
 

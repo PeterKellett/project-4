@@ -15,7 +15,7 @@
             {% endfor %}
             
         </div>
-        <div class="col-9">
+        <div class="col-9 mt-4">
             <h1>
                 Products
             </h1>
@@ -33,16 +33,13 @@
                             <p class="text-right p-1">
                                 {{ product.rating }}
                                 <i class="fa fa-star" aria-hidden="true"></i>    
-                            </p>
-                            
-                            
-                           
+                            </p>                           
                             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.description }}</p>
                                 <p class="text-muted">{{ product.sku }}</p>
-                                <a href="#" class="btn btn-primary">Add to basket</a>
+                                <a href="{% url 'product_detail' product.id %}"><button>View</button></a>
                             </div>
                         </div>
                     </div>
