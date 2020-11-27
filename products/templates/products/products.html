@@ -10,9 +10,38 @@
 <div class="container-fluid">
 	<div class="row">
         <div class="col-3 side-bar">
+            {% if current_category == None %}
+                <p>
+                    <strong>
+                        <a class="text-decoration-none" href="{% url 'products' %}">
+                            All
+                        </a>
+                    </strong>
+                </p>
+            {% else %}
+                <p>
+                    <a class="text-decoration-none" href="{% url 'products' %}">
+                        All
+                    </a>
+                </p>
+            {% endif %}
             {% for category in categories %}
-                <p>{{ category.name.title }}</p>
+                {% if category.name == current_category %}
+                    <p><strong>
+                        <a class="text-decoration-none" href="{% url 'products' %}?category={{ category.name }}">
+                            {{ category.friendly_name }}
+                        </a></strong>
+                    </p>
+                {% else %}
+                    <p>
+                        <a class="text-decoration-none" href="{% url 'products' %}?category={{ category.name }}">
+                            {{ category.friendly_name }}
+                        </a>
+                    </p>
+                {% endif %}
+                
             {% endfor %}
+            {{ current_category }}           
             
         </div>
         <div class="col-9 mt-4">
@@ -24,6 +53,9 @@
                 <button type="submit" value="Submit">
                     <i class="fas fa-search"></i>
                 </button>
+                {% if search_term != None %}
+                <p>Searching: '{{ search_term }}'</p>
+                {% endif %}
             </form>
 	
             <div class="row">
@@ -31,8 +63,10 @@
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 m-1">           
                         <div class="card h-100" style="width: 18rem;">
                             <p class="text-right p-1">
+                                
                                 {{ product.rating }}
-                                <i class="fa fa-star" aria-hidden="true"></i>    
+                                <i class="fa fa-star" aria-hidden="true"></i>  
+                            
                             </p>                           
                             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                             <div class="card-body">

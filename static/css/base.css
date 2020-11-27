@@ -10,7 +10,6 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    
 }
 
 main {
@@ -169,7 +168,7 @@ header a {
 
 /*----Products--*/
 .side-bar {
-    background-color: yellow;
+    background-color: #fafafa;
     
 }
 

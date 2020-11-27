@@ -8,20 +8,35 @@ from .models import Product, Category
 def all_products(request):
     """A view to show all products including sorting and search queries"""
     products = Product.objects.all()
+    categories = Category.objects.all()
+    query = None
+    current_category = None
 
     if request.GET:
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
                 messages.error(request,
-                               "You didn't enter any search criteria!")
+                               "You didn't enter asny search criteria!")
                 return redirect(reverse('products'))
 
-    categories = Category.objects.all()
+            queries = (Q(name__icontains=query)
+                       | Q(description__icontains=query))
+            products = products.filter(queries)
+
+        if 'category' in request.GET:
+            current_category = request.GET['category'].split(',')
+            products = products.filter(category__name__in=current_category)
+            current_category = request.GET['category']
     context = {
         'products': products,
-        'categories': categories
+        'search_term': query,
+        'categories': categories,
+        'current_category': current_category,
     }
+    print(categories)
+    print(type(current_category))
+    print(current_category)
     return render(request, 'products/products.html', context)
 
 
