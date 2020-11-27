@@ -1,12 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@500&display=swap');
-
+/*
 html {
     height: 100%;
 }
+*/
 
 body {
-    /*background: url('/media/logo-watermark(1).jpg');*/
-    background-repeat: repeat;
+    background-color: #f5f1e2;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 .header-container {
@@ -40,15 +48,13 @@ header a {
     z-index: 99999999999;
 }
 
-
-
 .banner {
     background-color: black;
     color: white;
 }
 
 .hero-image {
-    background: url('/media/high-res-main-image.jpg') no-repeat center top;
+    background: url('/media/crowd-skysports-atlanta-mls.jpg') no-repeat center top;
     background-size: cover;
     width: 100%;
     height: 100vh;
@@ -78,24 +84,27 @@ header a {
 }*/
 
 .home-headline {
-    background-color: #0000002e;
+    background-color: #00000096;
     color: #fafafa;
+    
+}
+
+.home-headline h1 {
     font-size: 4rem;
 }
 
 @media(max-width: 768px) {
-    .home-headline {
+    .home-headline h1 {
         font-size: 2rem;
-}
+    }
 }
 
-.contact-button {
-    
+.products-button {    
     color: #000;
     font-family: 'Bangers', cursive;
 }
 
-.contact-button a {
+.products-button a {
     font-family: 'Roboto', sans-serif;
 }
 

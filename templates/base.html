@@ -45,7 +45,7 @@
 	{% endblock %}
 	{% block extra_js %}{% endblock %}
     <link rel="shortcut icon" href="/media/favicon(9).ico" type="image/x-icon" />
-	<title>Blackhills Graphics{% block extra_title %}{% endblock %}</title>
+	<title>Blackhills Jerseys{% block extra_title %}{% endblock %}</title>
 </head>
 
 <body>
@@ -53,7 +53,7 @@
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand p-0" href="{% url 'home' %}">
                 <img src="/media/blackhills-logo.png" width="40" height="40" class="d-inline-block align-top" alt="" loading="lazy">
-                <h2 class="d-inline py-auto"><strong>Blackhills Graphics</strong></h2>
+                <h2 class="d-inline py-auto"><strong>Blackhills Jerseys</strong></h2>
             </a>
             <button class="navbar-toggler bg-dark text-light" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -85,14 +85,14 @@
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a href="{% url 'view_shopping_bag' %}" class="nav-link">Shopping Bag</a>
-                            <p class="my-0 text-center">
+                            <a href="{% url 'view_shopping_bag' %}" class="nav-link">Shopping Bag
+                            <p class="my-0 d-inline">
                                 {% if grand_total %} 
                                     ${{ grand_total|floatformat:2 }} 
                                 {% else %}
                                     $0.00 
                                 {% endif %}
-                            </p>
+                            </p></a>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">My Profile</a>
@@ -122,9 +122,9 @@
 	{% endif %}
 
 	{% block page_header %}{% endblock %}
-
+    <main>
 	{% block content %}{% endblock %}
-
+    </main>
     <div class="container-fluid footer pt-2">
         <div class="row">
             <div class="col-12 col-lg-4 my-auto mx-auto">

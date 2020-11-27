@@ -232,8 +232,8 @@ email | Email | 254 | False | False
 street_address1 | Text | 254 | True | True
 street_address2 | Text | 254 | True | True  
 county | Text | 254 | True | True  
-country | Country | 254 | True True 
-order_history | Foreign_Key OrderHistory |  | True | True  
+country | Country | 254 | True | True 
+order_history | Foreign_Key Order |  | True | True  
 subscriptions | Foreign_Key Subscriptions |  | True | True  
 
 ### Subscription model  
@@ -241,6 +241,84 @@ Fields | Type | max Length | Null | Blank |
 -------|------|------|----------|------| 
 Primary_key | Int | Auto increment | False | False  
 name | Char | 254 | False | False 
+
+### Order model
+Fields | Type | Max Length | Null | Blank | Editable
+-------|------|------|----------|------|------
+Primary_key | Int | Auto increment | False | False 
+order_number | uuid | 32 | False | False | False  
+user_profile | Foreign_key Profile | False | False 
+item_id | Char |  | False | False  
+item_size | Char | 2 | True | True  
+item_quantity | Int | 2 | False | False 
+
+
+# sample models  
+## Order model  
+Fields | Type | Max Length | Null | Blank | Other
+-------|------|------|----------|------|------
+Primary_key | Int | Auto increment | False | False
+order_number | uuid | 32 | False | False 
+user_profile | ForeignKey(UserProfile) | | True | True | related_name='order' ??  
+full_name | Char | 50 | False | False
+email | Email | 254 | False | False  
+phone_number | Char | 30 | False | False
+country | Country |  | False | False | blank_label='Country *'
+postcode | Char | 20 | True | True 
+town_or_city | Char | 40 | False | False 
+street_address1 | Char | 80 | False | False 
+street_address2 | Char | 80 | True | True 
+county | Char | 80 | True | True 
+date | DateTime |  | False | False | auto_now_add=True
+delivery_cost | Decimal | 6 | False | False | decimal_places=2
+order_total | Decimal | 10 | False | False | decimal_places=2
+grand_total | Decimal | 10 | False | False | decimal_places=2
+original_bag | Text | | False | False | default=''
+stripe_pid | Char | 254 | False | False | default=''  
+
+## OrderLineItem  
+Fields | Type | Max Length | Null | Blank | Other
+-------|------|------|----------|------|------
+Primary_key | Int | Auto increment | False | False
+order | ForeignKey(Order) |  | False | False | related_name='lineitems' ??  
+product | ForeignKey(Product) | | False | False | related_name='lineitems' ??  
+product_size | Char | 2 | True | True  
+quantity | Int | | False | False | default=0 ??  
+lineitem_total | Decimal | 6 | False | False | decimal_places=2  
+
+## UserProfile  
+Fields | Type | Max Length | Null | Blank | Other
+-------|------|------|----------|------|------
+Primary_key | Int | Auto increment | False | False
+user | OneToOne | | False | False
+default_phone_number | Char | 30 | True | True 
+default_street_address1 | Char | 80 | True | True 
+default_street_address2 | Char | 80 | True | True 
+default_town_or_city | Char | 40 | True | True 
+default_county | Char | 80 | True | True 
+default_postcode | Char | 20 | True | True 
+default_country | Char | 30 | True | True  
+
+
+## Categories model  
+Fields | Type | Max Length | Null | Blank |  
+-------|------|------|----------|------|  
+Primary_key | Int | Auto increment | False | False
+name | CharField | 254 | False | False
+friendly_name | CharField | 254 | True | True  
+
+## Products model   
+Fields | Type | Max Length | Null | Blank |  
+-------|------|------|----------|------|  
+Primary_key | Int | Auto increment | False | False 
+Category | Foreign_key Category |  | True | True 
+name | Char| 254 | False | False |
+description | Text | No | True | True  
+price | Decimal | 6 (2 decimal places) | False | False | 
+image_url | URL | 1024 | False | False 
+image | Image |  | False | False  
+sku | Char | 254 | False | False 
+rating | Int | 2 | True | True  
 
 ## Gitpod Reminders
 
