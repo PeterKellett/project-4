@@ -199,62 +199,42 @@ Block sections added are:
 
 
 
-## Models
-
-### Category model
-
-Fields | Type | Max Length | Null | Blank |  
--------|------|------|----------|------|  
-Primary_key | Int | Auto increment | False | False
-name | CharField | 254 | False | False
-friendly_name | CharField | 254 | True | True
-
+## Models  
+![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)
 ### Products model   
 Fields | Type | Max Length | Null | Blank |  
 -------|------|------|----------|------|  
 Primary_key | Int | Auto increment | False | False 
 Category | Foreign_key Category |  | True | True 
 name | Char| 254 | False | False |
-description | Text | No | True | True  
+description | Text | 254 | True | True  
 price | Decimal | 6 (2 decimal places) | False | False | 
 image_url | URL | 1024 | False | False 
 image | Image |  | False | False  
 sku | Char | 254 | False | False 
 rating | Int | 2 | True | True  
 
-### Profile model
+
+### Category model
 Fields | Type | Max Length | Null | Blank |  
 -------|------|------|----------|------|  
-Primary_key | Int | Auto increment | False | False 
-name | Char | 254 | False | False 
-phone | Char | 254 | True | True 
-email | Email | 254 | False | False 
-street_address1 | Text | 254 | True | True
-street_address2 | Text | 254 | True | True  
-county | Text | 254 | True | True  
-country | Country | 254 | True | True 
-order_history | Foreign_Key Order |  | True | True  
-subscriptions | Foreign_Key Subscriptions |  | True | True  
+Primary_key | Int | Auto increment | False | False
+name | CharField | 254 | False | False
+friendly_name | CharField | 254 | True | True
 
-### Subscription model  
-Fields | Type | max Length | Null | Blank |  
--------|------|------|----------|------| 
-Primary_key | Int | Auto increment | False | False  
-name | Char | 254 | False | False 
 
-### Order model
-Fields | Type | Max Length | Null | Blank | Editable
+### OrderLineItem  
+Fields | Type | Max Length | Null | Blank | Other
 -------|------|------|----------|------|------
-Primary_key | Int | Auto increment | False | False 
-order_number | uuid | 32 | False | False | False  
-user_profile | Foreign_key Profile | False | False 
-item_id | Char |  | False | False  
-item_size | Char | 2 | True | True  
-item_quantity | Int | 2 | False | False 
+Primary_key | Int | Auto increment | False | False
+order | ForeignKey(Order) |  | False | False | related_name='lineitems' ??  
+product | ForeignKey(Product) | | False | False | related_name='lineitems' ??  
+product_size | Char | 2 | True | True  
+quantity | Int | | False | False | default=0 ??  
+lineitem_total | Decimal | 6 | False | False | decimal_places=2  
 
 
-# sample models  
-## Order model  
+### Order model  
 Fields | Type | Max Length | Null | Blank | Other
 -------|------|------|----------|------|------
 Primary_key | Int | Auto increment | False | False
@@ -276,17 +256,8 @@ grand_total | Decimal | 10 | False | False | decimal_places=2
 original_bag | Text | | False | False | default=''
 stripe_pid | Char | 254 | False | False | default=''  
 
-## OrderLineItem  
-Fields | Type | Max Length | Null | Blank | Other
--------|------|------|----------|------|------
-Primary_key | Int | Auto increment | False | False
-order | ForeignKey(Order) |  | False | False | related_name='lineitems' ??  
-product | ForeignKey(Product) | | False | False | related_name='lineitems' ??  
-product_size | Char | 2 | True | True  
-quantity | Int | | False | False | default=0 ??  
-lineitem_total | Decimal | 6 | False | False | decimal_places=2  
 
-## UserProfile  
+### UserProfile  
 Fields | Type | Max Length | Null | Blank | Other
 -------|------|------|----------|------|------
 Primary_key | Int | Auto increment | False | False
@@ -299,26 +270,28 @@ default_county | Char | 80 | True | True
 default_postcode | Char | 20 | True | True 
 default_country | Char | 30 | True | True  
 
+### Subscription model  
+Fields | Type | max Length | Null | Blank |  
+-------|------|------|----------|------| 
+Primary_key | Int | Auto increment | False | False  
+name | Char | 254 | False | False 
 
-## Categories model  
-Fields | Type | Max Length | Null | Blank |  
--------|------|------|----------|------|  
-Primary_key | Int | Auto increment | False | False
-name | CharField | 254 | False | False
-friendly_name | CharField | 254 | True | True  
+### EmailSubscriptions model  
+Fields | Type | Max Length | Null | Blank | Other
+-------|------|------|----------|------|------
+Primary_key | Int | Auto increment | False | False  
+user_id | ForeignKey(UserProfile) |  | False | False 
 
-## Products model   
-Fields | Type | Max Length | Null | Blank |  
--------|------|------|----------|------|  
-Primary_key | Int | Auto increment | False | False 
-Category | Foreign_key Category |  | True | True 
-name | Char| 254 | False | False |
-description | Text | No | True | True  
-price | Decimal | 6 (2 decimal places) | False | False | 
-image_url | URL | 1024 | False | False 
-image | Image |  | False | False  
-sku | Char | 254 | False | False 
-rating | Int | 2 | True | True  
+### ProductComment model  
+Fields | Type | Max Length | Null | Blank | Other
+-------|------|------|----------|------|------
+Primary_key | Int | Auto increment | False | False  
+user_id | ForeignKey(UserProfile) |  | False | False  
+product_id | ForeignKey(Products) | | False | False 
+comment | Text | 254 | False | False  
+
+
+
 
 ## Gitpod Reminders
 
