@@ -74,6 +74,20 @@
                                 <p class="text-muted">({{ product.category }})</p>
                                 <p class="card-text">{{ product.description }}</p>
                                 <p class="text-muted">{{ product.sku }}</p>
+                                <p>Available sizes:
+                                    {% if product.size_s %}
+                                        S 
+                                    {% endif %}
+                                    {% if product.size_m %}
+                                        M 
+                                    {% endif %}
+                                    {% if product.size_lg %}
+                                        L 
+                                    {% endif %}
+                                    {% if product.size_xl %}
+                                        XL 
+                                    {% endif %}
+                                </p>
                                 <a href="{% url 'product_detail' product.id %}"><button>View</button></a>
                             </div>
                         </div>

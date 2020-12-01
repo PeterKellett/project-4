@@ -214,6 +214,10 @@ image_url | URL | 1024 | False | False
 image | Image |  | False | False  
 sku | Char | 254 | False | False 
 rating | Int | 2 | True | True  
+size_s | Boolean | | True | True  
+size_m | Boolean | | True | True  
+size_lg | Boolean | | True | True  
+size_xl | Boolean | | True | True  
 
 
 ### Category model

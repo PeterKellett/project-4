@@ -29,7 +29,16 @@ class Product(models.Model):
     image_url = models.URLField(max_length=1024)
     image = models.ImageField()
     sku = models.CharField(max_length=254)
-    rating = models.IntegerField(blank=True)
+    rating = models.IntegerField(default=False,
+                                 blank=True)
+    size_s = models.BooleanField(default=False,
+                                 blank=True)
+    size_m = models.BooleanField(default=False,
+                                 blank=True)
+    size_lg = models.BooleanField(default=False,
+                                  blank=True)
+    size_xl = models.BooleanField(default=False,
+                                  blank=True)
 
     def __str__(self):
         return self.name
