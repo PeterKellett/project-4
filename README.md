@@ -200,7 +200,8 @@ Block sections added are:
 
 
 ## Models  
-![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)
+![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
+
 ### Products model   
 Fields | Type | Max Length | Null | Blank |  
 -------|------|------|----------|------|  

@@ -1,4 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.contrib import messages
+
+from products.models import Product
 
 
 # Create your views here.
@@ -9,6 +12,7 @@ def view_shopping_bag(request):
 
 
 def add_to_shopping_bag(request, item_id):
+    product = get_object_or_404(Product, pk=item_id)
     # Obtain the quantity value from the form
     quantity = int(request.POST.get('quantity'))
     # And the redirect_url from the form hidden-field

@@ -9,27 +9,60 @@
 <section class="container about">
     <div class="row">
         <div class="col">
-            <h3 class="text-center pt-1">Shopping Bag</h3>
+            <h2 class="text-center pt-1">Shopping Bag</h2>
         </div>
     </div>
     
     <div class="row">    
-        <div class="col-12 col-lg-6">                   
-            {% if shopping_bag_items %}
-                <div class="table-responsive rounded"></div>
-            {% else %}
-                <p>Your shopping bag is empty</p>
-                <a href="{% url 'products' %}" class="btn btn-primary w-100">
-                    <span class="icon">
-                        <i class="fas fa-chevron-left"></i>
-                    </span>
-                    <span>Keep Shopping</span>
-                </a>
-            {% endif %}                  
-        </div>
+        <div class="col-12">                   
+            {% if shopping_bag_items %}              
+                {% for item in shopping_bag_items %}
+                    <div class="row">
+                        <div class="col-2 col-md-1 py-3 w-25">
+                            <img class="img-fluid rounded" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                        </div>
+                        <div class="col py-3 w-25">
+                            <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                            <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
+                        </div>
+                        <div class="col py-3 w-25">
+                            <p class="my-0">€{{ item.product.price }}</p>
+                        </div>
+                        <div class="col py-3 w-25">
+                            <p class="my-0">{{ item.quantity }}</p>
+                        </div>
+                        <div class="col py-3 w-25">
+                            <p class="my-0">€{{ item.product.price  }}</p>
+                        </div>
 
-        <div class="col-12 col-lg-6">
-        
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="row">
+                <div class="col py-3 w-25">
+                    <p>Your shopping bag is empty</p>
+                </div>
+            </div>
+            {% endif %} 
+            <div class="row">
+                <div class="col py-3 w-25">   
+                    <a href="{% url 'products' %}" class="btn btn-primary w-100">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span>Keep Shopping</span>
+                    </a>
+                </div>
+            
+                <div class="col py-3 w-25">
+                    <a href="{% url 'products' %}" class="btn btn-primary w-100">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span>Secure checkout</span>
+                    </a>
+                </div>
+            </div>          
         </div>
   </div>
   

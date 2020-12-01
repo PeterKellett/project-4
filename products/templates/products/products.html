@@ -45,7 +45,7 @@
             
         </div>
         <div class="col-9 mt-4">
-            <h1>
+            <h1 class="text-center">
                 Products
             </h1>
             <form method="GET" action="{% url 'products' %}">
@@ -71,6 +71,7 @@
                             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="text-muted">({{ product.category }})</p>
                                 <p class="card-text">{{ product.description }}</p>
                                 <p class="text-muted">{{ product.sku }}</p>
                                 <a href="{% url 'product_detail' product.id %}"><button>View</button></a>
