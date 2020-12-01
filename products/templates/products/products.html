@@ -9,7 +9,19 @@
 
 <div class="container-fluid">
 	<div class="row">
-        <div class="col-3 side-bar">
+        
+            
+        <div id="mySidenav" class="sidenav d-inline-block">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <form class="py-2" method="GET" action="{% url 'products' %}">
+                <input class="w-90" type="text" name="q" placeholder="Search">
+                <span><button class="float-right" type="submit" value="Submit">
+                    <i class="fas fa-search"></i>
+                </button></span>
+                {% if search_term != None %}
+                <p>Searching: '{{ search_term }}'</p>
+                {% endif %}
+            </form>       
             {% if current_category == None %}
                 <p>
                     <strong>
@@ -41,22 +53,18 @@
                 {% endif %}
                 
             {% endfor %}
-            {{ current_category }}           
             
+            
+        
         </div>
-        <div class="col-9 mt-4">
+        <button id="product-menu" class="bg-dark text-light d-inline-block" type="button" onclick="openNav()">
+            <i class="fas fa-bars"> Menu</i>
+        </button>          
+        <div class="col-10 mt-4">
             <h1 class="text-center">
                 Products
             </h1>
-            <form method="GET" action="{% url 'products' %}">
-                <input type="text" name="q" placeholder="Search">
-                <button type="submit" value="Submit">
-                    <i class="fas fa-search"></i>
-                </button>
-                {% if search_term != None %}
-                <p>Searching: '{{ search_term }}'</p>
-                {% endif %}
-            </form>
+            
 	
             <div class="row">
                 {% for product in products %}
@@ -68,12 +76,11 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>  
                             
                             </p>                           
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
                             <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="text-muted">({{ product.category }})</p>
-                                <p class="card-text">{{ product.description }}</p>
-                                <p class="text-muted">{{ product.sku }}</p>
+                                <h5 class="card-title d-inline">{{ product.name }}</h5>
+                                <p class="text-muted d-inline float-right">({{ product.category.friendly_name }})</p>
+                                <p class="card-text pt-2">{{ product.description }}</p>
                                 <p>Available sizes:
                                     {% if product.size_s %}
                                         S 
@@ -88,7 +95,8 @@
                                         XL 
                                     {% endif %}
                                 </p>
-                                <a href="{% url 'product_detail' product.id %}"><button>View</button></a>
+                                <p class="text-muted small">{{ product.sku }}</p>
+                                <a href="{% url 'product_detail' product.id %}"><button>View Item</button></a>
                             </div>
                         </div>
                     </div>
@@ -98,9 +106,23 @@
     </div>
 </div>
 
-<section class="services">
-    
-    
-</section>
+<script type="text/javascript">
+    //openNav();
+    console.log(screen.width)
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    console.log("script loaded")
+function openNav() {
+  document.getElementById("mySidenav").style.width = "300px";
+  //document.getElementById("product-menu").style.width = "400px";
+  console.log("openNav function fired");
+}
 
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  // document.getElementById("sidenav-icon").style.display = "block";
+  console.log("closeNav function fired");
+}
+
+</script>
 {% endblock %}
