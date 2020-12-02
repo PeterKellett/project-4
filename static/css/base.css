@@ -174,44 +174,28 @@ header a {
 
 /*----W3 sidebar----*/
 .sidenav {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
+  height: 100%; /* 100% Full-height */  
+  margin-left: 0;
   position: fixed; /* Stay in place */
-  z-index: 2; /* Stay on top */
+  z-index: 3; /* Stay on top */
   top: 0;
-  left: 0;
+  left: -260px;
   background-color: #d0b2b6f7; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  padding-top: 0px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
-#product-menu {
-    width: 100px;
-}
-#product-menu i {
-    
-    height: 100%; /* 100% Full-height */    
-    /*width: 10px;*/ /* 0 width - change this with JavaScript */
-  position: float; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  /*top: 0;*/
-  /*left: 0;*/
-  /*overflow-x: hidden;*/ /* Disable horizontal scroll */
-  /*padding-top: 60px;*/ /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-}
+
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 8px;
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
   color: #000;
   display: block;
   transition: 0.3s;
 }
-.sidenav form {
-    padding: 8px 8px 8px 32px;
-}
+
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
   color: #985d65;
@@ -220,17 +204,48 @@ header a {
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
     color: red;
-  text-align: right;
-  font-size: 36px;
-  margin-left: 50px;
+    text-align: right;
+    font-size: 36px;
+    margin-left: 50px;
 }
+
+.product-menu {
+    display: inline-block;
+    background-color: #d0b2b6f7;
+    height: 100%;
+}
+
+.sidenav-activator {
+	display: inline-block;
+    height: 100%;
+    padding: 56px 10px 0;
+
+}
+
+.sidenav-activator i {
+    padding-top: 300px;;
+}
+
+#main-container {
+    display: inline-block;
+  transition: margin-left .5s;
+  padding: 16px;
+  margin-left: 75px;
+}
+
+.sidenav form {
+    padding: 8px 8px 8px 32px;
+}
+
+
+
 /*---------------------*/
 .fa-star {
     color: yellow;
 }
 /*----Footer--*/
 .footer {
-    z-index: 3;
+    z-index: 1;
 }
 .footer a {
     color: #000;   

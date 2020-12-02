@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 {% extends 'base.html' %} {% load static %} {% block page_header %}
 <div class="container header-container">
-  <div class="row">
-    <div class="col"></div>
-  </div>
+  
 </div>
 {% endblock %} {% block content %}
 
-<div class="container-fluid">
-	<div class="row">
-        
-            
-        <div id="mySidenav" class="sidenav d-inline-block">
+	<div id="SidenavId" class="sidenav">
+        <div class="product-menu">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <form class="py-2" method="GET" action="{% url 'products' %}">
                 <input class="w-90" type="text" name="q" placeholder="Search">
@@ -19,7 +14,7 @@
                     <i class="fas fa-search"></i>
                 </button></span>
                 {% if search_term != None %}
-                <p>Searching: '{{ search_term }}'</p>
+                    <p>Searching: '{{ search_term }}'</p>
                 {% endif %}
             </form>       
             {% if current_category == None %}
@@ -53,74 +48,81 @@
                 {% endif %}
                 
             {% endfor %}
-            
-            
-        
         </div>
-        <button id="product-menu" class="bg-dark text-light d-inline-block" type="button" onclick="openNav()">
-            <i class="fas fa-bars"> Menu</i>
-        </button>          
-        <div class="col-10 mt-4">
-            <h1 class="text-center">
-                Products
-            </h1>
-            
-	
-            <div class="row">
-                {% for product in products %}
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 m-1">           
-                        <div class="card h-100" style="width: 18rem;">
-                            <p class="text-right p-1">
-                                
-                                {{ product.rating }}
-                                <i class="fa fa-star" aria-hidden="true"></i>  
+        
+        <div id="menu-open" class="bg-dark text-light sidenav-activator align-top" onclick="openNav()">
+            <i class="fas fa-bars"><span class="d-none d-md-inline"> Menu</span></i>
+        </div>
+        <div id="menu-close" class="bg-dark text-light sidenav-activator align-top" type="button" onclick="closeNav()">
+            <i class="fas fa-chevron-left"><span class="d-none d-md-inline"> Menu</span></i>
+        </div>                    
+    </div>
+        
+    <div class="mt-4" id="main-container">
+        <h1 class="text-center">
+            Products
+        </h1>
+        
+
+        <div class="row">
+            {% for product in products %}
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 m-1">           
+                    <div class="card h-100" style="width: 18rem;">
+                        <p class="text-right p-1">
                             
-                            </p>                           
-                            <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
-                            <div class="card-body">
-                                <h5 class="card-title d-inline">{{ product.name }}</h5>
-                                <p class="text-muted d-inline float-right">({{ product.category.friendly_name }})</p>
-                                <p class="card-text pt-2">{{ product.description }}</p>
-                                <p>Available sizes:
-                                    {% if product.size_s %}
-                                        S 
-                                    {% endif %}
-                                    {% if product.size_m %}
-                                        M 
-                                    {% endif %}
-                                    {% if product.size_lg %}
-                                        L 
-                                    {% endif %}
-                                    {% if product.size_xl %}
-                                        XL 
-                                    {% endif %}
-                                </p>
-                                <p class="text-muted small">{{ product.sku }}</p>
-                                <a href="{% url 'product_detail' product.id %}"><button>View Item</button></a>
-                            </div>
+                            {{ product.rating }}
+                            <i class="fa fa-star" aria-hidden="true"></i>  
+                        
+                        </p>                           
+                        <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title d-inline">{{ product.name }}</h5>
+                            <p class="text-muted d-inline float-right">({{ product.category.friendly_name }})</p>
+                            <p class="card-text pt-2">{{ product.description }}</p>
+                            <p>Available sizes:
+                                {% if product.size_s %}
+                                    S 
+                                {% endif %}
+                                {% if product.size_m %}
+                                    M 
+                                {% endif %}
+                                {% if product.size_lg %}
+                                    L 
+                                {% endif %}
+                                {% if product.size_xl %}
+                                    XL 
+                                {% endif %}
+                            </p>
+                            <p class="text-muted small">{{ product.sku }}</p>
+                            <a href="{% url 'product_detail' product.id %}"><button>View Item</button></a>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-</div>
+
+        
 
 <script type="text/javascript">
     //openNav();
     console.log(screen.width)
+    document.getElementById("menu-close").style.display = "none";
     /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
     console.log("script loaded")
 function openNav() {
-  document.getElementById("mySidenav").style.width = "300px";
+  document.getElementById("SidenavId").style.left = "0";
+  document.getElementById("menu-open").style.display = "none";
+  document.getElementById("menu-close").style.display = "inline-block";
   //document.getElementById("product-menu").style.width = "400px";
   console.log("openNav function fired");
 }
 
 /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  // document.getElementById("sidenav-icon").style.display = "block";
+  document.getElementById("SidenavId").style.left = "-260px";
+  document.getElementById("menu-open").style.display = "inline-block";
+  document.getElementById("menu-close").style.display = "none";
   console.log("closeNav function fired");
 }
 
