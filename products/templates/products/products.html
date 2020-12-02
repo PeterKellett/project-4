@@ -7,7 +7,6 @@
 
 	<div id="SidenavId" class="sidenav">
         <div class="product-menu">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <form class="py-2" method="GET" action="{% url 'products' %}">
                 <input class="w-90" type="text" name="q" placeholder="Search">
                 <span><button class="float-right" type="submit" value="Submit">
@@ -48,9 +47,10 @@
                 {% endif %}
                 
             {% endfor %}
+
         </div>
         
-        <div id="menu-open" class="bg-dark text-light sidenav-activator align-top" onclick="openNav()">
+        <div id="menu-open" class="bg-dark text-light sidenav-activator align-top" type="button" onclick="openNav()">
             <i class="fas fa-bars"><span class="d-none d-md-inline"> Menu</span></i>
         </div>
         <div id="menu-close" class="bg-dark text-light sidenav-activator align-top" type="button" onclick="closeNav()">
@@ -58,16 +58,29 @@
         </div>                    
     </div>
         
-    <div class="mt-4" id="main-container">
-        <h1 class="text-center">
-            Products
+    <div class="ml-3 ml-md-5" id="main-container">
+        <h1 class="mt-3 pl-2 pl-md-4 d-inline-block">
+            Products - 
         </h1>
-        
+        <h4 class=" d-inline-block">
+            {% if current_category == None %}
+                All
+            {% else %}
+                {{ current_category|title }}
+            {% endif %}
+        </h4>
+    
+        <div class="row m-3">
+            <div class="m-1 p-1 bg-dark text-light size-button d-inline text-center">S</div>
+            <div class="m-1 p-1 bg-dark text-light size-button d-inline text-center">M</div>
+            <div class="m-1 p-1 bg-dark text-light size-button d-inline text-center">L</div>
+            <div class="m-1 p-1 bg-dark text-light size-button d-inline text-center">XL</div>
+        </div>
 
-        <div class="row">
+        <div class="row justify-content-start card-group">
             {% for product in products %}
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 m-1">           
-                    <div class="card h-100" style="width: 18rem;">
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">           
+                    <div class="card mx-auto mb-2" style="width: 18rem;">
                         <p class="text-right p-1">
                             
                             {{ product.rating }}
@@ -93,8 +106,11 @@
                                     XL 
                                 {% endif %}
                             </p>
-                            <p class="text-muted small">{{ product.sku }}</p>
+                            
                             <a href="{% url 'product_detail' product.id %}"><button>View Item</button></a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ product.sku }}</small>
                         </div>
                     </div>
                 </div>

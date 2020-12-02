@@ -12,6 +12,11 @@ body {
     flex-direction: column;
 }
 
+h1 {
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
+
 main {
     flex: 1 0 auto;
 }
@@ -166,29 +171,25 @@ header a {
 	color: #17a2b8; /* text-info */
 }
 
-/*----Products--*/
-.side-bar {
-    background-color: #fafafa;
-    
-}
+/*----Products page--*/
 
 /*----W3 sidebar----*/
 .sidenav {
   height: 100%; /* 100% Full-height */  
   margin-left: 0;
   position: fixed; /* Stay in place */
-  z-index: 3; /* Stay on top */
+  z-index: 1; /* Stay on top */
   top: 0;
   left: -260px;
   background-color: #d0b2b6f7; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 0px; /* Place content 60px from the top */
+  padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 8px;
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-family: 'Roboto', sans-serif;
   color: #000;
@@ -201,13 +202,6 @@ header a {
   color: #985d65;
 }
 
-/* Position and style the close button (top right corner) */
-.sidenav .closebtn {
-    color: red;
-    text-align: right;
-    font-size: 36px;
-    margin-left: 50px;
-}
 
 .product-menu {
     display: inline-block;
@@ -225,19 +219,21 @@ header a {
 .sidenav-activator i {
     padding-top: 300px;;
 }
-
+/*
 #main-container {
     display: inline-block;
   transition: margin-left .5s;
   padding: 16px;
-  margin-left: 75px;
+  
 }
-
+*/
 .sidenav form {
     padding: 8px 8px 8px 32px;
 }
 
-
+.size-button {
+    width: 35px;
+}
 
 /*---------------------*/
 .fa-star {
@@ -245,7 +241,7 @@ header a {
 }
 /*----Footer--*/
 .footer {
-    z-index: 1;
+    z-index: 2;
 }
 .footer a {
     color: #000;   
