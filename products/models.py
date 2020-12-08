@@ -24,20 +24,26 @@ class Product(models.Model):
                                  blank=True,
                                  on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
-    description = models.TextField(blank=True)
+    description = models.TextField(null=True,
+                                   blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image_url = models.URLField(max_length=1024)
     image = models.ImageField()
     sku = models.CharField(max_length=254)
     rating = models.IntegerField(default=False,
+                                 null=True,
                                  blank=True)
     size_s = models.BooleanField(default=False,
+                                 null=True,
                                  blank=True)
     size_m = models.BooleanField(default=False,
+                                 null=True,
                                  blank=True)
     size_lg = models.BooleanField(default=False,
+                                  null=True,
                                   blank=True)
     size_xl = models.BooleanField(default=False,
+                                  null=True,
                                   blank=True)
 
     def __str__(self):

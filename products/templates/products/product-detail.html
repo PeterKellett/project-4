@@ -8,55 +8,150 @@
 {% endblock %} {% block content %}
 
 <div class="container">
-	<div class="row mt-4">
-        <div class="col">
-            <h1>
-                Product - {{ product.name }}
-            </h1>
-	
-            <div class="row">
-                
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 m-1">           
-                        <div class="card h-100" style="width: 18rem;">
-                            <p class="text-right p-1">
-                                {{ product.rating }}
-                                <i class="fa fa-star" aria-hidden="true"></i>    
-                            </p>                           
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
-                                <p class="text-muted">{{ product.sku }}</p>
-
-                                <form action="{% url 'add_to_shopping_bag' product.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <p class="mt-3"><strong>Quantity:</strong></p>
-                                    <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="99" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
-                                    <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 mt-5">
-                                        <button>
-                                            <span class="icon">
-                                                <i class="fas fa-chevron-left"></i>
-                                            </span>
-                                            <span class="text-uppercase">Keep Shopping</span>
-                                        </button>
-                                    </a>
-                                    <button>
-                                        <input type="submit" class="btn btn-black rounded-0 text-uppercase" value="Add to Bag">
-                                    </button>
-                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                
-            </div>
+	<div class="row mt-4">               
+        <div class="col-12 col-md-6">                      
+            <img src="{{ product.image.url }}" class="img-fluid w-100 m-1" alt="{{ product.name }}">
         </div>
+        <div class="col-12 col-md-6">
+            <h4 class="">{{ product.name }}</h4>
+            <p class="p-1">
+                {{ product.rating }}
+                <i class="fa fa-star" aria-hidden="true"></i>    
+            </p>
+            <h4 class="">€{{ product.price }}</h4>           
+            <p class="">{{ product.description }}</p>
+            <p class="text-muted small">{{ product.sku }}</p>
+
+            <form class="form" action="{% url 'add_to_shopping_bag' product.id %}" method="POST">
+                {% csrf_token %}
+                <p class="mt-3"><strong>Quantity:</strong></p>
+                <div class="form-group w-100">
+                    <div class="input-group">
+                    
+                        <div class="input-group-prepend">
+                            <button class ="decrement-qty btn rounded-0"
+                                data-item_id="{{ product.id }}"
+                                id="decrement-qty_{{ product.id }}">
+                                <span class="icon">
+                                    <i class="fas fa-minus"></i>
+                                </span>
+                            </button>
+                        </div>
+                  
+                        <input
+                            class="form-control qty_input"
+                            type="number"
+                            name="quantity"
+                            value="1"
+                            min="1"
+                            max="99"
+                            data-item_id="{{ product.id }}"
+                            id="id_qty_{{ product.id }}"
+                        />
+                  
+                        <div class="input-group-append">
+                            <button class ="increment-qty btn btn-black rounded-0"
+                                data-item_id="{{ product.id }}"
+                                id="increment-qty_{{ product.id }}">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </button>
+                        </div>
+                   
+                    </div>
+                    
+                    <p class="mt-3"><strong>Size:</strong></p>
+                    <select id="id_product_size" name="product_size" class="form-control">
+                        <option selected disabled>Please select an item size</option>
+                        {% if product.size_s %}
+                            <option value="small">Small</option>
+                        {% else %}
+                            <option value="" disabled>Small N/A</option>
+                        {% endif %}
+                        {% if product.size_m %}
+                            <option value="medium">Medium</option>
+                        {% else %}
+                            <option value="" disabled>Medium N/A</option>
+                        {% endif %}
+                        {% if product.size_l %}
+                            <option value="large">Large</option>
+                        {% else %}
+                            <option value="" disabled>Large N/A</option>
+                        {% endif %}
+                        {% if product.size_xl %}
+                            <option value="xlarge">Extra large</option>
+                        {% else %}
+                            <option value="" disabled>Extra large N/A</option>
+                        {% endif %}
+                    </select>
+                
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{% url 'products' %}">
+                            <div class="products-button btn btn-lg w-100 mb-1">
+                                <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                                <span class="text-uppercase">Products</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <input class="products-button btn btn-lg w-100" type="submit" >Add to bag
+                            <span class="icon"><i class="fas fa-shopping-bag"></i></span>
+                        
+                    </div>
+                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                </div>
+            </form>
+        </div>        
     </div>
 </div>
 
-<section class="services">
-    
-    
-</section>
+
+<script type="text/javascript">
+
+    // Disable +/- buttons outside 1-99 range
+    function handleEnableDisable(itemId) {
+        var currentValue = parseInt($(`#id_qty_${itemId}`).val());
+        var minusDisabled = currentValue < 2;
+        var plusDisabled = currentValue > 98;
+        $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
+        $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
+    }
+
+    // Ensure proper enabling/disabling of all inputs on page load
+    var allQtyInputs = $('.qty_input');
+    for(var i = 0; i < allQtyInputs.length; i++){
+        var itemId = $(allQtyInputs[i]).data('item_id');
+        handleEnableDisable(itemId);
+    }
+
+    // Check enable/disable every time the input is changed
+    $('.qty_input').change(function() {
+        var itemId = $(this).data('item_id');
+        handleEnableDisable(itemId);
+    });
+
+    // Increment quantity
+    $('.increment-qty').click(function(e) {
+       e.preventDefault();
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue + 1);
+       var itemId = $(this).data('item_id');
+       handleEnableDisable(itemId);
+    });
+
+    // Decrement quantity
+    $('.decrement-qty').click(function(e) {
+       e.preventDefault();
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue - 1);
+       var itemId = $(this).data('item_id');
+       handleEnableDisable(itemId);
+    });
+</script>
 
 {% endblock %}

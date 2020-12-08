@@ -12,9 +12,12 @@ def view_shopping_bag(request):
 
 
 def add_to_shopping_bag(request, item_id):
+    print("add_to_shopping_bag")
     product = get_object_or_404(Product, pk=item_id)
     # Obtain the quantity value from the form
     quantity = int(request.POST.get('quantity'))
+    size = request.POST['product_size']
+    print(size)
     # And the redirect_url from the form hidden-field
     redirect_url = request.POST.get('redirect_url')
 
@@ -32,9 +35,23 @@ def add_to_shopping_bag(request, item_id):
        the shopping_bag
     """
     if item_id in list(shopping_bag.keys()):
-        shopping_bag[item_id] += quantity
+        if size in shopping_bag[item_id]['items_by_size'].keys():
+            shopping_bag[item_id]['items_by_size'][size] += quantity
+            messages.success(request,
+                             f'Updates size {size.upper()} {product.name}\
+                             quantity to \
+                             {shopping_bag[item_id]["items_by_size"][size]}.')
+        else:
+            shopping_bag[item_id]['items_by_size'][size] = quantity
+            messages.success(request,
+                             f'Added size {size.upper()}\
+                             {product.name} to your bag.')
     else:
-        shopping_bag[item_id] = quantity
+        shopping_bag[item_id] = {'items_by_size': {size: quantity}}
+        messages.success(request,
+                         f'Added size {size.upper()}\
+                         {product.name} to your bag.')
+
     """
     3. Now store the shopping_bag to the session
     variables as session.shopping_bag

@@ -91,6 +91,7 @@
                         <div class="card-body">
                             <h5 class="card-title d-inline">{{ product.name }}</h5>
                             <p class="text-muted d-inline float-right">({{ product.category.friendly_name }})</p>
+                            <h5>€{{ product.price }}</h5>
                             <p class="card-text pt-2">{{ product.description }}</p>
                             <p>Available sizes:
                                 {% if product.size_s %}
@@ -107,10 +108,10 @@
                                 {% endif %}
                             </p>
                             
-                            <a href="{% url 'product_detail' product.id %}"><button>View Item</button></a>
+                            <a href="{% url 'product_detail' product.id %}"><button class="products-button w-100">View Item</button></a>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">{{ product.sku }}</small>
+                            <small class="text-muted float-right">{{ product.sku }}</small>
                         </div>
                     </div>
                 </div>
