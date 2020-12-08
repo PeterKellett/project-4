@@ -13,12 +13,38 @@ def all_products(request):
     query = None
     current_category = None
 
+    small = None
+    medium = None
+    large = None
+    xlarge = None
+
     if request.GET:
+        small = request.GET['small']
+        if small == 'False':
+            small = False
+        else:
+            products = products.filter(size_s=True)
+        medium = request.GET['medium']
+        if medium == 'False':
+            medium = False
+        else:
+            products = products.filter(size_m=True)
+        large = request.GET['large']
+        if large == 'False':
+            large = False
+        else:
+            products = products.filter(size_lg=True)
+        xlarge = request.GET['xlarge']
+        if xlarge == 'False':
+            xlarge = False
+        else:
+            products = products.filter(size_xl=True)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
                 messages.error(request,
-                               "You didn't enter asny search criteria!")
+                               "You didn't enter any search criteria!")
                 return redirect(reverse('products'))
 
             queries = (Q(name__icontains=query)
@@ -29,15 +55,18 @@ def all_products(request):
             current_category = request.GET['category'].split(',')
             products = products.filter(category__name__in=current_category)
             current_category = request.GET['category']
+
     context = {
         'products': products,
         'search_term': query,
         'categories': categories,
         'current_category': current_category,
+        'small': small,
+        'medium': medium,
+        'large': large,
+        'xlarge': xlarge,
     }
-    print(categories)
-    print(type(current_category))
-    print(current_category)
+    print(products)
     return render(request, 'products/products.html', context)
 
 
