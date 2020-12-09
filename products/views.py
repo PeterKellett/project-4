@@ -22,23 +22,47 @@ def all_products(request):
         small = request.GET['small']
         if small == 'False':
             small = False
+            small_queryset = products.filter(size_s=None)
+            print("exclude small_queryset")
+            print(small_queryset)
         else:
-            products = products.filter(size_s=True)
+            small_queryset = products.filter(size_s=True)
+            print("include small_queryset")
+            print(small_queryset)
         medium = request.GET['medium']
         if medium == 'False':
             medium = False
+            medium_queryset = products.filter(size_m=None)
+            print("exclude medium_queryset")
+            print(medium_queryset)
         else:
-            products = products.filter(size_m=True)
+            medium_queryset = products.filter(size_m=True)
+            print("include medium_queryset")
+            print(medium_queryset)
+
         large = request.GET['large']
         if large == 'False':
             large = False
+            large_queryset = products.filter(size_lg=None)
+            print("exclude large_queryset")
+            print(large_queryset)
         else:
-            products = products.filter(size_lg=True)
+            large_queryset = products.filter(size_lg=True)
+            print("include large_queryset")
+            print(large_queryset)
         xlarge = request.GET['xlarge']
         if xlarge == 'False':
             xlarge = False
+            xlarge_queryset = products.filter(size_xl=None)
+            print("exclude xlarge_queryset")
+            print(xlarge_queryset)
         else:
-            products = products.filter(size_xl=True)
+            xlarge_queryset = products.filter(size_xl=True)
+            print("include xlarge_queryset")
+            print(xlarge_queryset)
+        products = small_queryset | medium_queryset | large_queryset | xlarge_queryset
+        print("products result")
+        print(products)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -66,7 +90,7 @@ def all_products(request):
         'large': large,
         'xlarge': xlarge,
     }
-    print(products)
+    print("END")
     return render(request, 'products/products.html', context)
 
 
