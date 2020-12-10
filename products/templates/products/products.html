@@ -7,6 +7,7 @@
 
 	<div id="SidenavId" class="sidenav">
         <div class="product-menu">
+        <!--Search bar text form-->
             <form class="py-2" method="GET" action="{% url 'products' %}">
                 <input class="w-90" type="text" name="q" placeholder="Search">
                 <span><button class="float-right" type="submit" value="Submit">
@@ -15,7 +16,65 @@
                 {% if search_term != None %}
                     <p>Search term: '{{ search_term }}'</p>
                 {% endif %}
-            </form>       
+            </form>  
+            <!--Checkbox form-->    
+            <form class="form" action="{% url 'products' %}" method="GET">
+            {% csrf_token %}
+                <div class="form-group">
+                    <div class="form-check">
+                        
+                        <input class="form-check-input" type="checkbox" value="" id="all" name="all" checked>
+                            <label class="form-check-label" for="all">
+                                All
+                            </label>
+                    </div>
+                </div>
+                {% for category in categories %}
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="True" id="{{ category }}" name="{{ category }}"  {% if soccer %} checked {% endif %} >
+                                <label class="form-check-label" for="{{ category }}">
+                                    {{ category.friendly_name }}
+                            </label>
+                        </div>
+                    </div> 
+                {% endfor %}
+                
+                <div class="form-group">
+                    <div class="form-check">                        
+                        <input class="form-check-input" type="checkbox" value="True" id="small" name="small" {% if small %} checked {% endif %} >
+                            <label class="form-check-label" for="small">
+                                Small
+                        </label>                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="True" id="medium" name="medium"  {% if medium %} checked {% endif %} >
+                            <label class="form-check-label" for="medium">
+                                Medium
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="True" id="large" name="large"  {% if large %} checked {% endif %} >
+                            <label class="form-check-label" for="large">
+                                Large
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="True" id="xlarge" name="xlarge"  {% if xlarge %} checked {% endif %} >
+                            <label class="form-check-label" for="xlarge">
+                                X-Large
+                        </label>
+                    </div>
+                </div>
+                <button class="products-button btn btn-lg w-100" type="submit">Submit
+                    <span class="icon"><i class="fas fa-tshirt"></i></span></button>
+            </form> 
             {% if current_category == None %}
                 <p>
                     <strong>
@@ -69,10 +128,9 @@
                 {{ current_category|title }}
             {% endif %}
         </h4>
-        {{ request.session.color }}
         <div class="row m-3">
-            {% if request.session.small == None %}
-                <a href="{% url 'products' %}?request.session.small=True&medium=False&large=False&xlarge=False" class="m-1 p-1 bg-dark text-light size-button d-inline text-center">S</a>
+            {% if small == None %}
+                <a href="{% url 'products' %}?small=True&medium=False&large=False&xlarge=False" class="m-1 p-1 bg-dark text-light size-button d-inline text-center">S</a>
             {% elif small %}
                 <a href="{% url 'products' %}?small=False&medium={{medium}}&large={{large}}&xlarge={{xlarge}}" class="m-1 p-1 bg-dark text-light border border-success size-button d-inline text-center">S</a>
             {% else %}

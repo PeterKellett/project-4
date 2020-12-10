@@ -7,68 +7,81 @@ from .models import Product, Category
 
 # Create your views here.
 def all_products(request):
-    request.session['color'] = 'blue'
-    sess = request.session
-    print(sess)
-    print("color = ")
-    print(request.session['color'])
     """A view to show all products including sorting and search queries"""
     products = Product.objects.all()
     categories = Category.objects.all()
 
-    medium = None
-    large = None
-    xlarge = None
     query = None
     current_category = None
-
+    """
+    Filters 2 step process:
+    1. Filter the sizes into individual querysets and amalgamate all into one 
+        queryset before eliminating categories.
+    """
     if request.GET:
-        if 'medium' in request.GET:
-            small = request.session['small']
-            print(small)
-            if small == 'False':
-                request.session['small'] = False
-                small_queryset = products.filter(size_s=None)
-                print("exclude small_queryset")
-                print(small_queryset)
-            else:
-                small_queryset = products.filter(size_s=True)
-                print("include small_queryset")
-                print(small_queryset)
-            medium = request.GET['medium']
-            if medium == 'False':
-                medium = False
-                medium_queryset = products.filter(size_m=None)
-                print("exclude medium_queryset")
-                print(medium_queryset)
-            else:
-                medium_queryset = products.filter(size_m=True)
-                print("include medium_queryset")
-                print(medium_queryset)
+        if 'small' in request.GET:
+            small = bool(request.GET['small'])
+            small_queryset = products.filter(size_s=True)
+        else:
+            small = False
+            small_queryset = products.filter(size_s=None)
 
-            large = request.GET['large']
-            if large == 'False':
-                large = False
-                large_queryset = products.filter(size_lg=None)
-                print("exclude large_queryset")
-                print(large_queryset)
-            else:
-                large_queryset = products.filter(size_lg=True)
-                print("include large_queryset")
-                print(large_queryset)
-            xlarge = request.GET['xlarge']
-            if xlarge == 'False':
-                xlarge = False
-                xlarge_queryset = products.filter(size_xl=None)
-                print("exclude xlarge_queryset")
-                print(xlarge_queryset)
-            else:
-                xlarge_queryset = products.filter(size_xl=True)
-                print("include xlarge_queryset")
-                print(xlarge_queryset)
-            products = small_queryset | medium_queryset | large_queryset | xlarge_queryset
-        print("products result")
-        print(products)
+        if 'medium' in request.GET:
+            medium = bool(request.GET['medium'])
+            medium_queryset = products.filter(size_m=True)
+        else:
+            medium = False
+            medium_queryset = products.filter(size_m=None)
+
+        if 'large' in request.GET:
+            large = bool(request.GET['large'])
+            large_queryset = products.filter(size_lg=True)
+        else:
+            large = False
+            large_queryset = products.filter(size_lg=None)
+
+        if 'xlarge' in request.GET:
+            xlarge = bool(request.GET['xlarge'])
+            xlarge_queryset = products.filter(size_xl=True)
+        else:
+            xlarge = False
+            xlarge_queryset = products.filter(size_xl=None)
+        products = small_queryset | medium_queryset | large_queryset | xlarge_queryset
+        """
+        2. Now exclude the products from the queryset if the category is not checked.
+            If the category is checked the queryset remains untouched.
+        """
+        if 'soccer' in request.GET:
+            soccer = bool(request.GET['soccer'])
+            products = products
+        else:
+            soccer = False
+            category = ['soccer']
+            products = products.exclude(category__name__in=category)
+
+        if 'rugby' in request.GET:
+            rugby = bool(request.GET['rugby'])
+            products = products
+        else:
+            rugby = False
+            category = ['rugby']
+            products = products.exclude(category__name__in=category)
+
+        if 'gaa' in request.GET:
+            gaa = bool(request.GET['gaa'])
+            products = products
+        else:
+            gaa = False
+            category = ['gaa']
+            products = products.exclude(category__name__in=category)
+
+        if 'other' in request.GET:
+            other = bool(request.GET['other'])
+            products = products
+        else:
+            other = False
+            category = ['other']
+            products = products.exclude(category__name__in=category)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -81,20 +94,26 @@ def all_products(request):
                        | Q(description__icontains=query))
             products = products.filter(queries)
 
-        if 'category' in request.GET:
-            current_category = request.GET['category'].split(',')
-            products = products.filter(category__name__in=current_category)
-            current_category = request.GET['category']
     else:
-        request.session['small'] = None
-        medium = None
-        large = None
-        xlarge = None
+        soccer = True
+        rugby = True
+        gaa = True
+        other = True
+        small = True
+        medium = True
+        large = True
+        xlarge = True
+
     context = {
         'products': products,
         'search_term': query,
         'categories': categories,
         'current_category': current_category,
+        'soccer': soccer,
+        'rugby': rugby,
+        'gaa': gaa,
+        'other': other,
+        'small': small,
         'medium': medium,
         'large': large,
         'xlarge': xlarge,

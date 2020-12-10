@@ -181,9 +181,9 @@ header a {
   z-index: 1; /* Stay on top */
   top: 0;
   left: -260px;
-  background-color: #d0b2b6f7; /* Black*/
+  background-color: #eae2f1; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  padding-top: 56px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
@@ -205,7 +205,6 @@ header a {
 
 .product-menu {
     display: inline-block;
-    background-color: #d0b2b6f7;
     height: 100%;
 }
 
