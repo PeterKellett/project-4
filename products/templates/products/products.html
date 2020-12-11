@@ -21,92 +21,27 @@
             <form class="form" action="{% url 'products' %}" method="GET">
             {% csrf_token %}
                 <div class="form-group">
-                    <div class="form-check">
-                        
+                    <div class="form-check">                       
                         <input class="form-check-input" type="checkbox" value="" id="all" name="all" checked>
-                            <label class="form-check-label" for="all">
+                        <label class="form-check-label" for="all">
                                 All
-                            </label>
+                        </label>
                     </div>
                 </div>
-                {% for category in categories %}
+                {% for category, status in filter_dict.items %}
                     <div class="form-group">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="True" id="{{ category }}" name="{{ category }}"  {% if soccer %} checked {% endif %} >
-                                <label class="form-check-label" for="{{ category }}">
-                                    {{ category.friendly_name }}
+                            <input class="form-check-input" type="checkbox" value="True" id="{{ category }}" name="{{ category }}"  {% if status %} checked {% endif %} >
+                            <label class="form-check-label" for="{{ category }}">
+                                    {{ category.title }}
                             </label>
                         </div>
                     </div> 
                 {% endfor %}
-                
-                <div class="form-group">
-                    <div class="form-check">                        
-                        <input class="form-check-input" type="checkbox" value="True" id="small" name="small" {% if small %} checked {% endif %} >
-                            <label class="form-check-label" for="small">
-                                Small
-                        </label>                        
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="True" id="medium" name="medium"  {% if medium %} checked {% endif %} >
-                            <label class="form-check-label" for="medium">
-                                Medium
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="True" id="large" name="large"  {% if large %} checked {% endif %} >
-                            <label class="form-check-label" for="large">
-                                Large
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="True" id="xlarge" name="xlarge"  {% if xlarge %} checked {% endif %} >
-                            <label class="form-check-label" for="xlarge">
-                                X-Large
-                        </label>
-                    </div>
-                </div>
+
                 <button class="products-button btn btn-lg w-100" type="submit">Submit
                     <span class="icon"><i class="fas fa-tshirt"></i></span></button>
-            </form> 
-            {% if current_category == None %}
-                <p>
-                    <strong>
-                        <a class="text-decoration-none" href="{% url 'products' %}">
-                            All
-                        </a>
-                    </strong>
-                </p>
-            {% else %}
-                <p>
-                    <a class="text-decoration-none" href="{% url 'products' %}">
-                        All
-                    </a>
-                </p>
-            {% endif %}
-            {% for category in categories %}
-                {% if category.name == current_category %}
-                    <p><strong>
-                        <a class="text-decoration-none" href="{% url 'products' %}?category={{ category.name }}">
-                            {{ category.friendly_name }}
-                        </a></strong>
-                    </p>
-                {% else %}
-                    <p>
-                        <a class="text-decoration-none" href="{% url 'products' %}?category={{ category.name }}">
-                            {{ category.friendly_name }}
-                        </a>
-                    </p>
-                {% endif %}
-                
-            {% endfor %}
-
+            </form>
         </div>
         
         <div id="menu-open" class="bg-dark text-light sidenav-activator align-top" type="button" onclick="openNav()">
@@ -119,49 +54,19 @@
         
     <div class="ml-3 ml-md-5" id="main-container">
         <h1 class="mt-3 pl-2 pl-md-4 d-inline-block">
-            Products - 
+            Products
         </h1>
-        <h4 class=" d-inline-block">
-            {% if current_category == None %}
-                All
-            {% else %}
-                {{ current_category|title }} 
-            {% endif %}
-        </h4>
-        <div class="row m-3">
-            {% if small == None %}
-                <a href="{% url 'products' %}?small=True&medium=False&large=False&xlarge=False" class="m-1 p-1 bg-dark text-light size-button d-inline text-center">S</a>
-            {% elif small %}
-                <a href="{% url 'products' %}?small=False&medium={{medium}}&large={{large}}&xlarge={{xlarge}}" class="m-1 p-1 bg-dark text-light border border-success size-button d-inline text-center">S</a>
-            {% else %}
-                <a href="{% url 'products' %}?small=True&medium={{medium}}&large={{large}}&xlarge={{xlarge}}" class="m-1 p-1 bg-light text-dark size-button d-inline text-center">S</a>
-            {% endif %}
-
-            {% if medium == None %}
-                <a href="{% url 'products' %}?small=False&medium=True&large=False&xlarge=False" class="m-1 p-1 bg-dark text-light size-button d-inline text-center">M</a>
-            {% elif medium %}
-                <a href="{% url 'products' %}?small={{small}}&medium=False&large={{large}}&xlarge={{xlarge}}" class="m-1 p-1 bg-dark text-light border border-success size-button d-inline text-center">M</a>
-            {% else %}
-                <a href="{% url 'products' %}?small={{small}}&medium=True&large={{large}}&xlarge={{xlarge}}" class="m-1 p-1 bg-light text-dark size-button d-inline text-center">M</a>
-            {% endif %}
-
-            {% if large == None %}
-                <a href="{% url 'products' %}?small=False&medium=False&large=True&xlarge=False" class="m-1 p-1 bg-dark text-light size-button d-inline text-center">L</a>
-            {% elif large %}
-                <a href="{% url 'products' %}?small={{small}}&medium={{medium}}&large=False&xlarge={{xlarge}}" class="m-1 p-1 bg-dark text-light border border-success size-button d-inline text-center">L</a>
-            {% else %}
-                <a href="{% url 'products' %}?small={{small}}&medium={{medium}}&large=True&xlarge={{xlarge}}" class="m-1 p-1 bg-light text-dark size-button d-inline text-center">L</a>
-            {% endif %}
-
-            {% if xlarge == None %}
-                <a href="{% url 'products' %}?small=False&medium=False&large=False&xlarge=True" class="m-1 p-1 bg-dark text-light size-button d-inline text-center">XL</a>
-            {% elif xlarge %}
-                <a href="{% url 'products' %}?small={{small}}&medium={{medium}}&large={{large}}&xlarge=False" class="m-1 p-1 bg-dark text-light border border-success size-button d-inline text-center">XL</a>
-            {% else %}
-                <a href="{% url 'products' %}?small={{small}}&medium={{medium}}&large={{large}}&xlarge=True" class="m-1 p-1 bg-light text-dark size-button d-inline text-center">XL</a>
-            {% endif %}
-            
+        
+        <div class="row m-3">    
+            {% for x, y in filter_dict.items %}            
+                {% if y %}
+                    <div class="m-1 p-1 bg-dark text-light border border-success size-button d-inline text-center">{{ x.upper }}</div>
+                {% else %}
+                    <div class="m-1 p-1 bg-light text-dark size-button d-inline text-center">{{ x.upper }}</div>
+                {% endif %}               
+            {% endfor %}
         </div>
+       
 
         <div class="row justify-content-start card-group">
             {% for product in products %}

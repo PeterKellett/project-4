@@ -8,80 +8,67 @@ from .models import Product, Category
 # Create your views here.
 def all_products(request):
     """A view to show all products including sorting and search queries"""
+    # Get all products
+    # Result <class 'products.models.Category'>
     products = Product.objects.all()
+    # Get all categories
+    # Result <class 'products.models.Category'>
     categories = Category.objects.all()
-
+    filter_dict = {}
     query = None
-    current_category = None
     """
-    Filters 2 step process:
-    1. Filter the sizes into individual querysets and amalgamate all into one 
-        queryset before eliminating categories.
+    1. First get all the products based on the individual sizes
+        and store as individual querysets.
     """
     if request.GET:
         if 'small' in request.GET:
-            small = bool(request.GET['small'])
+            filter_dict['small'] = True
             small_queryset = products.filter(size_s=True)
         else:
-            small = False
+            filter_dict['small'] = False
             small_queryset = products.filter(size_s=None)
 
         if 'medium' in request.GET:
-            medium = bool(request.GET['medium'])
+            filter_dict['medium'] = True
             medium_queryset = products.filter(size_m=True)
         else:
-            medium = False
+            filter_dict['medium'] = False
             medium_queryset = products.filter(size_m=None)
 
         if 'large' in request.GET:
-            large = bool(request.GET['large'])
+            filter_dict['large'] = True
             large_queryset = products.filter(size_lg=True)
         else:
-            large = False
+            filter_dict['large'] = False
             large_queryset = products.filter(size_lg=None)
 
         if 'xlarge' in request.GET:
-            xlarge = bool(request.GET['xlarge'])
+            filter_dict['xlarge'] = True
             xlarge_queryset = products.filter(size_xl=True)
         else:
-            xlarge = False
+            filter_dict['xlarge'] = False
             xlarge_queryset = products.filter(size_xl=None)
-        products = small_queryset | medium_queryset | large_queryset | xlarge_queryset
         """
-        2. Now exclude the products from the queryset if the category is not checked.
-            If the category is checked the queryset remains untouched.
+        2: Now combine the sizes querysets into one queryset
         """
-        if 'soccer' in request.GET:
-            soccer = bool(request.GET['soccer'])
-            products = products
-        else:
-            soccer = False
-            category = ['soccer']
-            products = products.exclude(category__name__in=category)
-
-        if 'rugby' in request.GET:
-            rugby = bool(request.GET['rugby'])
-            products = products
-        else:
-            rugby = False
-            category = ['rugby']
-            products = products.exclude(category__name__in=category)
-
-        if 'gaa' in request.GET:
-            gaa = bool(request.GET['gaa'])
-            products = products
-        else:
-            gaa = False
-            category = ['gaa']
-            products = products.exclude(category__name__in=category)
-
-        if 'other' in request.GET:
-            other = bool(request.GET['other'])
-            products = products
-        else:
-            other = False
-            category = ['other']
-            products = products.exclude(category__name__in=category)
+        products = small_queryset \
+            | medium_queryset \
+            | large_queryset \
+            | xlarge_queryset
+        """
+        3. For each category not selected remove the items \
+            from the combined queryset
+        """
+        for category in categories:
+            category = str(category)
+            if category in request.GET:
+                filter_dict[category] = True
+            else:
+                filter_dict[category] = False
+                category = [category]
+                products = products.exclude(category__name__in=category)
+                print("products exclude")
+                print(products)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -95,28 +82,20 @@ def all_products(request):
             products = products.filter(queries)
 
     else:
-        soccer = True
-        rugby = True
-        gaa = True
-        other = True
-        small = True
-        medium = True
-        large = True
-        xlarge = True
+        filter_dict = {
+            'small': True,
+            'medium': True,
+            'large': True,
+            'xlarge': True,
+        }
+        for category in categories:
+            category = str(category)
+            filter_dict[category] = True
 
     context = {
+        'filter_dict': filter_dict,
         'products': products,
         'search_term': query,
-        'categories': categories,
-        'current_category': current_category,
-        'soccer': soccer,
-        'rugby': rugby,
-        'gaa': gaa,
-        'other': other,
-        'small': small,
-        'medium': medium,
-        'large': large,
-        'xlarge': xlarge,
     }
     print("END")
     return render(request, 'products/products.html', context)

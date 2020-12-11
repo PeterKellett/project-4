@@ -231,7 +231,7 @@ header a {
 }
 
 .size-button {
-    width: 35px;
+    width: 70px;
 }
 
 .increment-qty, .decrement-qty {
@@ -239,7 +239,9 @@ header a {
         background-color: #985d65;
         color: #fff;
     }
-
+.form-check-input {
+    background-color: red;
+}
 /*---------------------*/
 .fa-star {
     color: yellow;
