@@ -13,9 +13,12 @@ def view_shopping_bag(request):
 
 def add_to_shopping_bag(request, item_id):
     print("add_to_shopping_bag")
+    # Get the product from the Product model \
+    # using the item_id as the primary key
     product = get_object_or_404(Product, pk=item_id)
     # Obtain the quantity value from the form
     quantity = int(request.POST.get('quantity'))
+    # Obtain the size value from the form
     size = request.POST['product_size']
     print(size)
     # And the redirect_url from the form hidden-field
@@ -63,3 +66,21 @@ def add_to_shopping_bag(request, item_id):
     print("bag")
     print(request.session['shopping_bag'])
     return redirect(redirect_url)
+
+
+def edit_shopping_bag(request, item_id):
+    print("edit_shopping_bag")
+    product = get_object_or_404(Product, pk=item_id)
+    quantity = int(request.POST.get('quantity'))
+    size = request.POST['product_size']
+    redirect_url = request.POST.get('redirect_url')
+    shopping_bag = request.session.get('shopping_bag', {})
+
+    shopping_bag[item_id]['items_by_size'][size] = quantity
+    messages.success(request,
+                     f'Updated size {size.upper()} {product.name}\
+                       quantity to \
+                       {shopping_bag[item_id]["items_by_size"][size]}.')
+
+    request.session['shopping_bag'] = shopping_bag
+    return redirect(reverse('view_shopping_bag'))

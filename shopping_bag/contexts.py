@@ -20,6 +20,7 @@ def shopping_bag_contents(request):
                 'item_id': item_id,
                 'quantity': item_data,
                 'product': product,
+                'total': total,
             })
         else:
             product = get_object_or_404(Product, pk=item_id)
@@ -31,6 +32,7 @@ def shopping_bag_contents(request):
                     'quantity': quantity,
                     'product': product,
                     'size': size,
+                    'total': total,
                 })
 
     if total < settings.FREE_DELIVERY_THRESHOLD:

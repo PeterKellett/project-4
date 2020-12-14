@@ -6,7 +6,7 @@
   </div>
 </div>
 {% endblock %} {% block content %}
-<section class="container">
+<section class="container-fluid mx-2">
     <div class="row">
     
         <div class="col">
@@ -17,44 +17,157 @@
    
     </div>
 </section>
-<section class="container">
+<section class="container-fluid mx-2">
     <div class="row text-center">                  
     {% if shopping_bag_items %}
-        <div class="col">
-            <p><strong>Product</strong></p>
-        </div>
         <div class="col">
             
         </div>
         <div class="col">
-            <p><strong>Price</strong></p>
+            <p><strong>Product</strong></p>
         </div>
+        <div class="col">            
+            <p><strong>Size</strong></p>
+        </div>
+
         <div class="col">
             <p><strong>Quantity</strong></p>
         </div>    
         <div class="col">
+            <p><strong>Price</strong></p>
+        </div>
+        <div class="col">
             <p><strong>Total</strong></p>
+        </div> 
+        <div class="col">
+            
         </div> 
     </div>
     <hr>                          
         {% for item in shopping_bag_items %}
             <div class="row mt-2">
-                <div class="col mr-1">
+                <div class="col-12 col-md">
                     <img class="img-fluid w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                 </div>
-                <div class="col px-0">
-                    <p class="my-0"><strong>{{ item.product.name }}</strong></p>
-                    <p class="my-0">{{ item.size|title }}</p> 
+                <div class="col-12 col-md">
+                    <p class="my-0"><strong>{{ item.product.name }}</strong></p>                    
                     <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
                 </div>
-                <div class="col px-0">
+                <div class="col-12 col-md">
+                    <p class="my-0 text-center">{{ item.size }}</p>
+                </div>   
+                <div class="col-12 col-md">
+                    <p class="my-0 text-center">{{ item.quantity }}</p>
+                </div>   
+                
+                <div class="col-12 col-md">
                     <p class="my-0 text-center">€{{ item.product.price }}</p>
                 </div>
-                <div class="col px-0">
-                    <p class="my-0 text-center">{{ item.quantity }}</p>
+                
+                <div class="col-12 col-md">
+                    <p class="my-0 text-center">€{{ item.total  }}</p>
                 </div>
-                <div class="col px-0">
-                    <p class="my-0 text-center">€{{ item.product.price  }}</p>
+
+                <div class="col-12 col-md">
+                    <!-- Button trigger Edit modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Edit
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit order</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ item.product.name }}</p>
+                                    <form method="POST" action="{% url 'edit_shopping_bag' item.item_id %">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-6 px-1">
+                                                <select id="id_product_size" name="product_size" class="form-control">
+                                                    {% if item.product.size_s %}
+                                                        <option value="small" {% if item.size == 'small' %} selected {% endif %} >Small </option>
+                                                    {% else %}
+                                                        <option value="" disabled>Small N/A</option>
+                                                    {% endif %}
+                                                    {% if item.product.size_m %}
+                                                        <option value="medium" {% if item.size == 'medium' %} selected {% endif %} >Medium</option>
+                                                    {% else %}
+                                                        <option value="" disabled>Medium N/A</option>
+                                                    {% endif %}
+                                                    {% if item.product.size_l %}
+                                                        <option value="large" {% if item.size == 'large' %} selected {% endif %} >Large</option>
+                                                    {% else %}
+                                                        <option value="" disabled>Large N/A</option>
+                                                    {% endif %}
+                                                    {% if item.product.size_xl %}
+                                                        <option value="xlarge" {% if item.size == 'xlarge' %} selected {% endif %} >Extra large</option>
+                                                    {% else %}
+                                                        <option value="" disabled>Extra large N/A</option>
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+
+                                            <div class="col-6 px-1">                                           
+                                                <div class="form-group w-100">
+                                                    <div class="input-group">                    
+                                                        <div class="input-group-prepend">
+                                                            <button class ="decrement-qty btn rounded-0"
+                                                                data-item_id="{{ item.item_id }}"
+                                                                id="decrement-qty_{{ item.item_id }}">
+                                                                <span class="icon">
+                                                                    <i class="fas fa-minus"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                        
+                                                        <input
+                                                        class="form-control qty_input"
+                                                        type="number"
+                                                        name="quantity"
+                                                        value="{{ item.quantity }}"
+                                                        min="1"
+                                                        max="99"
+                                                        data-item_id="{{ item.item_id }}"
+                                                        id="id_qty_{{ item.item_id }}"
+                                                        />
+                                        
+                                                        <div class="input-group-append">
+                                                            <button class ="increment-qty btn btn-black rounded-0"
+                                                                data-item_id="{{ item.item_id }}"
+                                                                id="increment-qty_{{ item.item_id }}">
+                                                                <span class="icon">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>                   
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> 
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>   
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Button trigger Remove modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Remove
+                    </button>
+
                 </div>
             </div>
             <hr>
@@ -84,8 +197,50 @@
                 <span>Secure checkout</span>
             </a>
         </div>
-    </div>          
-
-  
+    </div> 
 </section>
+<script type="text/javascript">
+
+    // Disable +/- buttons outside 1-99 range
+    function handleEnableDisable(itemId) {
+        var currentValue = parseInt($(`#id_qty_${itemId}`).val());
+        var minusDisabled = currentValue < 2;
+        var plusDisabled = currentValue > 98;
+        $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
+        $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
+    }
+
+    // Ensure proper enabling/disabling of all inputs on page load
+    var allQtyInputs = $('.qty_input');
+    for(var i = 0; i < allQtyInputs.length; i++){
+        var itemId = $(allQtyInputs[i]).data('item_id');
+        handleEnableDisable(itemId);
+    }
+
+    // Check enable/disable every time the input is changed
+    $('.qty_input').change(function() {
+        var itemId = $(this).data('item_id');
+        handleEnableDisable(itemId);
+    });
+
+    // Increment quantity
+    $('.increment-qty').click(function(e) {
+       e.preventDefault();
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue + 1);
+       var itemId = $(this).data('item_id');
+       handleEnableDisable(itemId);
+    });
+
+    // Decrement quantity
+    $('.decrement-qty').click(function(e) {
+       e.preventDefault();
+       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue - 1);
+       var itemId = $(this).data('item_id');
+       handleEnableDisable(itemId);
+    });
+</script>
 {% endblock %}
