@@ -21,8 +21,6 @@ def add_to_shopping_bag(request, item_id):
     # Obtain the size value from the form
     size = request.POST['product_size']
     print(size)
-    # And the redirect_url from the form hidden-field
-    redirect_url = request.POST.get('redirect_url')
 
     # For storing the shopping_bag contents to the session
     """
@@ -65,14 +63,14 @@ def add_to_shopping_bag(request, item_id):
     """
     print("bag")
     print(request.session['shopping_bag'])
-    return redirect(redirect_url)
+    return redirect(reverse('view_shopping_bag'))
 
 
 def edit_shopping_bag(request, item_id):
     print("edit_shopping_bag")
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
-    size = request.POST['product_size']
+    size = request.POST.get['product_size']
     redirect_url = request.POST.get('redirect_url')
     shopping_bag = request.session.get('shopping_bag', {})
 
@@ -83,4 +81,18 @@ def edit_shopping_bag(request, item_id):
                        {shopping_bag[item_id]["items_by_size"][size]}.')
 
     request.session['shopping_bag'] = shopping_bag
-    return redirect(reverse('view_shopping_bag'))
+    return redirect(redirect_url)
+
+
+def remove_from_shopping_bag(request, item_id):
+    try:
+        size = request.POST['product_size']
+        shopping_bag = request.session.get('shopping_bag', {})
+
+        del shopping_bag[item_id]['items_by_size'][size]
+        shopping_bag.pop(item_id)
+
+        request.session['shopping_bag'] = shopping_bag
+        return HttpResponse(status=200)
+    except Exception as e:
+        return HttpResponse(status=500)

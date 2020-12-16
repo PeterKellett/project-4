@@ -54,7 +54,7 @@
                     <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
                 </div>
                 <div class="col-12 col-md">
-                    <p class="my-0 text-center">{{ item.size }}</p>
+                    <p class="my-0 text-center">{{ item.size.title }}</p> 
                 </div>   
                 <div class="col-12 col-md">
                     <p class="my-0 text-center">{{ item.quantity }}</p>
@@ -69,45 +69,66 @@
                 </div>
 
                 <div class="col-12 col-md">
+                    <p class="my-0 text-center">Item ID {{ item.item_id  }}</p>
+                </div>
+
+                <div class="col-12 col-md">
                     <!-- Button trigger Edit modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ item.item_id }}">
                     Edit
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal_{{ item.item_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_{{ item.item_id }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit order</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel_{{ item.item_id }}">Edit order</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <p>{{ item.product.name }}</p>
-                                    <form method="POST" action="{% url 'edit_shopping_bag' item.item_id %">
+                                    <p>{{ item.item_id }}</p>
+                                    <form class="update-form" method="POST" action="{% url 'edit_shopping_bag' item.item_id %">
                                         {% csrf_token %}
                                         <div class="row">
                                             <div class="col-6 px-1">
-                                                <select id="id_product_size" name="product_size" class="form-control">
+                                                <select id="id_product_size_{{ item.item_id }}" name="product_size_{{ item.item_id }}" class="form-control" data-item_id="{{ item.item_id }}">
                                                     {% if item.product.size_s %}
-                                                        <option value="small" {% if item.size == 'small' %} selected {% endif %} >Small </option>
+                                                        {% if item.size == 'small' %}
+                                                            <option value="small" selected data-product_size="small">Small</option>
+                                                        {% else %}
+                                                            <option value="small" data-product_size="small">Small</option>
+                                                        {% endif %}
                                                     {% else %}
                                                         <option value="" disabled>Small N/A</option>
                                                     {% endif %}
                                                     {% if item.product.size_m %}
-                                                        <option value="medium" {% if item.size == 'medium' %} selected {% endif %} >Medium</option>
+                                                        {% if item.size == 'medium' %}
+                                                            <option value="medium" selected data-product_size="medium">Medium</option>
+                                                        {% else %}
+                                                            <option value="medium" data-product_size="medium">Medium</option>
+                                                        {% endif %}
                                                     {% else %}
                                                         <option value="" disabled>Medium N/A</option>
                                                     {% endif %}
-                                                    {% if item.product.size_l %}
-                                                        <option value="large" {% if item.size == 'large' %} selected {% endif %} >Large</option>
+                                                    {% if item.product.size_lg %}
+                                                        {% if item.size == 'large' %}
+                                                            <option value="large" selected data-product_size="large">Large</option>
+                                                        {% else %}
+                                                            <option value="large" data-product_size="large">Large</option>
+                                                        {% endif %}
                                                     {% else %}
                                                         <option value="" disabled>Large N/A</option>
                                                     {% endif %}
                                                     {% if item.product.size_xl %}
-                                                        <option value="xlarge" {% if item.size == 'xlarge' %} selected {% endif %} >Extra large</option>
+                                                        {% if item.size == 'xlarge' %}
+                                                            <option value="xlarge" selected data-product_size="xlarge">Extra large</option>
+                                                        {% else %}
+                                                            <option value="xlarge" data-product_size="xlarge">Extra large</option>
+                                                        {% endif %}
                                                     {% else %}
                                                         <option value="" disabled>Extra large N/A</option>
                                                     {% endif %}
@@ -149,14 +170,15 @@
                                                         </div>                   
                                                     </div>
                                                 </div>
-
+                                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                             </div>
                                         </div> 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>   
+                                        
                                     </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a class="edit-product"><button type="submit" class="btn btn-primary">Save changes</button></a>
+                                    </div>   
                                 </div>
                                 
                             </div>
@@ -164,9 +186,9 @@
                     </div>
                     
                     <!-- Button trigger Remove modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-primary">
                     Remove
-                    </button>
+                    </button></a>
 
                 </div>
             </div>
@@ -179,6 +201,7 @@
         </div>
     </div>
     {% endif %} 
+<!--Secure checkout and keep shopping buttons-->
     <div class="row">
         <div class="col py-3 w-25">   
             <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
@@ -242,5 +265,40 @@
        var itemId = $(this).data('item_id');
        handleEnableDisable(itemId);
     });
+
+
+    // Update quantity on click
+    $('.edit-product').click(function(e) {
+        var product_size = $(this).find('option:selected').data('product_size');
+        var quantity = $(this).parent().prev().data('product_size');      
+        console.log("edit product function triggered")
+        console.log("product_size = " + product_size)        
+    });
+/*
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+    })
+*/
+    $('.remove-product').click(function(e) {
+        console.log("remove function triggered")
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var size = $(this).data('product_size');
+        var url = `/bag/remove/${itemId}/`;
+        var data = {
+            'csrfmiddlewaretoken': csrfToken,
+            'product_size': size
+        };
+        $.post(url, data).done(function() {
+            location.reload();
+        });
+        
+    })
 </script>
 {% endblock %}
