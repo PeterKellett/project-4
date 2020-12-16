@@ -68,17 +68,24 @@ def add_to_shopping_bag(request, item_id):
 
 def edit_shopping_bag(request, item_id):
     print("edit_shopping_bag")
+    print("item_id = " + item_id)
+    print(type(item_id))
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
-    size = request.POST.get['product_size']
+    size = None
+    size = request.POST['product_size']
+    previous_size = request.POST.get('previous_size')
     redirect_url = request.POST.get('redirect_url')
     shopping_bag = request.session.get('shopping_bag', {})
-
+    print(shopping_bag)
+    shopping_bag[item_id]['items_by_size'].pop(previous_size)
+    print(shopping_bag)
     shopping_bag[item_id]['items_by_size'][size] = quantity
+    print(shopping_bag)
     messages.success(request,
                      f'Updated size {size.upper()} {product.name}\
-                       quantity to \
-                       {shopping_bag[item_id]["items_by_size"][size]}.')
+                     quantity to \
+                     {shopping_bag[item_id]["items_by_size"][size]}.')
 
     request.session['shopping_bag'] = shopping_bag
     return redirect(redirect_url)

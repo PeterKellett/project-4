@@ -91,11 +91,11 @@
                                 <div class="modal-body">
                                     <p>{{ item.product.name }}</p>
                                     <p>{{ item.item_id }}</p>
-                                    <form class="update-form" method="POST" action="{% url 'edit_shopping_bag' item.item_id %">
+                                    <form class="form update-form" method="POST" action="{% url 'edit_shopping_bag' item.item_id %}">
                                         {% csrf_token %}
                                         <div class="row">
                                             <div class="col-6 px-1">
-                                                <select id="id_product_size_{{ item.item_id }}" name="product_size_{{ item.item_id }}" class="form-control" data-item_id="{{ item.item_id }}">
+                                                <select id="id_product_size" name="product_size" class="form-control">
                                                     {% if item.product.size_s %}
                                                         {% if item.size == 'small' %}
                                                             <option value="small" selected data-product_size="small">Small</option>
@@ -156,6 +156,7 @@
                                                         min="1"
                                                         max="99"
                                                         data-item_id="{{ item.item_id }}"
+                                                        data-item_quantity="{{ item.quantity }}"
                                                         id="id_qty_{{ item.item_id }}"
                                                         />
                                         
@@ -171,6 +172,7 @@
                                                     </div>
                                                 </div>
                                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                                <input type="hidden" name="previous_size" value="{{ item.size }}">
                                             </div>
                                         </div> 
                                         
@@ -269,10 +271,16 @@
 
     // Update quantity on click
     $('.edit-product').click(function(e) {
-        var product_size = $(this).find('option:selected').data('product_size');
-        var quantity = $(this).parent().prev().data('product_size');      
         console.log("edit product function triggered")
-        console.log("product_size = " + product_size)        
+        // var csrfToken = "{{ csrf_token }}";
+        var form = $(this).parent().prev();
+        console.log(form);
+        var product_size = $(this).parent().prev().find('option:selected').data('product_size');
+        var quantity = $(this).parent().prev().find('.qty_input').data('item_quantity');              
+        console.log("product_size = " + product_size)
+        console.log("quantity = " + quantity)
+        console.log(typeof(quantity)) 
+        form.submit();    
     });
 /*
     $('#exampleModal').on('show.bs.modal', function (event) {
