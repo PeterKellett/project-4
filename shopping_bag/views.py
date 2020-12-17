@@ -67,25 +67,43 @@ def add_to_shopping_bag(request, item_id):
 
 
 def edit_shopping_bag(request, item_id):
-    print("edit_shopping_bag")
-    print("item_id = " + item_id)
-    print(type(item_id))
     product = get_object_or_404(Product, pk=item_id)
+    previous_quantity = int(request.POST.get('previous_quantity'))
     quantity = int(request.POST.get('quantity'))
-    size = None
-    size = request.POST['product_size']
     previous_size = request.POST.get('previous_size')
+    size = request.POST['product_size']
     redirect_url = request.POST.get('redirect_url')
     shopping_bag = request.session.get('shopping_bag', {})
     print(shopping_bag)
     shopping_bag[item_id]['items_by_size'].pop(previous_size)
     print(shopping_bag)
-    shopping_bag[item_id]['items_by_size'][size] = quantity
+
+    if item_id in list(shopping_bag.keys()):
+        if size in shopping_bag[item_id]['items_by_size'].keys():
+            shopping_bag[item_id]['items_by_size'][size] += quantity
+        else:
+            shopping_bag[item_id]['items_by_size'][size] = quantity
+    if previous_size != size:
+        if previous_quantity != quantity:
+            messages.success(request,
+                             f'1 Updated {product.name} size {previous_size.title()}\
+                             x {previous_quantity} to \
+                             {size.title()} x {quantity}.')
+        else:
+            messages.success(request,
+                             f'2 Updated {product.name} size {previous_size.title()}\
+                             x {previous_quantity} to \
+                             {size.title()}.')
+    else:
+        if previous_quantity != quantity:
+            messages.success(request,
+                             f'3 Updated {product.name} size {previous_size.title()}\
+                             x {previous_quantity} to \
+                             {size.title()} x {quantity}.')
+        else:
+            messages.success(request,
+                             '4 You have not made any changes.')
     print(shopping_bag)
-    messages.success(request,
-                     f'Updated size {size.upper()} {product.name}\
-                     quantity to \
-                     {shopping_bag[item_id]["items_by_size"][size]}.')
 
     request.session['shopping_bag'] = shopping_bag
     return redirect(redirect_url)
@@ -97,9 +115,11 @@ def remove_from_shopping_bag(request, item_id):
         shopping_bag = request.session.get('shopping_bag', {})
 
         del shopping_bag[item_id]['items_by_size'][size]
-        shopping_bag.pop(item_id)
+        if shopping_bag[item_id]['items_by_size'] == {}:
+            shopping_bag.pop(item_id)
 
         request.session['shopping_bag'] = shopping_bag
+        print(shopping_bag)
         return HttpResponse(status=200)
     except Exception as e:
         return HttpResponse(status=500)
