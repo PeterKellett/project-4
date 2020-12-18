@@ -8,6 +8,7 @@ def shopping_bag_contents(request):
 
     shopping_bag_items = []
     total = 0
+    gross_total = 0
     product_count = 0
     shopping_bag = request.session.get('shopping_bag', {})
 
@@ -34,7 +35,7 @@ def shopping_bag_contents(request):
                     'size': size,
                     'total': total,
                 })
-
+        gross_total += total
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE/100)
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
@@ -42,7 +43,7 @@ def shopping_bag_contents(request):
         delivery = 0
         free_delivery_delta = 0
 
-    grand_total = delivery + total
+    grand_total = delivery + gross_total
 
     context = {
         'shopping_bag_items': shopping_bag_items,
@@ -51,6 +52,7 @@ def shopping_bag_contents(request):
         'delivery': delivery,
         'free_delivery_delta': free_delivery_delta,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
+        'gross_total': gross_total,
         'grand_total': grand_total,
     }
 

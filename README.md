@@ -296,8 +296,32 @@ product_id | ForeignKey(Products) | | False | False
 comment | Text | 254 | False | False  
 
 
+## Checkout App
+- uuid  
 
+### Checkout models  
+- Order  
+- OrderLineItem  
+(At time of initiation could not run migrations - Console output: No changes detected)  
 
+### Checkout admin models  
+- OrderLineItemAdminInline  
+- OrderAdmin  
+
+### Checkout Signals checkout/signals.py
+- post save
+- post delete
+
+### Checkout forms checkout/forms.py
+- OrderForm  
+
+### Checkout URL's checkout.urls.py  
+Add path in root level urls.py file  
+- checkout
+
+### Checkout templates  
+- checkout/templates/checkout/checkout.html
+(note: Extra css block example in tutorials)
 ## Gitpod Reminders
 
 To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:

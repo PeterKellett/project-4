@@ -204,6 +204,7 @@
         </div>
     </div>
     {% endif %} 
+    {{ gross_total }}
 <!--Secure checkout and keep shopping buttons-->
     <div class="row">
         <div class="col py-3 w-25">   
@@ -216,7 +217,7 @@
         </div>
     
         <div class="col py-3 w-25">
-            <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
+            <a href="{% url 'checkout' %}" class="btn btn-lg products-button w-100">
                 <span class="icon">
                     <i class="fas fa-lock"></i>
                 </span>
