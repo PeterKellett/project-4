@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'checkout',
     # Other
     'crispy_forms',
+    'jsonify',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
