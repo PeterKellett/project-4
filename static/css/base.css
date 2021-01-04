@@ -255,10 +255,10 @@ header a {
 }
 
 /**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
+ Stripe CSS
  */
-.StripeElement {
+.StripeElement,
+.stripe-style-input {
   box-sizing: border-box;
 
   height: 40px;
@@ -274,8 +274,14 @@ header a {
   transition: box-shadow 150ms ease;
 }
 
-.StripeElement--focus {
+.StripeElement--focus,
+.stripe-style-input:focus,
+.stripe-style-input:active {
   box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.stripe-style-input::placeholder {
+    color: #aab7c4;
 }
 
 .StripeElement--invalid {

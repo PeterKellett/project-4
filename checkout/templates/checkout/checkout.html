@@ -49,8 +49,9 @@
                         {% endif %}
                     </div>
                 </fieldset>
-                <fieldset class="px-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                <!--Secure checkout and keep shopping buttons-->
+                <fieldset>
+                    <legend class="fieldset-label text-black px-2 w-auto">Payment</legend>
                     <!-- A Stripe card element will go here -->
                     <div class="mb-3" id="card-element"></div>
                     <!-- Used to display form errors -->
@@ -58,8 +59,7 @@
                     <!-- Pass the client secret to the view so we can get the payment intent id -->
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </fieldset>
-                <!--Default form submit button-->
-                <input type="submit" value="Submit">
+                
                 <div class="row">
                     <div class="col py-3 w-25">   
                         <a href="{% url 'view_shopping_bag' %}" class="btn btn-lg products-button w-100">
@@ -71,13 +71,12 @@
                     </div>
                 
                     <div class="col py-3 w-25">
-                        <button id="submit-button" class="btn btn-lg products-button w-100">
+                        <button id="checkout-button" class="btn btn-lg products-button w-100">
 							<span class="font-weight-bold">Complete Order</span>
 							<span class="icon">
 								<i class="fas fa-lock"></i>
 							</span>
                         </button>
-                        <button id="checkout-button">Checkout</button>
 						<p class="small text-danger my-0">
 							<span class="icon">
 								<i class="fas fa-exclamation-circle"></i>
@@ -135,7 +134,6 @@
             </div>
         </div>
     </div>        
-<!--Secure checkout and keep shopping buttons-->
  
 </section>
 {% endblock %}
@@ -145,34 +143,3 @@
     {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
-<!--
-<script type="text/javascript">
-    // Create an instance of the Stripe object with your publishable API key
-    var stripe = Stripe("pk_test_51Hc6RJCM38ctaxuamPwSiRWXRaZdcUO0lkMBtah39LWPAWeZ5miVTI5AFZ6HKoKxramtCHnNbWN65KpnsG8zwhHq00PNDuqE0S");
-    var checkoutButton = document.getElementById("checkout-button");
-    checkoutButton.addEventListener("click", function () {
-      fetch("/create-checkout-session", {
-        method: "POST",
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function (result) {
-          // If redirectToCheckout fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using error.message.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
-        .catch(function (error) {
-          console.error("Error:", error);
-        });
-    });
-  </script>
-  -->
-
-

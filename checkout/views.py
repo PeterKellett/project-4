@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
+from django.conf import settings
 
 from .forms import OrderForm
 from shopping_bag.contexts import shopping_bag_contents
@@ -13,17 +14,34 @@ stripe.api_key = 'sk_test_51Hc6RJCM38ctaxuaBv8hgRtrgRqfLRfgmDHWPNOdmyN6qctu8YXmp
 # Create your views here.
 def checkout(request):
     print("checkout")
+    # Stripe paymentIntent
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
     shopping_bag = request.session.get('shopping_bag', {})
     if not shopping_bag:
         messages.error(request, "There's nothing in your bag at the moment")
         return redirect(reverse('products'))
 
+    current_shopping_bag = shopping_bag_contents(request)
+    total = current_shopping_bag['grand_total']
+    stripe_total = round(total * 100)
+    stripe.api_key = stripe_secret_key
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+    print(intent)
+
     order_form = OrderForm()
+
+    if not stripe_public_key:
+        messages.warning(request, 'Stripe public key is missing.')
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
-        'stripe_public_key': 'pk_test_51Hc6RJCM38ctaxuamPwSiRWXRaZdcUO0lkMBtah39LWPAWeZ5miVTI5AFZ6HKoKxramtCHnNbWN65KpnsG8zwhHq00PNDuqE0S',
-        'client_secret': 'test client secret',
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, template, context)

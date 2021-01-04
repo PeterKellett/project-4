@@ -197,7 +197,10 @@ Block sections added are:
 - path('', views.view_shopping_bag, name='view_shopping_bag'),
 - path('add/<item_id>/', views.add_to_shopping_bag, name='add_to_shopping_bag'),  
 
-
+## Checkout  
+1. Checkout view creates a Stripe paymentIntent  
+2. Stripe returns the client_secret, which is returned to the template  
+3. Using JavaScript on the client side, call the confirm card payment method from stripe js useing the client_secret in the template to call confirmCardPayment() and verify the card.  
 
 ## Models  
 ![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
