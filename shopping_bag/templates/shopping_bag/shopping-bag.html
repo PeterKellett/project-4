@@ -6,231 +6,248 @@
   </div>
 </div>
 {% endblock %} {% block content %}
-<section class="container-fluid mx-2">
-    <div class="row">
-    
+<section>
+    <div class="row">    
         <div class="col">
         <hr>
             <h1 class="text-center m-2">Shopping Bag</h1>
          <hr>
-        </div>
-   
+        </div>  
     </div>
 </section>
-<section class="container-fluid mx-2">
-    <div class="row text-center">                  
+<section class="container-fluid">
     {% if shopping_bag_items %}
-        <div class="col">
-            
-        </div>
-        <div class="col">
-            <p><strong>Product</strong></p>
-        </div>
-        <div class="col">            
-            <p><strong>Size</strong></p>
-        </div>
+        <div class=" d-none d-md-block">
+            <div class="row text-center">                      
+                <div class="col">
+                    
+                </div>
+                <div class="col">
+                    <p><strong>Product</strong></p>
+                </div>
+                <div class="col">            
+                    <p><strong>Size</strong></p>
+                </div>
 
-        <div class="col">
-            <p><strong>Quantity</strong></p>
-        </div>    
-        <div class="col">
-            <p><strong>Price</strong></p>
-        </div>
-        <div class="col">
-            <p><strong>Total</strong></p>
-        </div> 
-        <div class="col">
-            
-        </div> 
-    </div>
-    <hr>                          
+                <div class="col">
+                    <p><strong>Quantity</strong></p>
+                </div>    
+                <div class="col">
+                    <p><strong>Price</strong></p>
+                </div>
+                <div class="col">
+                    <p><strong>Sub-Total</strong></p>
+                </div> 
+                <div class="col">
+                    
+                </div> 
+            </div>
+            <hr>
+        </div>                          
         {% for item in shopping_bag_items %}
-            <div class="row mt-2">
-                <div class="col-12 col-md">
-                    <img class="img-fluid w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-                </div>
-                <div class="col-12 col-md">
-                    <p class="my-0"><strong>{{ item.product.name }}</strong></p>                    
-                    <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
-                </div>
-                <div class="col-12 col-md">
-                    <p class="my-0 text-center">{{ item.size.title }}</p> 
-                </div>   
-                <div class="col-12 col-md">
-                    <p class="my-0 text-center">{{ item.quantity }}</p>
-                </div>   
-                
-                <div class="col-12 col-md">
-                    <p class="my-0 text-center">€{{ item.product.price }}</p>
-                </div>
-                
-                <div class="col-12 col-md">
-                    <p class="my-0 text-center">€{{ item.total  }}</p>
-                </div>
-
-                <div class="col-12 col-md">
-                    <p class="my-0 text-center">Item ID {{ item.item_id  }}</p>
-                </div>
-
-                <div class="col-12 col-md">
-                    <!-- Button trigger Edit modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ item.item_id }}_{{ item.size }}">
-                    Edit
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal_{{ item.item_id }}_{{ item.size }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_{{ item.item_id }}_{{ item.size }}" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel_{{ item.item_id }}_{{ item.size }}">Edit order</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>{{ item.product.name }}</p>
-                                    <p>{{ item.item_id }}</p>
-                                    <form class="form update-form" method="POST" action="{% url 'edit_shopping_bag' item.item_id %}">
-                                        {% csrf_token %}
-                                        <div class="row">
-                                            <div class="col-6 px-1">
-                                                <select id="id_product_size" name="product_size" class="form-control">
-                                                    {% if item.product.size_s %}
-                                                        {% if item.size == 'small' %}
-                                                            <option value="small" selected data-product_size="small">Small</option>
-                                                        {% else %}
-                                                            <option value="small" data-product_size="small">Small</option>
-                                                        {% endif %}
-                                                    {% else %}
-                                                        <option value="" disabled>Small N/A</option>
-                                                    {% endif %}
-                                                    {% if item.product.size_m %}
-                                                        {% if item.size == 'medium' %}
-                                                            <option value="medium" selected data-product_size="medium">Medium</option>
-                                                        {% else %}
-                                                            <option value="medium" data-product_size="medium">Medium</option>
-                                                        {% endif %}
-                                                    {% else %}
-                                                        <option value="" disabled>Medium N/A</option>
-                                                    {% endif %}
-                                                    {% if item.product.size_lg %}
-                                                        {% if item.size == 'large' %}
-                                                            <option value="large" selected data-product_size="large">Large</option>
-                                                        {% else %}
-                                                            <option value="large" data-product_size="large">Large</option>
-                                                        {% endif %}
-                                                    {% else %}
-                                                        <option value="" disabled>Large N/A</option>
-                                                    {% endif %}
-                                                    {% if item.product.size_xl %}
-                                                        {% if item.size == 'xlarge' %}
-                                                            <option value="xlarge" selected data-product_size="xlarge">Extra large</option>
-                                                        {% else %}
-                                                            <option value="xlarge" data-product_size="xlarge">Extra large</option>
-                                                        {% endif %}
-                                                    {% else %}
-                                                        <option value="" disabled>Extra large N/A</option>
-                                                    {% endif %}
-                                                </select>
-                                            </div>
-
-                                            <div class="col-6 px-1">                                           
-                                                <div class="form-group w-100">
-                                                    <div class="input-group">                    
-                                                        <div class="input-group-prepend">
-                                                            <button class ="decrement-qty btn rounded-0"
-                                                                data-item_id="{{ item.item_id }}"
-                                                                id="decrement-qty_{{ item.item_id }}">
-                                                                <span class="icon">
-                                                                    <i class="fas fa-minus"></i>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                        
-                                                        <input
-                                                        class="form-control qty_input"
-                                                        type="number"
-                                                        name="quantity"
-                                                        value="{{ item.quantity }}"
-                                                        min="1"
-                                                        max="99"
-                                                        data-item_id="{{ item.item_id }}"
-                                                        data-item_quantity="{{ item.quantity }}"
-                                                        id="id_qty_{{ item.item_id }}"
-                                                        />
-                                        
-                                                        <div class="input-group-append">
-                                                            <button class ="increment-qty btn btn-black rounded-0"
-                                                                data-item_id="{{ item.item_id }}"
-                                                                id="increment-qty_{{ item.item_id }}">
-                                                                <span class="icon">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </span>
-                                                            </button>
-                                                        </div>                   
-                                                    </div>
-                                                </div>
-                                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                                <input type="hidden" name="previous_size" value="{{ item.size }}">
-                                                <input type="hidden" name="previous_quantity" value="{{ item.quantity }}">
-                                            </div>
-                                        </div> 
-                                        
-                                    </form>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <a class="edit-product"><button type="submit" class="btn btn-primary">Save changes</button></a>
-                                    </div>   
-                                </div>
-                                
-                            </div>
-                        </div>
+        <!--Products display layout on medium and up-->
+            <div class="container d-none d-md-block">
+                <div class="row mt-2">
+                    <div class="col">
+                        <img class="img-fluid w-50 mx-auto d-block" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    </div>
+                    <div class="col">
+                        <p class="my-0"><strong>{{ item.product.name }}</strong> - {{ item.product.category.friendly_name }}</p>                    
+                        <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
+                    </div>
+                    <div class="col">
+                        <p class="my-0 text-center">{{ item.size.title }}</p> 
+                    </div>   
+                    <div class="col">
+                        <p class="my-0 text-center">{{ item.quantity }}</p>
+                    </div>   
+                    
+                    <div class="col">
+                        <p class="my-0 text-center">€{{ item.product.price }}</p>
                     </div>
                     
-                    <!-- Button trigger Remove modal -->
-                    <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-primary">
-                    Remove
-                    </button></a>
+                    <div class="col">
+                        <p class="my-0 text-center">€{{ item.total }}</p>
+                    </div>
+                    <div class="col">
+                        <!-- Button trigger Edit modal -->
+                        <button type="button" class="btn btn-primary btn-sm d-inline w-50 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>
 
+                        <!-- Modal -->
+                        <div class="modal fade" id="editLineItemModal_{{ item.item_id }}_{{ item.size }}" tabindex="-1" role="dialog" aria-labelledby="editLineItemModalLabel_{{ item.item_id }}_{{ item.size }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editLineItemModalLabel_{{ item.item_id }}_{{ item.size }}">Edit order</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>{{ item.product.name }}</p>
+                                        <p>{{ item.item_id }}</p>
+                                        <form class="form update-form" method="POST" action="{% url 'edit_shopping_bag' item.item_id %}">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-6 px-1">
+                                                    <select id="id_product_size" name="product_size" class="form-control">
+                                                        {% if item.product.size_s %}
+                                                            {% if item.size == 'small' %}
+                                                                <option value="small" selected data-product_size="small">Small</option>
+                                                            {% else %}
+                                                                <option value="small" data-product_size="small">Small</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value="" disabled>Small N/A</option>
+                                                        {% endif %}
+                                                        {% if item.product.size_m %}
+                                                            {% if item.size == 'medium' %}
+                                                                <option value="medium" selected data-product_size="medium">Medium</option>
+                                                            {% else %}
+                                                                <option value="medium" data-product_size="medium">Medium</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value="" disabled>Medium N/A</option>
+                                                        {% endif %}
+                                                        {% if item.product.size_lg %}
+                                                            {% if item.size == 'large' %}
+                                                                <option value="large" selected data-product_size="large">Large</option>
+                                                            {% else %}
+                                                                <option value="large" data-product_size="large">Large</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value="" disabled>Large N/A</option>
+                                                        {% endif %}
+                                                        {% if item.product.size_xl %}
+                                                            {% if item.size == 'xlarge' %}
+                                                                <option value="xlarge" selected data-product_size="xlarge">Extra large</option>
+                                                            {% else %}
+                                                                <option value="xlarge" data-product_size="xlarge">Extra large</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value="" disabled>Extra large N/A</option>
+                                                        {% endif %}
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-6 px-1">                                           
+                                                    <div class="form-group w-100">
+                                                        <div class="input-group">                    
+                                                            <div class="input-group-prepend">
+                                                                <button class ="decrement-qty btn rounded-0"
+                                                                    data-item_id="{{ item.item_id }}"
+                                                                    id="decrement-qty_{{ item.item_id }}">
+                                                                    <span class="icon">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                            
+                                                            <input
+                                                            class="form-control qty_input"
+                                                            type="number"
+                                                            name="quantity"
+                                                            value="{{ item.quantity }}"
+                                                            min="1"
+                                                            max="99"
+                                                            data-item_id="{{ item.item_id }}"
+                                                            data-item_quantity="{{ item.quantity }}"
+                                                            id="id_qty_{{ item.item_id }}"
+                                                            />
+                                            
+                                                            <div class="input-group-append">
+                                                                <button class ="increment-qty btn btn-black rounded-0"
+                                                                    data-item_id="{{ item.item_id }}"
+                                                                    id="increment-qty_{{ item.item_id }}">
+                                                                    <span class="icon">
+                                                                        <i class="fas fa-plus"></i>
+                                                                    </span>
+                                                                </button>
+                                                            </div>                   
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                                    <input type="hidden" name="previous_size" value="{{ item.size }}">
+                                                    <input type="hidden" name="previous_quantity" value="{{ item.quantity }}">
+                                                </div>
+                                            </div> 
+                                            
+                                        </form>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a class="edit-product"><button type="submit" class="btn btn-primary">Save changes</button></a>
+                                        </div>   
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Button Remove Product -->
+                        <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Delete</button></a>
+
+                    </div>
+                </div>
+            </div>
+            <!--Products display layout on small and down-->
+            <div class="d-md-none">
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <img class="img-fluid w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    </div>
+                    <div class="col-6">
+                        <p class="my-0"><strong>{{ item.product.name }}</strong> - {{ item.product.category.friendly_name }}</p>                    
+                        <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
+                        <p class="my-0">Size: {{ item.size.title }}</p> 
+                        <p class="my-0">Quantity: {{ item.quantity }}</p>
+                        <p class="my-0">Each: €{{ item.product.price }}</p>
+                        <p class="my-0">Sub-total: €{{ item.total }}</p>
+
+                    </div>
                 </div>
             </div>
             <hr>
+            <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total }}</p>
+            
         {% endfor %}
     {% else %}
     <div class="row">
-        <div class="col py-3 w-25">
+        <div class="col">
             <p>Your shopping bag is empty</p>
         </div>
-    </div>
+    </div>   
     {% endif %} 
-    {{ gross_total }}
-<!--Secure checkout and keep shopping buttons-->
-    <div class="row">
-        <div class="col py-3 w-25">   
-            <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
-                <span class="icon">
-                    <i class="fas fa-chevron-left"></i>
-                </span>
-                <span>Keep Shopping</span>
-            </a>
-        </div>
     
-        <div class="col py-3 w-25">
-            <a href="{% url 'checkout' %}" class="btn btn-lg products-button w-100">
-                <span class="icon">
-                    <i class="fas fa-lock"></i>
-                </span>
-                <span>Secure checkout</span>
-            </a>
-        </div>
-    </div> 
-    <button id="checkout-button">Checkout</button>
+<!--Secure checkout and keep shopping buttons-->
+    <div class="container">
+        <div class="row">
+            <div class="col py-3 w-25">   
+                <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span>Keep Shopping</span>
+                </a>
+            </div>
+        
+            <div class="col py-3 w-25">
+                <a href="{% url 'checkout' %}" class="btn btn-lg products-button w-100">
+                    <span class="icon">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <span>Secure checkout</span>
+                </a>
+            </div>
+        </div> 
+    </div>
 </section>
+
+
 <script type="text/javascript">
 
     // Disable +/- buttons outside 1-99 range
     function handleEnableDisable(itemId) {
+        console.log("handleEnableDisable function")
         var currentValue = parseInt($(`#id_qty_${itemId}`).val());
         var minusDisabled = currentValue < 2;
         var plusDisabled = currentValue > 98;
@@ -297,4 +314,5 @@
         
     })
 </script>
+
 {% endblock %}

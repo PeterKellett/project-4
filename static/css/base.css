@@ -4,6 +4,28 @@ html {
     height: 100%;
 }
 */
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) { 
+    .shopping-bag-font {
+        font-size: 0.5rem;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { 
+    .shopping-bag-font {
+        font-size: 1rem;
+    } }
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { 
+    .shopping-bag-font {
+        font-size: 1.5rem;
+    }
+ }
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { ... }
 
 body {
     background-color: #f5f1e2;
