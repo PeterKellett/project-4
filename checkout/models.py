@@ -98,7 +98,7 @@ class OrderLineItem(models.Model):
                                 blank=False,
                                 on_delete=models.CASCADE,
                                 related_name='lineitems')
-    product_size = models.CharField(max_length=2,
+    product_size = models.CharField(max_length=10,
                                     null=False,
                                     blank=False)
     quantity = models.IntegerField(null=False,
