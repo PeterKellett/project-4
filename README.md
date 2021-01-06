@@ -202,6 +202,40 @@ Block sections added are:
 2. Stripe returns the client_secret, which is returned to the template  
 3. Using JavaScript on the client side, call the confirm card payment method from stripe js useing the client_secret in the template to call confirmCardPayment() and verify the card.  
 
+### Django Countries (Not yet installed)
+- pip3 install django-Countries
+- pip3 freeze > requirements.txt
+
+## Stripe webhook  
+1. Create a new file checkout/webhook_handler.py
+2. Add webhook methods for:
+    - Unhandled webhooks
+    - Payment succeeded
+    - Payment failed/declined
+3. Add a URL path to this file in checkout/urls.py and import the webhooks function from .webhooks  
+4. Create a new file checkout/webhooks.py to listen for Stripe Webhooks
+https://stripe.com/docs/payments/handling-payment-events  
+5. In settings.py set the stripe webhook secret key from the environment variables  
+6. Add a webhook endpoint in Stripe dashboard/Developers/webhooks/add endpoint 
+    - endpoint url: https://8000-c613707c-ac21-4c3b-9ef3-d0af7fd6591c.ws-eu03.gitpod.io/checkout/WH/  
+    - Select 'Receive all events'
+    - Click 'Add endpoint'
+7. Copy the signing secret key and export it to the project using the terminal.
+    - export STRIPE_WH_SECRET='webhhok secret key'
+8. Use the wehooks listener to map the webhook and event type and pass it to the webhook handler  
+9. Create the necessary database objects in the webhook handler
+    - In stripe_elements.js add the billing details and shipping details from the form to the Stripe.confirmCardPayment method 
+    so they can be passed to Stripe to be included in the webhook response  
+10. Cache checkout data if user checks save info box  
+    - Create a new view cache_checkout_data in order to modify the payment intent and add some metadata to it.
+    - Pass the client_secret from the payment intent  
+    - Extract the payment intent id from the client secret key  
+    - Call the paymentIntent.modify method from Stripe passing in the clientid and the extra data to be added.
+    - Add a url to the cache_checkout_data view  
+11. In stripe_elements.js add the save-info data to the form.addEventListener
+
+
+
 ## Models  
 ![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
 
@@ -324,7 +358,12 @@ Add path in root level urls.py file
 
 ### Checkout templates  
 - checkout/templates/checkout/checkout.html
-(note: Extra css block example in tutorials)
+(note: Extra css block example in tutorials)  
+
+
+
+
+
 ## Gitpod Reminders
 
 To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
@@ -341,26 +380,3 @@ A blue button should appear to click: _Make Public_,
 
 Another blue button should appear to click: _Open Browser_.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-## Updates Since The Instructional Video
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
----
-
-Happy coding!

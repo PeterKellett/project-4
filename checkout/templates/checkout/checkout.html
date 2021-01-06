@@ -30,13 +30,13 @@
                 </fieldset>
                 <fieldset>
                     <legend>Delivery details</legend>
-                    {{ order_form.phone_number | as_crispy_field }}
-                    {{ order_form.street_address1 | as_crispy_field }}
-                    {{ order_form.street_address2 | as_crispy_field }}
-                    {{ order_form.town_or_city | as_crispy_field }}
-                    {{ order_form.county | as_crispy_field }}
-                    {{ order_form.postcode | as_crispy_field }}
-                    {{ order_form.country | as_crispy_field }}
+                        {{ order_form.phone_number | as_crispy_field }}
+                        {{ order_form.street_address1 | as_crispy_field }}
+                        {{ order_form.street_address2 | as_crispy_field }}
+                        {{ order_form.town_or_city | as_crispy_field }}
+                        {{ order_form.county | as_crispy_field }}
+                        {{ order_form.postcode | as_crispy_field }}
+                        {{ order_form.country | as_crispy_field }}
                     <div class="form-check form-check-inline float-right mr-0">
                         {% if user.is_authenticated %}
                             <label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
@@ -49,7 +49,7 @@
                         {% endif %}
                     </div>
                 </fieldset>
-                <!--Secure checkout and keep shopping buttons-->
+               
                 <fieldset>
                     <legend class="fieldset-label text-black px-2 w-auto">Payment</legend>
                     <!-- A Stripe card element will go here -->
@@ -100,14 +100,12 @@
             </div>
             {% for item in shopping_bag_items %}
                 <div class="row">
-                    <div class="col-2 mb-1">
-                        <a href="{% url 'product_detail' item.product.id %}">
-                            {% if item.product.image %}
-                                <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
-                            {% else %}
-                                <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
-                            {% endif %}
-                        </a>
+                    <div class="col-2 mb-1">                        
+                        {% if item.product.image %}
+                            <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                        {% endif %}                       
                     </div>
                     <div class="col-7">
                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>

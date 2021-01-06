@@ -19,10 +19,69 @@
 <!--Order summary-->
 <section class="container">
     <div class="row">
-        <div class="col-12 col-lg-7">
-
+        <div class="col-12 col-lg-6">
+            <p><strong>Order details</strong></p>
+            <p>{{ order.date }}</p>
+            <p>{{ order.order_number }}</p>
+            <p><strong>Delivery details</strong></p>
+            <p>{{ order.full_name }}</p>
+            <p>{{ order.street_address1 }}</p>
+            {% if order.street_address2 != None %}
+                <p>{{ order.street_address2 }}</p>
+            {% endif %}
+            <p>{{ order.town_or_city }}</p>
+            <p>{{ order.county }}</p>
+            <p>{{ order.country }}</p>
+            <p>{{ order.postcode }}</p>
+            <p><strong>Contact details</strong></p>
+            <p><i class="fas fa-envelope-square"></i> {{ order.email }}</p>
+            <p><i class="fas fa-phone-square-alt"></i> {{ order.phone_number }}</p>            
         </div>
-    </div> 
+
+        <div class="col-12 col-lg-6 order-lg-last mb-5">
+            <h2>Order</h2>
+            <div class="row">
+                <div class="col-7 offset-2">
+                    <p class="mb-1 mt-0 small text-muted">Item</p>
+                </div>
+                <div class="col-3 text-right">
+                    <p class="mb-1 mt-0 small text-muted">Subtotal</p>
+                </div>
+            </div>
+            {% for item in order.lineitems.all %}
+                <div class="row">
+                    <div class="col-2 mb-1">                        
+                            {% if item.product.image %}
+                                <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                            {% endif %}
+                    </div>
+                    <div class="col-7">
+                        <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                        <p class="my-0 small">Size: {{ item.product_size.title }}</p>
+                        <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
+                    </div>
+                    <div class="col-3 text-right">
+                        <p class="my-0 small text-muted">€{{ item.lineitem_total  }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr class="my-0">
+            <div class="row text-black text-right">
+                <div class="col-7 offset-2">
+                    <p class="my-0">Order Total:</p>
+                    <p class="my-0">Delivery:</p>
+                    <p class="my-0">Grand Total:</p>
+                </div>
+                <div class="col-3">
+                    <p class="my-0">${{ order.order_total }}</p>
+                    <p class="my-0">${{ order.delivery_cost }}</p>
+                    <p class="my-0"><strong>${{ order.grand_total }}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--Keep shopping button-->       
     <div class="row">
         <div class="col py-3 w-25">   
