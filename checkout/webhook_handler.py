@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.conf import settings
 from .models import Order, OrderLineItem
 from products.models import Product
 import json
@@ -33,7 +34,7 @@ class StripeWH_Handler:
         shopping_bag = intent.metadata.shopping_bag
         save_info = intent.metadata.save_info
         billing_details = intent.charges.data[0].billing_details
-        shipping_details = intent.shipping_details
+        shipping_details = intent.shipping
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
         # Iterate thru' the shipping details address dictionary to replace
@@ -55,14 +56,14 @@ class StripeWH_Handler:
                 order = Order.objects.get(
                     full_name__iexact=shipping_details.name,
                     email__iexact=billing_details.email,
-                    phone_number__iexact=shipping_details.phone_number,
+                    phone_number__iexact=shipping_details.phone,
                     country__iexact=shipping_details.address.country,
                     postcode__iexact=shipping_details.address.postal_code,
                     town_or_city__iexact=shipping_details.address.city,
                     street_address1__iexact=shipping_details.address.line1,
                     street_address2__iexact=shipping_details.address.line2,
                     county__iexact=shipping_details.address.state,
-                    grand_total__iexact=shipping_details.grand_total,
+                    grand_total=grand_total,
                     original_bag=shopping_bag,
                     stripe_pid=pid,
                 )
@@ -80,7 +81,7 @@ class StripeWH_Handler:
         if order_exists:
             # If order_exists=true, return a 200 Http response to Stripe
             return HttpResponse(
-                content=f'Payment succeeded Webhook received: {event["type"]} | SUCCESS: Verified order aslready in database',
+                content=f'Payment succeeded Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200
             )
         else:
@@ -91,14 +92,14 @@ class StripeWH_Handler:
                 order = Order.objects.create(
                     full_name=shipping_details.name,
                     email=billing_details.email,
-                    phone_number=shipping_details.phone_number,
+                    phone_number=shipping_details.phone,
                     country=shipping_details.address.country,
                     postcode=shipping_details.address.postal_code,
                     town_or_city=shipping_details.address.city,
                     street_address1=shipping_details.address.line1,
                     street_address2=shipping_details.address.line2,
                     county=shipping_details.address.state,
-                    grand_total=shipping_details.grand_total,
+                    grand_total=grand_total,
                     original_bag=shopping_bag,
                     stripe_pid=pid,
                 )
