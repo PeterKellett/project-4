@@ -71,7 +71,33 @@ header a {
     position: fixed;
     top: 72px;
     right: 15px;
+    width: 300px;
     z-index: 99999999999;
+}
+
+.toast {
+    background-color: #985d65;
+}
+
+.toast-header,
+.toast-body {
+    background-color: #f9e8ea;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.success-toast {
+    border: 1px solid green;
+}
+
+.info-toast {
+    border: 1px solid #985d65;
+}
+
+.error-toast {
+    border: 1px solid red;
 }
 
 .banner {

@@ -38,10 +38,8 @@ def add_to_shopping_bag(request, item_id):
     if item_id in list(shopping_bag.keys()):
         if size in shopping_bag[item_id]['items_by_size'].keys():
             shopping_bag[item_id]['items_by_size'][size] += quantity
-            messages.success(request,
-                             f'Updates size {size.upper()} {product.name}\
-                             quantity to \
-                             {shopping_bag[item_id]["items_by_size"][size]}.')
+            messages.warning(request,
+                             f'You already have this item in your basket. {product.name} {size.upper()}.')
         else:
             shopping_bag[item_id]['items_by_size'][size] = quantity
             messages.success(request,
@@ -86,23 +84,22 @@ def edit_shopping_bag(request, item_id):
     if previous_size != size:
         if previous_quantity != quantity:
             messages.success(request,
-                             f'1 Updated {product.name} size {previous_size.title()}\
+                             f'You have changed {product.name} size {previous_size.title()}\
                              x {previous_quantity} to \
                              {size.title()} x {quantity}.')
         else:
             messages.success(request,
-                             f'2 Updated {product.name} size {previous_size.title()}\
-                             x {previous_quantity} to \
-                             {size.title()}.')
+                             f'You have changed {product.name} size {previous_size.title()}\
+                              to {size.title()}.')
     else:
         if previous_quantity != quantity:
             messages.success(request,
-                             f'3 Updated {product.name} size {previous_size.title()}\
+                             f'You have changed {product.name} size {previous_size.title()}\
                              x {previous_quantity} to \
                              {size.title()} x {quantity}.')
         else:
-            messages.success(request,
-                             '4 You have not made any changes.')
+            messages.info(request,
+                          "It's ok, you have not made any changes.")
     print(shopping_bag)
 
     request.session['shopping_bag'] = shopping_bag
