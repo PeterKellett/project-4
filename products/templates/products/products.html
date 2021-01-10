@@ -20,23 +20,27 @@
             <!--Checkbox form-->    
             <form class="form" action="{% url 'products' %}" method="GET">
             {% csrf_token %}
-                <div class="form-group">
-                    <div class="form-check">                       
-                        <input class="form-check-input" type="checkbox" value="" id="all" name="all" checked>
-                        <label class="form-check-label" for="all">
-                                All
-                        </label>
-                    </div>
-                </div>
+                
                 {% for category, status in filter_dict.items %}
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="True" id="{{ category }}" name="{{ category }}"  {% if status %} checked {% endif %} >
-                            <label class="form-check-label" for="{{ category }}">
-                                    {{ category.title }}
-                            </label>
+                    {% if category == 'all' %}
+                        <div class="form-group">
+                            <div class="custom-checkbox">                       
+                                <input class="custom-control-input" type="checkbox" value="True" id="all" name="all" {% if status %} checked {% endif %}>
+                                <label class="custom-control-label" for="all">
+                                        All
+                                </label>
+                            </div>
                         </div>
-                    </div> 
+                    {% else %}
+                        <div class="form-group">
+                            <div class="custom-checkbox">
+                                <input class="check_input custom-control-input" type="checkbox" value="True" id="{{ category }}" name="{{ category }}"  {% if status %} checked {% endif %} >
+                                <label class="form-check-label custom-control-label" for="{{ category }}">
+                                        {{ category.title }}
+                                </label>
+                            </div>
+                        </div> 
+                    {% endif %}
                 {% endfor %}
 
                 <button class="products-button btn btn-lg w-100" type="submit">Submit
@@ -66,47 +70,47 @@
                 {% endif %}               
             {% endfor %}
         </div>
-       
-
-        <div class="row justify-content-start card-group">
-            {% for product in products %}
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">           
-                    <div class="card mx-auto mb-2" style="width: 18rem;">
-                        <p class="text-right p-1">
+        <div class="row justify-content-start">
+            <div class="card-group">            
+                {% for product in products %}
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">           
+                        <div class="card mx-auto mb-2" style="width: 18rem;">
+                            <p class="text-right p-1">
+                                
+                                {{ product.rating }}
+                                <i class="fa fa-star" aria-hidden="true"></i>  
                             
-                            {{ product.rating }}
-                            <i class="fa fa-star" aria-hidden="true"></i>  
-                        
-                        </p>                           
-                        <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
-                        <div class="card-body">
-                            <h5 class="card-title d-inline">{{ product.name }}</h5>
-                            <p class="text-muted d-inline float-right">({{ product.category.friendly_name }})</p>
-                            <h5>€{{ product.price }}</h5>
-                            <p class="card-text pt-2">{{ product.description }}</p>
-                            <p>Available sizes:
-                                {% if product.size_s %}
-                                    S 
-                                {% endif %}
-                                {% if product.size_m %}
-                                    M 
-                                {% endif %}
-                                {% if product.size_lg %}
-                                    L 
-                                {% endif %}
-                                {% if product.size_xl %}
-                                    XL 
-                                {% endif %}
-                            </p>
-                            
-                            <a href="{% url 'product_detail' product.id %}"><button class="products-button w-100">View Item</button></a>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted float-right">{{ product.sku }}</small>
+                            </p>                           
+                            <img src="{{ product.image.url }}" class="card-img-top img-fluid" alt="{{ product.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title d-inline">{{ product.name }}</h5>
+                                <p class="text-muted d-inline float-right">({{ product.category.friendly_name }})</p>
+                                <h5>€{{ product.price }}</h5>
+                                <p class="card-text pt-2">{{ product.description }}</p>
+                                <p>Available sizes:
+                                    {% if product.size_s %}
+                                        S 
+                                    {% endif %}
+                                    {% if product.size_m %}
+                                        M 
+                                    {% endif %}
+                                    {% if product.size_lg %}
+                                        L 
+                                    {% endif %}
+                                    {% if product.size_xl %}
+                                        XL 
+                                    {% endif %}
+                                </p>
+                                
+                                <a href="{% url 'product_detail' product.id %}"><button class="products-button w-100">View Item</button></a>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted float-right">{{ product.sku }}</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -133,6 +137,18 @@ function closeNav() {
   document.getElementById("menu-close").style.display = "none";
   console.log("closeNav function fired");
 }
-
+/* Functionality for the all checkbox to be deselected
+    when another checbox is deselected */
+$('.check_input').click(function() {
+    $('#all').prop('checked', false);
+});
+/* Functionality for the all checkbox to select 
+    and deselect all options */
+$('#all').click(function() {
+    var checked = this.checked;
+    $('input[type="checkbox"]').each(function() {
+        this.checked = checked;
+    });
+})
 </script>
 {% endblock %}

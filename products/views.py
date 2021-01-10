@@ -21,6 +21,10 @@ def all_products(request):
         and store as individual querysets.
     """
     if request.GET:
+        if 'all' in request.GET:
+            filter_dict['all'] = True
+        else:
+            filter_dict['all'] = False
         if 'small' in request.GET:
             filter_dict['small'] = True
             small_queryset = products.filter(size_s=True)
@@ -83,6 +87,7 @@ def all_products(request):
 
     else:
         filter_dict = {
+            'all': True,
             'small': True,
             'medium': True,
             'large': True,

@@ -7,13 +7,15 @@
 </div>
 {% endblock %} {% block content %}
 <section>
-    <div class="row">    
-        <div class="col">
-        <hr>
-            <h1 class="text-center m-2">Shopping Bag</h1>
-         <hr>
-        </div>  
-    </div>
+    <div class="container">
+        <div class="row">    
+            <div class="col">
+                <hr>
+                    <h1 class="text-center m-2">Shopping Bag</h1>
+                <hr>
+            </div>  
+        </div>
+    </div>    
 </section>
 <section class="container-fluid">
     {% if shopping_bag_items %}
@@ -74,9 +76,9 @@
                         <button type="button" class="btn btn-primary btn-sm d-inline w-50 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>                        
                         <!-- Button Remove Product -->
                         <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Delete</button></a>
-
                     </div>
                 </div>
+                <hr>  
             </div>
             <!-- Modal -->
             <div class="modal fade" id="editLineItemModal_{{ item.item_id }}_{{ item.size }}" tabindex="-1" role="dialog" aria-labelledby="editLineItemModalLabel_{{ item.item_id }}_{{ item.size }}" aria-hidden="true">
@@ -207,11 +209,13 @@
                         <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Delete</button></a>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total }}</p>
-            
+                
+            </div>                      
         {% endfor %}
+        <div class="container pt-2 p-0">
+            <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total }}</p>
+        </div>
+        
     {% else %}
     <div class="container">
         <div class="row">

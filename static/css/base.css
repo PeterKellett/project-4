@@ -25,7 +25,7 @@ html {
  }
 
 /* Extra large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) { ... }
+@media (min-width: 1200px) {  }
 
 body {
     background-color: #f5f1e2;
@@ -81,6 +81,7 @@ header a {
 
 .toast-header,
 .toast-body {
+    font-family: 'Roboto', sans-serif;
     background-color: #f9e8ea;
 }
 
@@ -282,13 +283,23 @@ header a {
     width: 70px;
 }
 
-.increment-qty, .decrement-qty {
-        padding: .25rem .5rem !important;
-        background-color: #985d65;
-        color: #fff;
-    }
-.form-check-input {
-    background-color: red;
+.increment-qty, 
+.decrement-qty {
+    padding: .25rem .5rem !important;
+    background-color: #985d65;
+    color: #fff;
+}
+
+/* Sidenav checkboxes customised */
+.custom-control-input:focus {
+    display: none;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: #985d65;
+    color: #985d65;
+    border-color: #985d65;
+    /* background-color: #007bff; */
 }
 /*---------------------*/
 .fa-star {
@@ -297,6 +308,10 @@ header a {
 /*----Footer--*/
 .footer {
     z-index: 2;
+}
+
+.footerCol {
+    border-bottom: 2px solid #d0b3b7;
 }
 .footer a {
     color: #000;   
