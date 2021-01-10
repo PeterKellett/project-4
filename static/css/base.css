@@ -153,7 +153,7 @@ header a {
     }
 }
 
-.products-button {    
+.filter-button {    
     color: #000;
     background-color: #d0b2b6f7;
     font-family: 'Bangers', cursive;
@@ -267,20 +267,9 @@ header a {
 .sidenav-activator i {
     padding-top: 300px;;
 }
-/*
-#main-container {
-    display: inline-block;
-  transition: margin-left .5s;
-  padding: 16px;
-  
-}
-*/
+
 .sidenav form {
     padding: 8px 8px 8px 32px;
-}
-
-.size-button {
-    width: 70px;
 }
 
 .increment-qty, 
@@ -295,6 +284,10 @@ header a {
     display: none;
 }
 
+.custom-control-input {
+    position: relative;
+}
+
 .custom-control-input:checked~.custom-control-label::before {
     background-color: #985d65;
     color: #985d65;
@@ -302,8 +295,53 @@ header a {
     /* background-color: #007bff; */
 }
 /*---------------------*/
+/* Filter icons */
+.filter-icons {
+    border: 2px solid #995f67;
+    background-color: #d0b2b6f7;
+}
+
+.size-button {
+    width: 75px;
+}
+
+/*Products layout*/
+.product-card {
+    border: 1px solid #995f67;
+    max-height: 185px;
+}
+
+.product-image {
+    max-height: 160px;
+    max-width: 100%;
+}
+.product-card .card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-footer {
+    /*position: relative;
+    bottom: 10px;*/
+    width: 100%;
+    background-color: inherit;
+    border-top: none;
+    padding: 0;
+}
+.product-description-div {
+
+}
+
 .fa-star {
     color: yellow;
+}
+.products-button {    
+    color: #000;
+    background-color: #d0b2b6f7;
+    font-family: 'Bangers', cursive;
+    border: 1px solid #985d65;
+    
 }
 /*----Footer--*/
 .footer {

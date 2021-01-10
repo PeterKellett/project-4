@@ -100,6 +100,7 @@ def all_products(request):
     context = {
         'filter_dict': filter_dict,
         'products': products,
+        'categories': categories,
         'search_term': query,
     }
     print("END")
