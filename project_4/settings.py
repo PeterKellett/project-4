@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'products',
     'shopping_bag',
     'checkout',
+    'profiles',
     # Other
     'crispy_forms',
     'jsonify',
@@ -136,23 +137,19 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': (
-            'django.contrib.auth.password_validation\
-                .UserAttributeSimilarityValidator'),
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'),
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation\
-                .MinimumLengthValidator'),
+            'django.contrib.auth.password_validation.MinimumLengthValidator'),
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation\
-                .CommonPasswordValidator'),
+            'django.contrib.auth.password_validation.CommonPasswordValidator'),
     },
     {
         'NAME': (
-            'django.contrib.auth.password_validation\
-                .NumericPasswordValidator'),
+            'django.contrib.auth.password_validation.NumericPasswordValidator'),
     },
 ]
 

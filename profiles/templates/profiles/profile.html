@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'base.html' %} {% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<section class="container">
+    <div class="row">    
+        <div class="col">
+        <hr>
+            <h1 class="text-center m-2">My Profile</h1>
+         <hr>
+        </div>   
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            {{ profile }}
+        </div>
+        <div class="col-12 col-lg-6 order-lg-last mb-5">
+            
+        </div>
+    </div>        
+ 
+</section>
+{% endblock %}
+
