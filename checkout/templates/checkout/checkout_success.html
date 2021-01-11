@@ -84,13 +84,22 @@
     </div>
     <!--Keep shopping button-->       
     <div class="row">
-        <div class="col py-3 w-25">   
-            <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
-                <span class="icon">
-                    <i class="fas fa-chevron-left"></i>
-                </span>
-                <span>Keep Shopping</span>
-            </a>
+        <div class="col py-3 w-25"> 
+            {% if from_profile_page %}  
+                <a href="{% url 'profile' %}" class="btn btn-lg products-button w-100">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span>Back</span>
+                </a>
+            {% else %}
+                <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span>Keep Shopping</span>
+                </a>
+            {% endif %}
         </div>
     </div>
 </section>

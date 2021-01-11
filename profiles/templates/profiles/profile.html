@@ -24,9 +24,83 @@
     <div class="row">
         <div class="col-12 col-lg-6">
             {{ profile }}
+            <p>Default Delivery Information</p>
+            <form class="" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button>Update Info</button>
+            
+            </form>
         </div>
         <div class="col-12 col-lg-6 order-lg-last mb-5">
-            
+            <p>Order History</p>
+            {% for order in orders %}
+            {{ order }}
+            {% endfor %}
+            <p class="text-muted">Orders ({{ product_count }})</p>
+            <div class="row">
+                <div class="col-3">
+                    <p class="mb-1 mt-0 small text-muted">Order number</p>
+                </div>
+                <div class="col-3">
+                    <p class="mb-1 mt-0 small text-muted">Date</p>
+                </div>
+                <div class="col-3">
+                    <p class="mb-1 mt-0 small text-muted">Items</p>
+                </div>
+                <div class="col-3">
+                    <p class="mb-1 mt-0 small text-muted">Total</p>
+                </div>
+            </div>
+            {% for order in orders %}
+                <div class="row">
+                    <div class="col-3 mb-1"> 
+                        <a href="{% url 'order_history' order.order_number %}"
+                            title="{{ order.order_number }}">                      
+                            {{ order.order_number|truncatechars:6 }}
+                        </a> 
+                    </div>
+                    <div class="col-3 mb-1">                        
+                        {{ order.date }}
+                    </div>
+                    <div class="col-3 mb-1">                        
+                        <ul>
+                            {% for item in order.lineitems.all %}
+                                <li>{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-3 mb-1">                        
+                        €{{ order.grand_total }}
+                    </div>
+                    <div class="col-7">
+                        <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                        <p class="my-0 small">Size: {{ item.size.title }}</p>
+                        <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
+                    </div>
+                    <div class="col-3 text-right">
+                        <p class="my-0 small text-muted">€{{ item.total  }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr class="my-0">
+            <div class="row text-black text-right">
+                <div class="col-7 offset-2">
+                    <p class="my-0">Order Total:</p>
+                    <p class="my-0">Delivery:</p>
+                    <p class="my-0">Grand Total:</p>
+                </div>
+                <div class="col-3">
+                    <p class="my-0">${{ gross_total | floatformat:2 }}</p>
+                    {% if delivery == 0 %}
+                        <p class="my-0">Free</p>
+                    {% else %}
+                        <p class="my-0">${{ delivery | floatformat:2 }}</p>
+                    {% endif %}
+                    <p class="my-0"><strong>${{ grand_total | floatformat:2 }}</strong></p>
+                </div>
+            </div>
+      
         </div>
     </div>        
  
