@@ -23,7 +23,6 @@
 <section class="container">
     <div class="row">
         <div class="col-12 col-lg-6">
-            {{ profile }}
             <p>Default Delivery Information</p>
             <form class="" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}

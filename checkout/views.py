@@ -155,6 +155,8 @@ def checkout_success(request, order_number):
         # Save the users info
         if save_info:
             profile_data = {
+                'first_name': order.full_name.split(" ")[0],
+                'last_name': order.full_name.split(" ")[1],
                 'default_phone_number': order.phone_number,
                 'default_country': order.country,
                 'default_postcode': order.postcode,
