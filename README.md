@@ -234,7 +234,17 @@ https://stripe.com/docs/payments/handling-payment-events
     - Add a url to the cache_checkout_data view  
 11. In stripe_elements.js add the save-info data to the form.addEventListener
 
+## UserProfileModel
 
+## Django email  
+### Set up  
+1. Create new text files for the email subject and body content in the apps static folder  
+2. In the Stripe webhook handler define a new class _send_confirmation_email  
+3. Imports  
+    - from django.core.mail import send_mail  
+    - from django.core.mail import send_mail
+    - from django.template.loader import render_to_string  
+    
 
 ## Models  
 ![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
