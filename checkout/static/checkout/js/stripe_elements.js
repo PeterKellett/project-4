@@ -115,11 +115,7 @@ form.addEventListener('submit', function(ev) {
                 if (result.paymentIntent.status === 'succeeded') {
                     console.log("payment succeeded")
                     form.submit();
-                    // Show a success message to your customer
-                    // There's a risk of the customer closing the window before callback
-                    // execution. Set up a webhook or plugin to listen for the
-                    // payment_intent.succeeded event that handles any business critical
-                    // post-payment actions.
+
                 }
             }
         });
