@@ -308,7 +308,7 @@ header a {
 /*Products layout*/
 .product-card {
     border: 1px solid #995f67;
-    max-height: 185px;
+    max-height: 205px;
 }
 
 .product-image {

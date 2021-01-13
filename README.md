@@ -202,7 +202,7 @@ Block sections added are:
 2. Stripe returns the client_secret, which is returned to the template  
 3. Using JavaScript on the client side, call the confirm card payment method from stripe js useing the client_secret in the template to call confirmCardPayment() and verify the card.  
 
-### Django Countries (Not yet installed)
+### Django Countries for use with Stripe
 - pip3 install django-Countries
 - pip3 freeze > requirements.txt
 
@@ -245,7 +245,9 @@ https://stripe.com/docs/payments/handling-payment-events
     - from django.core.mail import send_mail
     - from django.template.loader import render_to_string  
     
-
+## Securing the views (Restricting edit and delete functionality to superusers)  
+- Use the decorator @login_required from django.contrib.auth.decorators  
+ 
 ## Models  
 ![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
 
