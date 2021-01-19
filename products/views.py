@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Product, Category
+from .models import Product, Category, Reviews
 from .forms import ProductForm
+from profiles.models import UserProfile
 
 
 # Create your views here.
@@ -111,8 +112,13 @@ def all_products(request):
 def product_detail(request, product_id):
     """ A view to an individual product details """
     product = get_object_or_404(Product, pk=product_id)
+    reviews = product.reviews.all()
+    total_reviews = reviews.count()
+    print("reviews = ", reviews)
     context = {
         'product': product,
+        'reviews': reviews,
+        'total_reviews': total_reviews,
     }
     return render(request, 'products/product-detail.html', context)
 
@@ -126,9 +132,9 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            product = form.save()
             messages.success(request, 'New product added successfully.')
-            return redirect(reverse('add_product'))
+            return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(request, 'Failed to add product')
     else:
@@ -177,3 +183,21 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'You have successfully deleted')
     return redirect(reverse('products'))
+
+
+def add_review(request, product_id):
+    redirect_url = request.POST.get('redirect_url')
+    comment = request.POST.get('comment')
+    print("comment = ", comment)
+    profile = get_object_or_404(UserProfile, user=request.user)
+    print("profile = ", profile)
+    product = get_object_or_404(Product, pk=product_id)
+    print("product = ", product)
+    review = Reviews(
+                    user_profile=profile,
+                    product=product,
+                    comment=comment,
+                )
+    review.save()
+
+    return redirect(redirect_url)

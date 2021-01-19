@@ -247,6 +247,11 @@ https://stripe.com/docs/payments/handling-payment-events
     
 ## Securing the views (Restricting edit and delete functionality to superusers)  
 - Use the decorator @login_required from django.contrib.auth.decorators  
+
+## Customising the product image input (django widgets)
+- https://github.com/django/django/tree/master/django/forms/templates/django/forms/widgets  
+- Create a new file products/widgets.py  
+- 
  
 ## Models  
 ![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  

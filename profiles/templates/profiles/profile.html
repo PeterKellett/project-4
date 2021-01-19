@@ -26,17 +26,26 @@
             <p>Default Delivery Information</p>
             <form class="" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
-                {{ form|crispy }}
+                {{ form | crispy }}
                 <button>Update Info</button>
             
             </form>
         </div>
         <div class="col-12 col-lg-6 order-lg-last mb-5">
-            <p>Order History</p>
-            {% for order in orders %}
-            {{ order }}
+            <p>Your Reviews ({{ total_reviews }})</p>
+            {% for review in reviews %}
+            <div class="row">
+                <div class="col-6">
+                    {{ review.product }}
+                </div>
+                <div class="col-6">
+                    {{ review.comment }}
+                </div>
+            </div>
+                
             {% endfor %}
-            <p class="text-muted">Orders ({{ product_count }})</p>
+            
+            <p class="text-muted">Order History ({{ total_orders }})</p>
             <div class="row">
                 <div class="col-3">
                     <p class="mb-1 mt-0 small text-muted">Order number</p>

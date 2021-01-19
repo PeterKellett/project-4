@@ -1,31 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Roboto:wght@500&display=swap');
-/*
-html {
-    height: 100%;
+/*Main global layout*/
+main {
+    flex: 1 0 auto;
 }
-*/
-/* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) { 
-    .shopping-bag-font {
-        font-size: 0.5rem;
-    }
- }
-
-/* Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) { 
-    .shopping-bag-font {
-        font-size: 1rem;
-    } }
-
-/* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) { 
-    .shopping-bag-font {
-        font-size: 1.5rem;
-    }
- }
-
-/* Extra large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {  }
 
 body {
     background-color: #f5f1e2;
@@ -34,13 +11,10 @@ body {
     flex-direction: column;
 }
 
+/* Headers and navbar*/
 h1 {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
-}
-
-main {
-    flex: 1 0 auto;
 }
 
 .header-container {
@@ -67,12 +41,13 @@ header a {
     font-family: 'Roboto', sans-serif;
 }
 
+/*Messages and toasts*/
 .message-container {
     position: fixed;
     top: 72px;
     right: 15px;
     width: 300px;
-    z-index: 99999999999;
+    z-index: 99999;
 }
 
 .toast {
@@ -101,6 +76,7 @@ header a {
     border: 1px solid red;
 }
 
+/*Home page*/
 .banner {
     background-color: black;
     color: white;
@@ -114,27 +90,6 @@ header a {
     color: #555;
     font-family: 'Lato';
 }
-
-/*.home-image-animation {
-    animation-name: spinner-image;
-    animation-duration: 5s;
-    animation-iteration-count: 1;
-    width: 50%;
-    height: 50%;
-}
-
-@keyframes spinner-image {
-    0% {
-    transform: rotate(0);
-    width: 30%;
-    height: 30%;
-  }
-  100% {
-    transform: rotate(360deg);
-    width: 50%;
-    height: 50%;
-  }
-}*/
 
 .home-headline {
     background-color: #00000096;
@@ -153,14 +108,6 @@ header a {
     }
 }
 
-.filter-button {    
-    color: #000;
-    background-color: #d0b2b6f7;
-    font-family: 'Bangers', cursive;
-    border: 1px solid #985d65;
-}
-
-
 /*Allauth forms*/
 .allauth-form-inner-content {
     border: 2px solid #985d65;
@@ -176,11 +123,10 @@ header a {
     border-radius: 0;
 }
 
-/*
 .allauth-form-inner-content label:not([for='id_remember']) {
     display: none;
 }
-*/
+
 
 .allauth-form-inner-content input::placeholder {
     color: #aab7c4;
@@ -272,6 +218,13 @@ header a {
     padding: 8px 8px 8px 32px;
 }
 
+.sidenav-button {    
+    color: #000;
+    background-color: #d0b2b6f7;
+    font-family: 'Bangers', cursive;
+    border: 1px solid #985d65;
+}
+
 .increment-qty, 
 .decrement-qty {
     padding: .25rem .5rem !important;
@@ -284,6 +237,10 @@ header a {
     display: none;
 }
 
+.custom-checkbox {
+    padding: 0;
+}
+
 .custom-control-input {
     position: relative;
 }
@@ -294,6 +251,22 @@ header a {
     border-color: #985d65;
     /* background-color: #007bff; */
 }
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    background-color: #d0b2b6f7;
+}
+
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
 /*---------------------*/
 /* Filter icons */
 .filter-icons {
@@ -301,7 +274,7 @@ header a {
     background-color: #d0b2b6f7;
 }
 
-.size-button {
+.filter-icons-size {
     width: 75px;
 }
 
@@ -316,9 +289,13 @@ header a {
     max-width: 100%;
 }
 .product-card .card-text {
+    font-family: "Poppins";
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.product-card .card-text:hover {
+    text-overflow: visible;
 }
 
 .card-footer {
@@ -330,6 +307,10 @@ header a {
     padding: 0;
 }
 
+.card-footer a {
+    text-decoration: none;
+}
+
 .fa-star {
     color: yellow;
 }
@@ -339,6 +320,12 @@ header a {
     font-family: 'Bangers', cursive;
     border: 1px solid #985d65;
     
+}
+
+.fa-comments::before {
+    padding: 1rem;
+    color: red;
+    font-size: 1.5rem;
 }
 /*----Footer--*/
 .footer {

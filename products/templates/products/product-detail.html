@@ -14,7 +14,7 @@
             <img src="{{ product.image.url }}" class="img-fluid w-100 m-1" alt="{{ product.name }}">
             {% endif %}
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 col-lg-4">
             <h4 class="">{{ product.name }}</h4>
             <p class="p-1">
                 {{ product.rating }}
@@ -61,7 +61,7 @@
                    
                     </div>
                     <label class="mt-3" for="id_product_size"><strong>Size:</strong></label>
-                    <select id="id_product_size" name="product_size" class="form-control">
+                    <select id="id_product_size" name="product_size" class="form-control" required>
                         <option selected disabled>Please select an item size</option>
                         {% if product.size_s %}
                             <option value="small">Small</option>
@@ -100,9 +100,39 @@
                             <span class="icon"><i class="fas fa-shopping-bag"></i></span>
                         </button>
                     </div>
-                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </div>
+                
+                 {% if request.user.is_superuser %}
+                    <div class="div">
+                        <small><a class="edit-link" href="{% url 'edit_product' product.id %}">Edit product</a> | </small>
+                        <small><a class="text-danger delete-link" href="{% url 'delete_product' product.id %}">Delete product</a></small>
+                    </div>
+                {% endif %}
             </form>
+            <div class="row">
+                <div class="col">
+                    <form class="form" action="{% url 'add_review' product.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="comment">
+                            <i class="far fa-comments"></i>
+                        <input type="submit" value="Submit">
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    </form>
+                    
+                </div>
+            </div>
+            <p>Reviews ({{ total_reviews }})</p>
+            {% for review in reviews %}
+                <div class="row">
+                    <div class="col-6">
+                        {{ review.user_profile }}
+                    </div>
+                    <div class="col-6">
+                        {{ review.comment }}
+                    </div>
+                </div>
+            {% endfor %}
         </div>        
     </div>
 </div>

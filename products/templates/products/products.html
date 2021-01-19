@@ -24,7 +24,7 @@
                 {% for category, status in filter_dict.items %}
                     {% if category == 'all' %}
                         <div class="form-group">
-                            <div class="custom-checkbox">                       
+                            <div class="custom-control custom-checkbox">                       
                                 <input class="custom-control-input" type="checkbox" value="True" id="all" name="all" {% if status %} checked {% endif %}>
                                 <label class="custom-control-label" for="all">
                                         All
@@ -33,7 +33,7 @@
                         </div>
                     {% else %}
                         <div class="form-group">
-                            <div class="custom-checkbox">
+                            <div class="custom-control custom-checkbox">
                                 <input class="check_input custom-control-input" type="checkbox" value="True" id="{{ category }}" name="{{ category }}"  {% if status %} checked {% endif %} >
                                 <label class="form-check-label custom-control-label" for="{{ category }}">
                                         {{ category.title }}
@@ -43,7 +43,7 @@
                     {% endif %}
                 {% endfor %}
 
-                <button bottom class="filter-button btn btn-lg w-100" type="submit">Submit
+                <button bottom class="sidenav-button btn btn-lg w-100" type="submit">Submit
                     <span class="icon"><i class="fas fa-tshirt"></i></span></button>
             </form>
         </div>
@@ -65,19 +65,18 @@
             {% for x, y in filter_dict.items %}
                 {% if x != 'all' %}         
                     {% if y %}
-                        <div class="m-1 p-1 text-dark filter-icons size-button d-inline text-center">{{ x.upper }}</div>
+                        <div class="mx-1 px-1 text-dark filter-icons filter-icons-size d-inline text-center">{{ x.upper }}</div>
                     {% else %}
-                        <div class="m-1 p-1 bg-light text-muted size-button d-inline text-center">{{ x.upper }}</div>
+                        <div class="mx-1 px-1 bg-light text-muted filter-icons-size d-inline text-center">{{ x.upper }}</div>
                     {% endif %} 
                 {% endif %}              
             {% endfor %}
         </div>
         <hr>
-        <!--New attempted layout-->
-       
+        <!--Products layout-->      
         {% for x, y in filter_dict.items %}        
             {% if y and x != 'all' and x != 'small' and x != 'medium' and x != 'large' and x != 'xlarge' %}                     
-                <div class="row ml-3 p-1 text-dark filter-icons size-button text-center">{{ x.title }}</div>
+                <div class="row ml-3 p-1 text-dark filter-icons filter-icons-size text-center">{{ x.upper }}</div>
                 <div class="row ml-3 mr-1">                
                     {% for product in products %}
                         {% if product.category.name == x %}
@@ -112,7 +111,7 @@
                                             {% endif %}
                                         </p>
                                         <div class="card-footer">
-                                            <a href="{% url 'product_detail' product.id %}"><button class="products-button d-inline w-50">View Item</button></a>
+                                            <a href="{% url 'product_detail' product.id %}"><button class="products-button d-inline w-50">View Item</button></a><i class="far fa-comments"></i>
                                             <h5 class="d-inline float-right">€{{ product.price }}</h5>
                                             
                                         </div>
