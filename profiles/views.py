@@ -20,14 +20,17 @@ def profile(request):
     form = UserProfileForm(instance=profile)
     orders = profile.orders.all()
     total_orders = orders.count()
-    reviews = profile.reviews.all()
-    total_reviews = reviews.count()
+    all_reviews = profile.reviews.all()
+    total_reviews = all_reviews.count()
+    reviews_subset = all_reviews[:5]
+
     template = 'profiles/profile.html'
     context = {
         'form': form,
         'orders': orders,
         'total_orders': total_orders,
-        'reviews': reviews,
+        'all_reviews': all_reviews,
+        'reviews_subset': reviews_subset,
         'total_reviews': total_reviews,
         'profile': profile,
     }

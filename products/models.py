@@ -59,6 +59,7 @@ class Reviews(models.Model):
     class Meta:
         verbose_name_plural = 'Reviews'
 
+    date = models.DateField(auto_now_add=True)
     user_profile = models.ForeignKey(UserProfile,
                                      on_delete=models.SET_NULL,
                                      null=True,

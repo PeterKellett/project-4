@@ -31,6 +31,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ReviewsAdmin(admin.ModelAdmin):
     list_display = (
+        'date',
         'user_profile',
         'product_id',
         'comment',

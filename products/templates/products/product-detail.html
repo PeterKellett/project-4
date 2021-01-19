@@ -86,6 +86,7 @@
                     </select>
                 
                 </div>
+                
                 <div class="row">
                     <div class="col-6">
                         <a href="{% url 'products' %}">
@@ -102,37 +103,89 @@
                     </div>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </div>
-                
-                 {% if request.user.is_superuser %}
-                    <div class="div">
-                        <small><a class="edit-link" href="{% url 'edit_product' product.id %}">Edit product</a> | </small>
-                        <small><a class="text-danger delete-link" href="{% url 'delete_product' product.id %}">Delete product</a></small>
-                    </div>
-                {% endif %}
             </form>
-            <div class="row">
+            <hr>
+            <div class="row mb-2">
                 <div class="col">
-                    <form class="form" action="{% url 'add_review' product.id %}" method="POST">
-                        {% csrf_token %}
-                        <input type="text" name="comment">
-                            <i class="far fa-comments"></i>
-                        <input type="submit" value="Submit">
-                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    </form>
-                    
+                    <p class="small d-inline">Reviews ({{ total_reviews }})</p>
+                    <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
+                        View all
+                    </button> 
                 </div>
+                
             </div>
-            <p>Reviews ({{ total_reviews }})</p>
-            {% for review in reviews %}
-                <div class="row">
-                    <div class="col-6">
-                        {{ review.user_profile }}
+            {% for review in reviews_subset %}
+                <div class="row no-gutters">
+                    <div class="col">
+                        <p class="small text-left">{{ review.date }}</p>
                     </div>
-                    <div class="col-6">
-                        {{ review.comment }}
+                    <div class="col">
+                        <p class="small text-left">{{ review.user_profile }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="small review-comment" title="{{ review.comment }}">{{ review.comment|truncatechars:20 }}</p>
                     </div>
                 </div>
             {% endfor %}
+            <!--Reviews model start-->
+            <div class="modal fade" id="reviews-model" tabindex="-1" role="dialog" aria-labelledby="reviews" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviews">Reviews ({{ total_reviews }})</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                            
+                        </div>
+                        <div>
+                                {% if request.user.is_authenticated %} 
+                                <form class="form" action="{% url 'add_review' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <i class="far fa-comments"></i>
+                                    <input class="m-2" type="text" name="comment" placeholder="Leave a review">
+                                        
+                                    <button class="btn btn-sm products-button" type="submit" value="Submit">Submit</button>
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </form>
+                                {% endif %}
+                            </div>
+                        <div class="modal-body">
+                            
+                            {% for review in all_reviews %}
+                            <hr>
+                            <p class="px-1">{{ review.date }}</p>
+                            <blockquote class="blockquote">
+                                <i class="fas fa-comments"></i><p class="mb-0 small d-inline">{{ review.comment }}</p>
+                                <footer class="blockquote-footer text-right"><cite title="{{ review.user_profile }}">{{ review.user_profile }}</cite></footer>
+                            </blockquote>                          
+                            
+                            
+                            {% endfor %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
+                            </div>   
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!--Reviews model end-->
+            {% if request.user.is_superuser %}
+                <div class="div">
+                    <small><a class="edit-link" href="{% url 'edit_product' product.id %}">Edit product</a> | </small>
+                    <small><a class="text-danger delete-link" href="{% url 'delete_product' product.id %}">Delete product</a></small>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col">
+                    
+                    
+                </div>
+            </div>
+
         </div>        
     </div>
 </div>

@@ -295,7 +295,7 @@ header a {
     text-overflow: ellipsis;
 }
 .product-card .card-text:hover {
-    text-overflow: visible;
+    cursor: pointer;
 }
 
 .card-footer {
@@ -322,10 +322,43 @@ header a {
     
 }
 
+.review-comment {
+    font-family: "Poppins";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.review-comment:hover {
+    cursor: pointer;
+}
+
 .fa-comments::before {
     padding: 1rem;
-    color: red;
+    color: #985d65;
     font-size: 1.5rem;
+}
+
+.reviews-button {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #d0b3b7;
+}
+
+.modal-content {
+    background-color: #f5f1e2;
+}
+
+.modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+.modal-body {
+    padding-top: 0;
+}
+
+.modal-body hr {
+    background-color: #985d65;
 }
 /*----Footer--*/
 .footer {

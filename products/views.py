@@ -12,7 +12,7 @@ def all_products(request):
     """A view to show all products including sorting and search queries"""
     # Get all products
     # Result <class 'products.models.Category'>
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('name')
     # Get all categories
     # Result <class 'products.models.Category'>
     categories = Category.objects.all()
@@ -105,19 +105,23 @@ def all_products(request):
         'categories': categories,
         'search_term': query,
     }
-    print("END")
+    print(context)
     return render(request, 'products/products.html', context)
 
 
 def product_detail(request, product_id):
     """ A view to an individual product details """
     product = get_object_or_404(Product, pk=product_id)
-    reviews = product.reviews.all()
-    total_reviews = reviews.count()
-    print("reviews = ", reviews)
+    all_reviews = product.reviews.all()
+    print("all_reviews 1", all_reviews)
+    all_reviews = all_reviews.order_by('-date')
+    print("all_reviews 2", all_reviews)
+    total_reviews = all_reviews.count()
+    reviews_subset = all_reviews[:3]
     context = {
         'product': product,
-        'reviews': reviews,
+        'all_reviews': all_reviews,
+        'reviews_subset': reviews_subset,
         'total_reviews': total_reviews,
     }
     return render(request, 'products/product-detail.html', context)
@@ -181,10 +185,11 @@ def delete_product(request, product_id):
         return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
-    messages.success(request, 'You have successfully deleted')
+    messages.success(request, 'Product deleted')
     return redirect(reverse('products'))
 
 
+@login_required
 def add_review(request, product_id):
     redirect_url = request.POST.get('redirect_url')
     comment = request.POST.get('comment')
@@ -199,5 +204,5 @@ def add_review(request, product_id):
                     comment=comment,
                 )
     review.save()
-
+    messages.success(request, 'You have successfully added a review. Thank you!')
     return redirect(redirect_url)
