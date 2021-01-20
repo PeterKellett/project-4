@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, Reviews, Product
@@ -68,5 +68,36 @@ def add_review(request, product_id):
                     comment=comment,
                 )
     review.save()
-    messages.success(request, 'You have successfully added a review. Thank you!')
+    messages.success(request, 'You have successfully added a review.')
     return redirect(redirect_url)
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Reviews,  pk=review_id)
+    user = request.user
+    if str(user) == str(review.user_profile):
+        comment = request.POST.get('comment')
+        review.comment = comment
+        review.save()
+        messages.success(request, 'You have successfully edited the review.')
+        return redirect(reverse('profile'))
+    else:
+        messages.error(request, 'This review is uneditable by you.')
+        return redirect(reverse('home'))
+
+
+@login_required
+def delete_review(request, review_id):
+    print("delete_review")
+    review = get_object_or_404(Reviews,  pk=review_id)
+    user = request.user
+    if str(user) == str(review.user_profile):
+        comment = request.POST.get('comment')
+        review.comment = comment
+        review.delete()
+        messages.success(request, 'You have successfully deleted the review.')
+        return redirect(reverse('profile'))
+    else:
+        messages.error(request, 'You cannot delete that review')
+        return redirect(reverse('home'))

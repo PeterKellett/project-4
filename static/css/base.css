@@ -338,6 +338,10 @@ header a {
     color: #985d65;
     font-size: 1.5rem;
 }
+.fa-arrow-circle-right::before {
+    color: #985d65;
+    font-size: 1.5rem;    
+}
 
 .reviews-button {
     padding-top: 0;

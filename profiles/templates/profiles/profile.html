@@ -43,10 +43,57 @@
                     </div>
                     <div class="col">
                         <p class="review-comment d-inline" title="{{ review.comment }}">{{ review.comment|truncatechars:20 }}</p>
-                        <i class="fas fa-arrow-circle-right float-right"></i>
+                        <i class="fas fa-arrow-circle-right float-right" title="Edit/Delete" data-toggle="modal" data-target="#reviewsModel_{{ review.id }}"></i>
                     </div>
                 </div>
+                <!--Reviews model start-->
+            <div class="modal fade" id="reviewsModel_{{ review.id }}" tabindex="-1" role="dialog" aria-labelledby="reviews_{{ review.product.name }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">                        
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reviews_{{ review.product.name }}">{{ review.product.name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>                            
+                        </div>
+                        
+                        <div class="modal-body">                            
+                            
+                            <hr>
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <img src="{{ review.product.image.url }}" class="img-fluid w-100 m-1" alt="{{ review.product.name }}">
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <form action="{% url 'edit_review' review.id %}" method="POST">  
+                                        {% csrf_token %}                                   
+                                        <textarea name="comment" class="autoExpand" rows="3" data-min-rows="3" placeholder="Review text...">{{ review.comment }}</textarea>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="{% url 'delete_review' review.id %}" method="POST"><button type="button" class="btn btn-danger w-100" >Delete</button></a>
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="submit" class="btn btn-success w-100">Save</button>
+                                            </div>
+                                        </div>                                        
+                                    </form>
+                                </div>
+                            </div>
+                            
+                                                  
+                            
+                            <div class="modal-footer">
+                                
+                                
+                            </div>   
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!--Reviews model end-->
             {% endfor %}
+            
             <hr>
             <p class="text-muted">Order History ({{ total_orders }})</p>
             <div class="row no-gutters">
@@ -93,5 +140,32 @@
     </div>        
  
 </section>
+<!--Script courtesy of https://codepen.io/vsync/pen/frudD-->
+<script type="text/javascript">
+    function getScrollHeight(elm){
+  var savedValue = elm.value
+  console.log("savedValue = ")
+  elm.value = ''
+  elm._baseScrollHeight = elm.scrollHeight
+  elm.value = savedValue
+}
+
+function onExpandableTextareaInput({ target:elm }){
+  // make sure the input event originated from a textarea and it's desired to be auto-expandable
+  if( !elm.classList.contains('autoExpand') || !elm.nodeName == 'TEXTAREA' ) return
+  
+  var minRows = elm.getAttribute('data-min-rows')|0, rows;
+  !elm._baseScrollHeight && getScrollHeight(elm)
+
+  elm.rows = minRows
+  rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
+  elm.rows = minRows + rows
+}
+
+
+// global delegated event listener
+document.addEventListener('input', onExpandableTextareaInput)
+
+</script>
 {% endblock %}
 
