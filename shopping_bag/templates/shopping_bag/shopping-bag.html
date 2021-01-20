@@ -7,17 +7,17 @@
 </div>
 {% endblock %} {% block content %}
 <section>
-    <div class="container">
+    <div class="container p-0">
         <div class="row">    
             <div class="col">
                 <hr>
-                    <h1 class="text-center m-2">Shopping Bag</h1>
+                    <h1 class="m-2">Shopping Bag</h1>
                 <hr>
             </div>  
         </div>
     </div>    
 </section>
-<section class="container-fluid">
+<section>
     {% if shopping_bag_items %}
         <div class="container d-none d-md-block">
             <div class="row text-center">                      
@@ -75,7 +75,7 @@
                     </div>
                     <div class="col">
                         <!-- Button trigger Edit modal -->
-                        <button type="button" class="btn btn-primary btn-sm d-inline w-50 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>                        
+                        <button type="button" class="btn modal-button btn-sm d-inline w-50 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>                        
                         <!-- Button Remove Product -->
                         <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Delete</button></a>
                     </div>
@@ -92,9 +92,19 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        
                         <div class="modal-body">
-                            <p>{{ item.product.name }}</p>
-                            <p>{{ item.product.category.friendly_name }}</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <img src="{{ item.product.image.url }}" class="img-fluid w-100 m-1" alt="{{ item.product.name }}">
+                                </div>
+                                <div class="col">
+                                    <p>{{ item.product.name }}</p>
+                                    <p>{{ item.product.category.friendly_name }}</p>
+                                </div>
+                            </div>
+                            
                             <form class="form update-form" method="POST" action="{% url 'edit_shopping_bag' item.item_id %}">
                                 {% csrf_token %}
                                 <div class="row">
@@ -186,7 +196,7 @@
                             </form>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a class="edit-product"><button type="submit" class="btn btn-success">Save changes</button></a>
+                                <a class="edit-product"><button type="submit" class="btn modal-button">Save changes</button></a>
                             </div>   
                         </div>
                         
@@ -196,25 +206,34 @@
             <!--Products display layout on small and down-->
             <div class="d-md-none">
                 <div class="row mt-2">
-                    <div class="col-6">
+                    <div class="col-6 p-1">
                         {% if item.product.image %}
                         <img class="img-fluid w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                         {% endif %}
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 p-1">
                         <p class="my-0"><strong>{{ item.product.name }}</strong> - {{ item.product.category.friendly_name }}</p>       
                         <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
                         <p class="my-0">Size: {{ item.size.title }}</p> 
                         <p class="my-0">Qty: {{ item.quantity }} @ €{{ item.product.price }}</p>
-                        <p class="my-0">Sub-total: €{{ item.total }}</p>
-                        <!-- Button trigger Edit modal -->
-                        <button type="button" class="btn btn-primary btn-sm d-inline w-50 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>
-                        <!-- Button Remove Product -->
-                        <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Delete</button></a>
+                        <p class="">Sub-total: €{{ item.total }}</p>
+                        
+                        <div class="row">
+                            <!-- Button trigger Edit modal -->
+                            <div class="col-6">
+                                <button type="button" class="btn modal-button btn-sm w-100" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>
+                            </div>
+                            <!-- Button Remove Product -->
+                            <div class="col-6">
+                                <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}">
+                                    <button type="button" class="btn btn-danger btn-sm w-100t">Delete</button></a>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
-                
-            </div>                      
+                <hr>                
+            </div>  
+                               
         {% endfor %}
         <div class="container pt-2 p-0">
             <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total }}</p>
@@ -231,9 +250,9 @@
     {% endif %} 
     
 <!--Secure checkout and keep shopping buttons-->
-    <div class="container">
+    <div class="container p-0 mb-2">
         <div class="row">
-            <div class="col py-3 w-25">   
+            <div class="col">   
                 <a href="{% url 'products' %}" class="btn btn-lg products-button w-100">
                     <span class="icon">
                         <i class="fas fa-chevron-left"></i>
@@ -242,12 +261,12 @@
                 </a>
             </div>
         
-            <div class="col py-3 w-25">
+            <div class="col">
                 <a href="{% url 'checkout' %}" class="btn btn-lg products-button w-100">
                     <span class="icon">
                         <i class="fas fa-lock"></i>
                     </span>
-                    <span>Secure checkout</span>
+                    <span>Checkout</span>
                 </a>
             </div>
         </div> 

@@ -14,7 +14,7 @@
     <div class="row">    
         <div class="col">
         <hr>
-            <h1 class="text-center m-2">Profile</h1>
+            <h1 class="m-2">Profile</h1>
          <hr>
         </div>   
     </div>
@@ -27,7 +27,7 @@
             <form class="" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
                 {{ form | crispy }}
-                <button class="btn products-button">Update Info</button>
+                <button class="btn products-button w-50">Update Info</button>
             
             </form>
         </div>
@@ -57,8 +57,7 @@
                             </button>                            
                         </div>
                         
-                        <div class="modal-body">                            
-                            
+                        <div class="modal-body">                                                        
                             <hr>
                             <div class="row">
                                 <div class="col-12 col-lg-6">
@@ -73,7 +72,7 @@
                                                 <a href="{% url 'delete_review' review.id %}" method="POST"><button type="button" class="btn btn-danger w-100" >Delete</button></a>
                                             </div>
                                             <div class="col-6">
-                                                <button type="submit" class="btn btn-success w-100">Save</button>
+                                                <button type="submit" class="btn modal-button w-100">Save</button>
                                             </div>
                                         </div>                                        
                                     </form>

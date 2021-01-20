@@ -7,8 +7,8 @@
 </div>
 {% endblock %} {% block content %}
 
-<div class="container">
-	<div class="row mt-4">               
+<div class="container p-0">
+	<div class="row my-4">               
         <div class="col-12 col-md-6">
             {% if product.image %}                      
             <img src="{{ product.image.url }}" class="img-fluid w-100 m-1" alt="{{ product.name }}">
@@ -87,17 +87,17 @@
                 
                 </div>
                 
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-6">
                         <a href="{% url 'products' %}">
-                            <div class="products-button btn btn-lg w-100 mb-1">
+                            <div class="products-button btn w-100">
                                 <span class="icon"><i class="fas fa-chevron-left"></i></span>
                                 <span class="text-uppercase">Products</span>
                             </div>
                         </a>
                     </div>
                     <div class="col-6">
-                        <button class="products-button btn btn-lg w-100" type="submit" >Add to bag
+                        <button class="products-button btn w-100" type="submit" >Add to bag
                             <span class="icon"><i class="fas fa-shopping-bag"></i></span>
                         </button>
                     </div>
@@ -140,17 +140,21 @@
                             
                         </div>
                         <div>
-                                {% if request.user.is_authenticated %} 
-                                <form class="form" action="{% url 'add_review' product.id %}" method="POST">
-                                {% csrf_token %}
-                                <i class="far fa-comments"></i>
-                                    <input class="m-2" type="text" name="comment" placeholder="Leave a review">
-                                        
-                                    <button class="btn btn-sm products-button" type="submit" value="Submit">Submit</button>
-                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                </form>
-                                {% endif %}
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    {% if request.user.is_authenticated %} 
+                                    <form action="{% url 'add_review' product.id %}" method="POST">
+                                    {% csrf_token %}
+                                        <i class="far fa-comments"></i>
+                                        <textarea name="comment" class="autoExpand w-75" rows="1" data-min-rows="1" placeholder="Leave a review"></textarea>    
+                                        <span><button class="btn btn-sm modal-button float-right mr-2" type="submit" value="Submit">Submit</button></span>
+                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                    </form>
+                                    {% endif %}
+                                </div>
                             </div>
+                            
+                        </div>
                         <div class="modal-body">
                             
                             {% for review in all_reviews %}
@@ -235,6 +239,30 @@
        var itemId = $(this).data('item_id');
        handleEnableDisable(itemId);
     });
+
+    function getScrollHeight(elm){
+  var savedValue = elm.value
+  elm.value = ''
+  elm._baseScrollHeight = elm.scrollHeight
+  elm.value = savedValue
+}
+
+function onExpandableTextareaInput({ target:elm }){
+  // make sure the input event originated from a textarea and it's desired to be auto-expandable
+  if( !elm.classList.contains('autoExpand') || !elm.nodeName == 'TEXTAREA' ) return
+  
+  var minRows = elm.getAttribute('data-min-rows')|0, rows;
+  !elm._baseScrollHeight && getScrollHeight(elm)
+
+  elm.rows = minRows
+  rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
+  elm.rows = minRows + rows
+}
+
+
+// global delegated event listener
+document.addEventListener('input', onExpandableTextareaInput)
+
 </script>
 
 {% endblock %}

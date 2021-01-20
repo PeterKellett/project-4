@@ -110,7 +110,7 @@ header a {
 
 /*Allauth forms*/
 .allauth-form-inner-content {
-    border: 2px solid #985d65;
+    /*border: 2px solid #985d65;*/
 }
 
 .allauth-form-inner-content p {
@@ -191,12 +191,6 @@ header a {
   display: block;
   transition: 0.3s;
 }
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #985d65;
-}
-
 
 .product-menu {
     display: inline-block;
@@ -281,10 +275,10 @@ header a {
 /*Products layout*/
 .product-card {
     border: 1px solid #995f67;
-    max-height: 205px;
+    /*max-height: 205px;*/
 }
 
-.product-image {
+.product-card img {
     max-height: 160px;
     max-width: 100%;
 }
@@ -314,12 +308,25 @@ header a {
 .fa-star {
     color: yellow;
 }
+
 .products-button {    
     color: #000;
     background-color: #d0b2b6f7;
-    font-family: 'Bangers', cursive;
-    border: 1px solid #985d65;
-    
+    font-family: 'Bangers', cursive;  
+    border: 0;
+}
+/* When you mouse over the navigation links, change their color */
+.products-button:hover {
+  border: 2px solid #985d65;
+}
+
+.modal-button {
+    color: #000;
+    background-color: #d0b2b6f7;
+    border: 0;
+}
+.modal-button:hover {
+  border: 1px solid #985d65;
 }
 
 .review-comment {
@@ -334,7 +341,7 @@ header a {
 }
 
 .fa-comments::before {
-    padding: 1rem;
+    padding: 0 0.5rem;
     color: #985d65;
     font-size: 1.5rem;
 }
@@ -342,11 +349,18 @@ header a {
     color: #985d65;
     font-size: 1.5rem;    
 }
+.fa-arrow-circle-right:hover {
+    cursor: pointer;
+}
 
 .reviews-button {
     padding-top: 0;
     padding-bottom: 0;
     background-color: #d0b3b7;
+}
+
+.reviews-button:hover {
+    border: 1px solid #985d65;
 }
 
 .modal-content {
