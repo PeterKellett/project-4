@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
+from .models import UserProfile, Reviews, Product
 from .forms import UserProfileForm
 from checkout.models import Order
 
@@ -51,3 +51,22 @@ def order_history(request, order_number):
         'from_profile_page': True,
     }
     return render(request, template, context)
+
+
+@login_required
+def add_review(request, product_id):
+    redirect_url = request.POST.get('redirect_url')
+    comment = request.POST.get('comment')
+    print("comment = ", comment)
+    profile = get_object_or_404(UserProfile, user=request.user)
+    print("profile = ", profile)
+    product = get_object_or_404(Product, pk=product_id)
+    print("product = ", product)
+    review = Reviews(
+                    user_profile=profile,
+                    product=product,
+                    comment=comment,
+                )
+    review.save()
+    messages.success(request, 'You have successfully added a review. Thank you!')
+    return redirect(redirect_url)

@@ -1,5 +1,4 @@
 from django.db import models
-from profiles.models import UserProfile
 
 
 # Create your models here.
@@ -53,26 +52,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Reviews(models.Model):
-    class Meta:
-        verbose_name_plural = 'Reviews'
-
-    date = models.DateField(auto_now_add=True)
-    user_profile = models.ForeignKey(UserProfile,
-                                     on_delete=models.SET_NULL,
-                                     null=True,
-                                     blank=True,
-                                     related_name='reviews')
-    product = models.ForeignKey(Product,
-                                   null=True,
-                                   blank=True,
-                                   on_delete=models.SET_NULL,
-                                   related_name='reviews')
-    comment = models.TextField(default=False,
-                               null=False,
-                               blank=False)
-
-    def __str__(self):
-        return self.comment

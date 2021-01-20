@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Product, Category, Reviews
+from .models import Product, Category
 from .forms import ProductForm
-from profiles.models import UserProfile
 
 
 # Create your views here.
@@ -187,22 +186,3 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted')
     return redirect(reverse('products'))
-
-
-@login_required
-def add_review(request, product_id):
-    redirect_url = request.POST.get('redirect_url')
-    comment = request.POST.get('comment')
-    print("comment = ", comment)
-    profile = get_object_or_404(UserProfile, user=request.user)
-    print("profile = ", profile)
-    product = get_object_or_404(Product, pk=product_id)
-    print("product = ", product)
-    review = Reviews(
-                    user_profile=profile,
-                    product=product,
-                    comment=comment,
-                )
-    review.save()
-    messages.success(request, 'You have successfully added a review. Thank you!')
-    return redirect(redirect_url)
