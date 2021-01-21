@@ -71,7 +71,7 @@
                     </div>
                     
                     <div class="col">
-                        <p class="my-0 text-center">€{{ item.total }}</p>
+                        <p class="my-0 text-center">€{{ item.sub_total }}</p>
                     </div>
                     <div class="col">
                         <!-- Button trigger Edit modal -->
@@ -225,7 +225,7 @@
                             </div>
                             <!-- Button Remove Product -->
                             <div class="col-6">
-                                <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}">
+                                <a href="{% url 'remove_from_shopping_bag' item.item_id %}" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}">
                                     <button type="button" class="btn btn-danger btn-sm w-100t">Delete</button></a>
                             </div>
                         </div>                        
@@ -236,7 +236,9 @@
                                
         {% endfor %}
         <div class="container pt-2 p-0">
-            <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total }}</p>
+            <p class="text-right"><strong>Total:</strong> €{{ total|floatformat:2 }}</p>
+            <p class="text-right"><strong>Delivery:</strong> €{{ delivery|floatformat:2 }}</p>
+            <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total|floatformat:2 }}</p>
         </div>
         
     {% else %}

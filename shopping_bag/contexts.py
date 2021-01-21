@@ -5,7 +5,7 @@ from products.models import Product
 
 
 def shopping_bag_contents(request):
-
+    print("shopping_bag_contents")
     shopping_bag_items = []
     total = 0
     gross_total = 0
@@ -13,7 +13,9 @@ def shopping_bag_contents(request):
     shopping_bag = request.session.get('shopping_bag', {})
 
     for item_id, item_data in shopping_bag.items():
+        print("for loop")
         if isinstance(item_data, int):
+            print("if")
             product = get_object_or_404(Product, pk=item_id)
             total += item_data * product.price
             product_count += item_data
@@ -24,18 +26,22 @@ def shopping_bag_contents(request):
                 'total': total,
             })
         else:
+            print("else")
             product = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['items_by_size'].items():
-                total += quantity * product.price
+                print("size", size)
+                print("quantity", quantity)
+                sub_total = quantity * product.price
+                print("sub_total", sub_total)
                 product_count += quantity
                 shopping_bag_items.append({
                     'item_id': item_id,
                     'quantity': quantity,
                     'product': product,
                     'size': size,
-                    'total': total,
+                    'sub_total': sub_total,
                 })
-        gross_total += total
+                total += sub_total
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE/100)
         free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
@@ -43,7 +49,7 @@ def shopping_bag_contents(request):
         delivery = 0
         free_delivery_delta = 0
 
-    grand_total = delivery + gross_total
+    gross_total = delivery + total
 
     context = {
         'shopping_bag_items': shopping_bag_items,
@@ -53,7 +59,6 @@ def shopping_bag_contents(request):
         'free_delivery_delta': free_delivery_delta,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'gross_total': gross_total,
-        'grand_total': grand_total,
     }
 
     return context

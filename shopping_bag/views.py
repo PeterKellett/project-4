@@ -108,15 +108,19 @@ def edit_shopping_bag(request, item_id):
 
 def remove_from_shopping_bag(request, item_id):
     try:
+        product = get_object_or_404(Product, pk=item_id)
         size = request.POST['product_size']
         shopping_bag = request.session.get('shopping_bag', {})
 
         del shopping_bag[item_id]['items_by_size'][size]
         if shopping_bag[item_id]['items_by_size'] == {}:
             shopping_bag.pop(item_id)
-
+        messages.success(request,
+                         f'Removed size {size.upper()} {product.name}\
+                                  from your bag.')
         request.session['shopping_bag'] = shopping_bag
         print(shopping_bag)
         return HttpResponse(status=200)
     except Exception as e:
+        messages.error(request, f'Error removing item: {e}')
         return HttpResponse(status=500)
