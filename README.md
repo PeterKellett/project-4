@@ -393,7 +393,13 @@ Add path in root level urls.py file
 8. Install gunicorn to act as the webserver
     - pip3 install gunicorn
 9. Create a Procfile to initiate a web dyno
-10. Add the hostname of the Heroku app to the allowed host setting in settings.py 
+10. Add the hostname of the Heroku app to the allowed host setting in settings.py
+11. Deploy to Heroku
+
+## Django secret key generator.  
+- https://miniwebtool.com/django-secret-key-generator/  
+1. Generate a random secret key and add this to Heroku Config Vars SECRET_KEY =  
+
 
 
 ## Gitpod Reminders
