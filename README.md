@@ -399,6 +399,67 @@ Add path in root level urls.py file
 ## Django secret key generator.  
 - https://miniwebtool.com/django-secret-key-generator/  
 1. Generate a random secret key and add this to Heroku Config Vars SECRET_KEY =  
+2. Change the SECRET_KEY setting in setting.py to read it from the os environment Config Vars  
+3. Set the DEBUG flag to True only if DEVELOPMENT is in the environment  
+
+
+# AWS
+1. Create a new AWS s3 bucket  
+
+## Configure bucket settings  
+1. In Properties, turn on Static website hosting. 
+    - Set Index document to index.html (Unused but are required fields)
+    - Set Error document to error.html (Unused but are required fields)
+2. In Permissions set up the cross-origin resource sharing (CORS) 
+3. In Permissions generate a new bucket policy number  
+    - Set Policy type = s3 bucket policy  
+    - Add Statements Principle = *  
+    - Add Statements Actions = get object  
+    - Copy ARN number from AWS Management Console and paste to ARN fields
+    - Click Add Statement 
+    - Click Generate Policy  
+    - Copy this policy to the Edit bucket policy and add /* to end of resource key  
+4. In Permissions go to Access control list and set the list objects permission to Everyone  
+
+## Setting up Aws bucket user rights  
+1. Go to AWS Services menu and select IAM (Identity and Access Management)
+2. Create a group for the user 
+    - Enter a group name (manage-project-4) and skip to end
+3. Create an access policy to give the group access rights to the project bucket  
+    - Click Policies and Create New Policy
+    - On JSON tab click Import managed policy 
+    - Search for s3 and import the AmazonS3FullAccess policy
+    - Enter the ARN number to Resources key list twice  
+        - arn:aws:s3:::project-4-blackhills-jerseys (to allow access to the bucket)
+        - arn:aws:s3:::project-4-blackhills-jerseys/* (To allow access to the bucket contents)
+    - Click Create Policy, enter a name and description and Create.
+4. Assign a user to the group
+    - Go to Groups
+    - Select the manage-project-4 group, click attach a policy and search for the policy just generated and attach.  
+    - Go to Users and click Add User  
+    - Create a user called project-4-staticfiles-user
+    - Assign Programmatic access to this user
+    - Select the group to assign this user and click through to the end to create this user.
+    - On Success page download and save the CSV file. This is required in order to authenticate the Django app secret access keys.
+
+## Connecting Django to AWS bucket  
+1. Install boto3 and django-storages  
+    - pip3 install boto3  
+    - pip3 install django-storages  
+2. Add storages to list of INSTALLED_APPS in settings.py  
+3. Declare AWS secret keys and config as environment variables.
+4. Set these Config Vars in Heroku
+    - AWS_ACCESS_KEY_ID (Values obtained in downloaded AWS CSV file)
+    - AWS_SECRET_ACCESS_KEY (Values obtained in downloaded AWS CSV file)
+    - USE_AWS = True  
+5. Set the AWS custom domain in settings.py  
+    - AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'  
+
+## Creating Custom storages  
+
+
+
+
 
 
 
