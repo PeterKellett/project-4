@@ -12,7 +12,7 @@
     <div class="row">    
         <div class="col">
         <hr>
-            <h1 class="text-center m-2">Product Management</h1>
+            <h1>Product Management</h1>
          <hr>
         </div>   
     </div>
@@ -21,10 +21,8 @@
 <section class="container">
     <div class="row">
         <div class="col-12 col-lg-6">
-            <p>Add a product</p>
-        </div>
-        <div class="col-12 col-lg-6 order-lg-last mb-5">
-            <form method="POST" action="{% url 'add_product' %}" class="form" enctype="multipart/form-data">
+            <h5>Add a product</h5>
+            <form method="POST" action="{% url 'add_product' %}" class="form mb-2" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for field in form %}
                     {% if field.name != 'image' %}
@@ -36,6 +34,9 @@
                 <a class="btn products-button" href="{% url 'products' %}">Products</a>
                 <button class="btn products-button" type="submit">Add a product</button>
             </form>
+        </div>
+        <div class="col-12 col-lg-6 order-lg-last mb-5">
+            
         </div>
     </div>        
  

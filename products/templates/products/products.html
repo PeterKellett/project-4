@@ -65,9 +65,9 @@
             {% for x, y in filter_dict.items %}
                 {% if x != 'all' %}         
                     {% if y %}
-                        <div class="mx-1 px-1 text-dark filter-icons filter-icons-size d-inline text-center">{{ x.upper }}</div>
+                        <div class="m-1 px-1 text-dark filter-icons filter-icons-size d-inline text-center">{{ x.upper }}</div>
                     {% else %}
-                        <div class="mx-1 px-1 bg-light text-muted filter-icons-size d-inline text-center">{{ x.upper }}</div>
+                        <div class="m-1 px-1 bg-light text-muted filter-icons-size d-inline text-center">{{ x.upper }}</div>
                     {% endif %} 
                 {% endif %}              
             {% endfor %}

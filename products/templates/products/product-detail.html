@@ -16,10 +16,6 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
             <h4 class="">{{ product.name }}</h4>
-            <p class="p-1">
-                {{ product.rating }}
-                <i class="fa fa-star" aria-hidden="true"></i>    
-            </p>
             <h4 class="">€{{ product.price }}</h4>           
             <p class="">{{ product.description }}</p>
             <p class="text-muted small">{{ product.sku }}</p>
@@ -107,7 +103,7 @@
             <hr>
             <div class="row mb-2">
                 <div class="col">
-                    <p class="small d-inline">Reviews ({{ total_reviews }})</p>
+                    <i class="far fa-comments"></i><p class="small d-inline">({{ total_reviews }})</p>
                     <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
                         View all
                     </button> 
@@ -155,21 +151,18 @@
                             </div>
                             
                         </div>
-                        <div class="modal-body">
-                            
+                        <div class="modal-body">                            
                             {% for review in all_reviews %}
                             <hr>
                             <p class="px-1">{{ review.date }}</p>
                             <blockquote class="blockquote">
                                 <i class="fas fa-comments"></i><p class="mb-0 small d-inline">{{ review.comment }}</p>
                                 <footer class="blockquote-footer text-right"><cite title="{{ review.user_profile }}">{{ review.user_profile }}</cite></footer>
-                            </blockquote>                          
-                            
-                            
+                            </blockquote>                                                     
                             {% endfor %}
+                            <hr>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                                
                             </div>   
                         </div>
                         

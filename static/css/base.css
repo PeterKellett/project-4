@@ -375,8 +375,11 @@ header a {
     padding-top: 0;
 }
 
-.modal-body hr {
+.modal-content hr {
     background-color: #985d65;
+}
+.modal-footer {
+    border: none;
 }
 /*----Footer--*/
 .footer {
