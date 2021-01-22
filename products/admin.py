@@ -25,6 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
         'size_m',
         'size_lg',
         'size_xl',
+        'number_of_reviews',
     )
 
     ordering = ('-category',)

@@ -49,6 +49,7 @@ class Product(models.Model):
     size_xl = models.BooleanField(default=False,
                                   null=True,
                                   blank=True)
+    number_of_reviews = models.IntegerField(null=True,)
 
     def __str__(self):
         return self.name

@@ -5,7 +5,6 @@ from products.models import Product
 
 
 def shopping_bag_contents(request):
-    print("shopping_bag_contents")
     shopping_bag_items = []
     total = 0
     gross_total = 0
@@ -13,7 +12,6 @@ def shopping_bag_contents(request):
     shopping_bag = request.session.get('shopping_bag', {})
 
     for item_id, item_data in shopping_bag.items():
-        print("for loop")
         if isinstance(item_data, int):
             print("if")
             product = get_object_or_404(Product, pk=item_id)
@@ -26,13 +24,9 @@ def shopping_bag_contents(request):
                 'total': total,
             })
         else:
-            print("else")
             product = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['items_by_size'].items():
-                print("size", size)
-                print("quantity", quantity)
                 sub_total = quantity * product.price
-                print("sub_total", sub_total)
                 product_count += quantity
                 shopping_bag_items.append({
                     'item_id': item_id,

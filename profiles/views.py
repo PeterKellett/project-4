@@ -68,6 +68,10 @@ def add_review(request, product_id):
                     comment=comment,
                 )
     review.save()
+    number_of_reviews = product.reviews.count()
+    print('number_of_reviews', number_of_reviews)
+    product.number_of_reviews = number_of_reviews
+    product.save()
     messages.success(request, 'You have successfully added a review.')
     return redirect(redirect_url)
 
@@ -89,13 +93,16 @@ def edit_review(request, review_id):
 
 @login_required
 def delete_review(request, review_id):
-    print("delete_review")
     review = get_object_or_404(Reviews,  pk=review_id)
+    product = get_object_or_404(Product,  pk=review.product_id)
     user = request.user
     if str(user) == str(review.user_profile):
-        comment = request.POST.get('comment')
-        review.comment = comment
         review.delete()
+        number_of_reviews = product.reviews.count()
+        if number_of_reviews == 0:
+            number_of_reviews = None
+        product.number_of_reviews = number_of_reviews
+        product.save()
         messages.success(request, 'You have successfully deleted the review.')
         return redirect(reverse('profile'))
     else:

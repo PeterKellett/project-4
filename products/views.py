@@ -3,7 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Category
+from profiles.models import Reviews
 from .forms import ProductForm
+from itertools import chain
+from operator import attrgetter
 
 
 # Create your views here.
@@ -72,8 +75,6 @@ def all_products(request):
                 filter_dict[category] = False
                 category = [category]
                 products = products.exclude(category__name__in=category)
-                print("products exclude")
-                print(products)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -104,7 +105,7 @@ def all_products(request):
         'categories': categories,
         'search_term': query,
     }
-    print(context)
+
     return render(request, 'products/products.html', context)
 
 

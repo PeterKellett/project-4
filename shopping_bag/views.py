@@ -116,7 +116,7 @@ def remove_from_shopping_bag(request, item_id):
         if shopping_bag[item_id]['items_by_size'] == {}:
             shopping_bag.pop(item_id)
         messages.success(request,
-                         f'Removed size {size.upper()} {product.name}\
+                         f'Removed {product.name} size {size.upper()}\
                                   from your bag.')
         request.session['shopping_bag'] = shopping_bag
         print(shopping_bag)
