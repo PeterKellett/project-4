@@ -1,0 +1,1 @@
+web: gunicorn blackhills_jerseys.wsgi:application

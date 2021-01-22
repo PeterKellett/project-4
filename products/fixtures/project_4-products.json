@@ -8,9 +8,13 @@
       "description": "abc",
       "price": 53.99,
       "category": 3,
-      "rating": 4.6,
       "image_url": "https://res.cloudinary.com/dfboxofas/image/upload/v1605802045/new/gaa-antrim_hddbxm.jpg",
-      "image": "gaa-antrim.jpg"
+      "image": "gaa-antrim.jpg",
+      "size_s": true,
+      "size_m": true,
+      "size_lg" : true,
+      "size_xl" : true,
+      "number_of_reviews": null
     }
   },
   {
@@ -21,9 +25,13 @@
       "name": "AC Milan - 1994",
       "price": 58.99,
       "category": 1,
-      "rating": 4,
       "image_url": "https://res.cloudinary.com/dfboxofas/image/upload/v1605802034/new/soccer-acmilan-1994_yakmcc.webp",
-      "image": "soccer-acmilan-1994.jpg"
+      "image": "soccer-acmilan-1994.jpg",
+      "size_s": true,
+      "size_m": true,
+      "size_lg" : true,
+      "size_xl" : true,
+      "number_of_reviews": null
     }
   },
   {
@@ -35,9 +43,13 @@
       "description": "2011 World Cup winning jersey",
       "price": 205.99,
       "category": 2,
-      "rating": 4.7,
       "image_url": "https://res.cloudinary.com/dfboxofas/image/upload/v1605802022/new/rugby-allblacks-2011_vhzpmh.jpg",
-      "image": "rugby-allblacks-2011.jpg"
+      "image": "rugby-allblacks-2011.jpg",
+      "size_s": true,
+      "size_m": true,
+      "size_lg" : true,
+      "size_xl" : true,
+      "number_of_reviews": null
     }
   }
 ]

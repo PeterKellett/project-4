@@ -378,7 +378,22 @@ Add path in root level urls.py file
 (note: Extra css block example in tutorials)  
 
 
-
+# Deployment  
+- Using AWS s3 
+1. Create an Heroku App  
+    - project-4-blackhills-jerseys  
+2. Initiate a Postgres database in the heroku app Resources tab  
+    - add-ons postgres and use the free plan  
+3. Install dj_database_url and psycopg2-binary with pip3 installs
+4. Freeze these installs to requirements.txt
+5. In settings.py import dj_database_url and change the default DATABASE to the Heroku Postgres database url found in Heroku app settings tab Config Vars.
+6. Migrate this new database python3 manage.py migrate
+7. Set a superuser  
+    - python3 manage.py createsuperuser
+8. Install gunicorn to act as the webserver
+    - pip3 install gunicorn
+9. Create a Procfile to initiate a web dyno
+10. Add the hostname of the Heroku app to the allowed host setting in settings.py 
 
 
 ## Gitpod Reminders
