@@ -1,1 +1,1 @@
-web: gunicorn project-4-blackhills-jerseys.wsgi:application
+web: gunicorn project-4.wsgi:application
