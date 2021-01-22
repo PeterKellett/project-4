@@ -34,9 +34,6 @@ class Product(models.Model):
     sku = models.CharField(max_length=254,
                            null=True,
                            blank=True)
-    rating = models.IntegerField(default=False,
-                                 null=True,
-                                 blank=True)
     size_s = models.BooleanField(default=False,
                                  null=True,
                                  blank=True)
@@ -49,7 +46,8 @@ class Product(models.Model):
     size_xl = models.BooleanField(default=False,
                                   null=True,
                                   blank=True)
-    number_of_reviews = models.IntegerField(null=True,)
+    number_of_reviews = models.IntegerField(blank=True,
+                                            null=True)
 
     def __str__(self):
         return self.name

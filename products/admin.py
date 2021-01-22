@@ -20,7 +20,6 @@ class ProductAdmin(admin.ModelAdmin):
         'image_url',
         'image',
         'sku',
-        'rating',
         'size_s',
         'size_m',
         'size_lg',

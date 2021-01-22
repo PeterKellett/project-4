@@ -18,7 +18,7 @@ class ProductForm(forms.ModelForm):
         categories = Category.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
 
-        self.fields['product_size'].widget.attrs['autofocus'] = True
+        self.fields['number_of_reviews'].widget.attrs['disabled'] = True
         self.fields['category'].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = ''
