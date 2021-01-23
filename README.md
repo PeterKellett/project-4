@@ -457,9 +457,9 @@ Add path in root level urls.py file
 
 ## Creating Custom storages  
 Create a new file custom_storages.py  
+This tells the environment where to store static and media files using S3Boto£Storages
 
-
-
+## Cache control
 
 
 
