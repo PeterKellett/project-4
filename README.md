@@ -456,6 +456,7 @@ Add path in root level urls.py file
     - AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'  
 
 ## Creating Custom storages  
+Create a new file custom_storages.py  
 
 
 
