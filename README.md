@@ -460,7 +460,13 @@ Create a new file custom_storages.py
 This tells the environment where to store static and media files using S3Boto£Storages
 
 ## Cache control
+Create a folder 'media' in the project AWS bucket.
+Add the required project images to this folder and grand public read permissions  
 
+## Adding Stripe secret keys  
+Set the Stripe secret keys to Heroku Config Vars  
+- STRIPE_PUBLIC_KEY
+- STRIPE_SECRET_KEY
 
 
 
