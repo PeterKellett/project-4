@@ -20,118 +20,162 @@
     </div>
 </section>
 
-<section class="container">
+<section class="container px-0">
     <div class="row">
         <div class="col-12 col-lg-6">
             <p>Default Delivery Information</p>
             <form class="" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
                 {{ form | crispy }}
-                <button class="btn products-button w-50">Update Info</button>
-            
+                <button class="btn products-button w-50" type="submit">Update Info</button>            
             </form>
+            <hr>
         </div>
-        <div class="col-12 col-lg-6 order-lg-last mb-5">
-            <p class="text-muted">Your Reviews ({{ total_reviews }})</p>
-            {% for review in reviews_subset %}
-                <div class="row no-gutters">
-                    <div class="col">
-                        <p class="text-left">{{ review.date }}</p>
-                    </div>
-                    <div class="col">
-                        <p class="text-left">{{ review.product }}</p>
-                    </div>
-                    <div class="col">
-                        <p class="review-comment d-inline" title="{{ review.comment }}">{{ review.comment|truncatechars:20 }}</p>
-                        <i class="fas fa-arrow-circle-right float-right" title="Edit/Delete" data-toggle="modal" data-target="#reviewsModel_{{ review.id }}"></i>
-                    </div>
+        <div class="col-12 col-lg-6">
+            <div class="row align-items-center">
+                <div class="col">
+                    <p class="text-muted d-inline mb-1">Your Reviews ({{ total_reviews }})</p>
+                    <button type="button" class="btn reviews-button btn-sm d-inline m-1" id="reviews">
+                        View all
+                    </button> 
                 </div>
-                <!--Reviews model start-->
-            <div class="modal fade" id="reviewsModel_{{ review.id }}" tabindex="-1" role="dialog" aria-labelledby="reviews_{{ review.product.name }}" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">                        
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="reviews_{{ review.product.name }}">{{ review.product.name }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>                            
-                        </div>
-                        
-                        <div class="modal-body">                                                        
-                            <hr>
-                            <div class="row">
-                                <div class="col-12 col-lg-6">
-                                    <img src="{{ review.product.image.url }}" class="img-fluid w-100 m-1" alt="{{ review.product.name }}">
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <form action="{% url 'edit_review' review.id %}" method="POST">  
-                                        {% csrf_token %}                                   
-                                        <textarea name="comment" class="autoExpand" rows="3" data-min-rows="3" placeholder="Review text...">{{ review.comment }}</textarea>
+            </div>      
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Review</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>     
+                    {% for review in all_reviews %}
+                        {% if forloop.counter <= 5 %}
+                            <tr>
+                                <td>
+                                    {{ review.date }}
+                                </td>
+                                <td>
+                                    {{ review.product }}
+                                </td>
+                                <td>
+                                    <p class="review-comment d-inline" title="{{ review.comment }}">{{ review.comment|truncatechars:20 }}</p>
+                                    <i class="fas fa-arrow-circle-right float-right" title="Edit/Delete" data-toggle="modal" data-target="#reviewsModel_{{ review.id }}"></i>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr class="reviews" style="display: none">
+                                <td>
+                                    {{ review.date }}
+                                </td>
+                                <td>
+                                    {{ review.product }}
+                                </td>
+                                <td>
+                                    <p class="review-comment d-inline" title="{{ review.comment }}">{{ review.comment|truncatechars:20 }}</p>
+                                    <i class="fas fa-arrow-circle-right float-right" title="Edit/Delete" data-toggle="modal" data-target="#reviewsModel_{{ review.id }}"></i>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <!--Reviews model start-->
+                        <div class="modal fade" id="reviewsModel_{{ review.id }}" tabindex="-1" role="dialog" aria-labelledby="reviews_{{ review.product.name }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">                        
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="reviews_{{ review.product.name }}">{{ review.product.name }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>                            
+                                    </div>
+                                    
+                                    <div class="modal-body">                                                        
+                                        <hr>
                                         <div class="row">
-                                            <div class="col-6">
-                                                <a href="{% url 'delete_review' review.id %}" method="POST"><button type="button" class="btn btn-danger w-100" >Delete</button></a>
+                                            <div class="col-12 col-lg-6">
+                                                <img src="{{ review.product.image.url }}" class="img-fluid w-100 m-1" alt="{{ review.product.name }}">
                                             </div>
-                                            <div class="col-6">
-                                                <button type="submit" class="btn modal-button w-100">Save</button>
+                                            <div class="col-12 col-lg-6">
+                                                <form action="{% url 'edit_review' review.id %}" method="POST">  
+                                                    {% csrf_token %}                                   
+                                                    <textarea name="comment" class="autoExpand" rows="3" data-min-rows="3" placeholder="Review text...">{{ review.comment }}</textarea>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="{% url 'delete_review' review.id %}" method="POST"><button type="button" class="btn btn-danger w-100" >Delete</button></a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button type="submit" class="btn modal-button w-100">Save</button>
+                                                        </div>
+                                                    </div>                                        
+                                                </form>
                                             </div>
-                                        </div>                                        
-                                    </form>
+                                        </div>                           
+                                    </div>                        
                                 </div>
                             </div>
-                            
-                                                  
-                            
-                            <div class="modal-footer">
-                                
-                                
-                            </div>   
                         </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <!--Reviews model end-->
-            {% endfor %}
+                        <!--Reviews model end-->
+                    {% endfor %}
+                </tbody>
+            </table>
             
             <hr>
-            <p class="text-muted">Order History ({{ total_orders }})</p>
-            <div class="row no-gutters">
+            <div class="row align-items-center">
                 <div class="col">
-                    <p class="mb-1 mt-0 text-muted">Order number</p>
-                </div>
-                <div class="col">
-                    <p class="mb-1 mt-0 text-muted">Date</p>
-                </div>
-                <div class="col">
-                    <p class="mb-1 mt-0 text-muted">Items</p>
-                </div>
-                <div class="col">
-                    <p class="mb-1 mt-0 text-muted text-center">Total</p>
+                    <p class="text-muted d-inline mb-1">Order History ({{ total_orders }})</p>
+                    <button type="button" class="btn reviews-button btn-sm d-inline m-1" id="orders">
+                            View all
+                    </button> 
                 </div>
             </div>
-            {% for order in orders %}
-                <div class="row mb-1 no-gutters">
-                    <div class="col px-1"> 
-                        <a href="{% url 'order_history' order.order_number %}"
-                            title="{{ order.order_number }}" class="">                      
-                            {{ order.order_number|truncatechars:10 }}
-                        </a> 
-                    </div>
-                    <div class="col px-1">                        
-                        <p class="">{{ order.date }}</p>
-                    </div>
-                    <div class="col px-1">                                               
-                        {% for item in order.lineitems.all %}
-                            <p class="">{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
-                        {% endfor %}                        
-                    </div>
-                    <div class="col px-1">                        
-                        <p class=" text-center">€{{ order.grand_total }}</p>
-                    </div>
-                    
-                    
-                </div>
-            {% endfor %}
+            
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                    <th scope="col">Order number</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Items</th>
+                    <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        {% if forloop.counter <= 3 %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'order_history' order.order_number %}"
+                                        title="{{ order.order_number }}" class="">                      
+                                        {{ order.order_number|truncatechars:10 }}
+                                    </a>
+                                </td>
+                                <td>{{ order.date }}</td>
+                                <td>
+                                    {% for item in order.lineitems.all %}
+                                    <p class="">{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
+                                    {% endfor %}   
+                                </td>
+                                <td>€{{ order.grand_total }}</td>
+                            </tr>    
+                        {% else %}
+                            <tr class="orders" style="display: none">
+                                <td>
+                                    <a href="{% url 'order_history' order.order_number %}"
+                                        title="{{ order.order_number }}" class="">                      
+                                        {{ order.order_number|truncatechars:10 }}
+                                    </a>
+                                </td>
+                                <td>{{ order.date }}</td>
+                                <td>
+                                    {% for item in order.lineitems.all %}
+                                    <p class="">{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
+                                    {% endfor %}   
+                                </td>
+                                <td>€{{ order.grand_total }}</td>
+                            </tr>    
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
             <hr class="my-0">
             
       
@@ -142,28 +186,33 @@
 <!--Script courtesy of https://codepen.io/vsync/pen/frudD-->
 <script type="text/javascript">
     function getScrollHeight(elm){
-  var savedValue = elm.value
-  console.log("savedValue = ")
-  elm.value = ''
-  elm._baseScrollHeight = elm.scrollHeight
-  elm.value = savedValue
-}
+    var savedValue = elm.value
+    elm.value = ''
+    elm._baseScrollHeight = elm.scrollHeight
+    elm.value = savedValue
+    }
 
-function onExpandableTextareaInput({ target:elm }){
-  // make sure the input event originated from a textarea and it's desired to be auto-expandable
-  if( !elm.classList.contains('autoExpand') || !elm.nodeName == 'TEXTAREA' ) return
-  
-  var minRows = elm.getAttribute('data-min-rows')|0, rows;
-  !elm._baseScrollHeight && getScrollHeight(elm)
+    function onExpandableTextareaInput({ target:elm }){
+    // make sure the input event originated from a textarea and it's desired to be auto-expandable
+    if( !elm.classList.contains('autoExpand') || !elm.nodeName == 'TEXTAREA' ) return
+    
+    var minRows = elm.getAttribute('data-min-rows')|0, rows;
+    !elm._baseScrollHeight && getScrollHeight(elm)
 
-  elm.rows = minRows
-  rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
-  elm.rows = minRows + rows
-}
-
+    elm.rows = minRows
+    rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
+    elm.rows = minRows + rows
+    }
 
 // global delegated event listener
 document.addEventListener('input', onExpandableTextareaInput)
+
+$('#reviews').click(function() {
+    $(".reviews").toggle();
+})
+$('#orders').click(function() {
+    $(".orders").toggle();
+})
 
 </script>
 {% endblock %}

@@ -196,7 +196,7 @@
                             </form>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a class="edit-product"><button type="submit" class="btn modal-button">Save changes</button></a>
+                                <button type="submit" class="btn modal-button edit-product">Save changes</button>
                             </div>   
                         </div>
                         
@@ -324,7 +324,6 @@
 
     // Update quantity on click
     $('.edit-product').click(function(e) {
-        console.log("edit product function triggered")
         // var csrfToken = "{{ csrf_token }}";
         var form = $(this).parent().prev();
         console.log(form);          
@@ -332,7 +331,6 @@
     });
 
     $('.remove-product').click(function(e) {
-        console.log("remove function triggered")
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
         var size = $(this).data('product_size');

@@ -18,11 +18,10 @@ def profile(request):
         else:
             messages.error(request, 'Update failed. Please ensure the form is valid')
     form = UserProfileForm(instance=profile)
-    orders = profile.orders.all()
+    orders = profile.orders.all().order_by('-date')
     total_orders = orders.count()
-    all_reviews = profile.reviews.all()
+    all_reviews = profile.reviews.all().order_by('-date')
     total_reviews = all_reviews.count()
-    reviews_subset = all_reviews[:5]
 
     template = 'profiles/profile.html'
     context = {
@@ -30,7 +29,6 @@ def profile(request):
         'orders': orders,
         'total_orders': total_orders,
         'all_reviews': all_reviews,
-        'reviews_subset': reviews_subset,
         'total_reviews': total_reviews,
         'profile': profile,
     }

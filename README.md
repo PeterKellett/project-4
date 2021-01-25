@@ -466,7 +466,10 @@ Add the required project images to this folder and grand public read permissions
 ## Adding Stripe secret keys  
 Set the Stripe secret keys to Heroku Config Vars  
 - STRIPE_PUBLIC_KEY
-- STRIPE_SECRET_KEY
+- STRIPE_SECRET_KEY  
+
+# Email setup  
+
 
 
 

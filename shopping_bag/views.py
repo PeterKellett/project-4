@@ -20,8 +20,8 @@ def add_to_shopping_bag(request, item_id):
     quantity = int(request.POST.get('quantity'))
     # Obtain the size value from the form
     size = request.POST['product_size']
-    print(size)
-
+    redirect_url = request.POST.get('redirect_url')
+    print('redirect_url', redirect_url)
     # For storing the shopping_bag contents to the session
     """
     1. Request the shopping_bag from the session variables
@@ -59,9 +59,7 @@ def add_to_shopping_bag(request, item_id):
     """
     4. Now redirect the user back to the url they were on previously
     """
-    print("bag")
-    print(request.session['shopping_bag'])
-    return redirect(reverse('view_shopping_bag'))
+    return redirect(redirect_url)
 
 
 def edit_shopping_bag(request, item_id):

@@ -103,26 +103,42 @@
             <hr>
             <div class="row mb-2">
                 <div class="col">
-                    <i class="far fa-comments"></i><p class="small d-inline">({{ total_reviews }})</p>
-                    <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
-                        View all
-                    </button> 
+                    {% if product.number_of_reviews != None %}                             
+                        <i class="far fa-comments"></i><p class="small d-inline">Reviews ({{ total_reviews }})</p>
+                        <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
+                            View all
+                        </button>                                      
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Review</th>
+                                </tr>
+                            </thead>
+                            {% for review in all_reviews %}
+                                {% if forloop.counter <= 3 %} 
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ review.date }}</td>
+                                            <td>{{ review.user_profile }}</td>
+                                            <td>{{ review.comment|truncatechars:20 }}</td>
+                                        </tr>
+                                    </tbody>
+                                {% endif %}
+                            {% endfor%}
+                        </table>
+                    {% else %}
+                        <i class="far fa-comments"></i>
+                        
+                        <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
+                            Leave review
+                        </button> 
+                        <p class="small">There are no reviews for this item.</p>
+                    {% endif %}
                 </div>
                 
             </div>
-            {% for review in reviews_subset %}
-                <div class="row no-gutters">
-                    <div class="col">
-                        <p class="small text-left">{{ review.date }}</p>
-                    </div>
-                    <div class="col">
-                        <p class="small text-left">{{ review.user_profile }}</p>
-                    </div>
-                    <div class="col">
-                        <p class="small review-comment" title="{{ review.comment }}">{{ review.comment|truncatechars:20 }}</p>
-                    </div>
-                </div>
-            {% endfor %}
             <!--Reviews model start-->
             <div class="modal fade" id="reviews-model" tabindex="-1" role="dialog" aria-labelledby="reviews" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -142,7 +158,7 @@
                                     <form action="{% url 'add_review' product.id %}" method="POST">
                                     {% csrf_token %}
                                         <i class="far fa-comments"></i>
-                                        <textarea name="comment" class="autoExpand w-75" rows="1" data-min-rows="1" placeholder="Leave a review"></textarea>    
+                                        <textarea name="comment" class="autoExpand w-75" rows="1" data-min-rows="1" placeholder="Leave a review" required></textarea>    
                                         <span><button class="btn btn-sm modal-button float-right mr-2" type="submit" value="Submit">Submit</button></span>
                                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                     </form>

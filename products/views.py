@@ -112,16 +112,12 @@ def all_products(request):
 def product_detail(request, product_id):
     """ A view to an individual product details """
     product = get_object_or_404(Product, pk=product_id)
-    all_reviews = product.reviews.all()
-    print("all_reviews 1", all_reviews)
-    all_reviews = all_reviews.order_by('-date')
-    print("all_reviews 2", all_reviews)
+    all_reviews = product.reviews.all().order_by('-date')
     total_reviews = all_reviews.count()
-    reviews_subset = all_reviews[:3]
+
     context = {
         'product': product,
         'all_reviews': all_reviews,
-        'reviews_subset': reviews_subset,
         'total_reviews': total_reviews,
     }
     return render(request, 'products/product-detail.html', context)
