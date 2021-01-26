@@ -52,8 +52,8 @@
 <body>
 	<header class="container-fluid fixed-top p-0">
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand p-0 text-decoration-none" href="{% url 'home' %}">
-                <img src="/media/blackhills-logo.png" width="40" height="40" class="d-inline-block align-top" alt="" loading="lazy">
+            <a class="navbar-brand p-0" href="{% url 'home' %}">
+                <img src="{{ MEDIA_URL }}blackhills-logo.png" width="40" height="40" class="d-inline-block align-top" alt="Blackhills jerseys logo" loading="lazy">
                 <h2 class="d-inline py-auto"><strong>Blackhills Jerseys</strong></h2>
             </a>
             <button class="navbar-toggler bg-dark text-light" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,8 +61,8 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav mt-2 mt-lg-0">
-                    <li class="nav-item active">
+                <ul class="navbar-nav nav-pills mt-2 mt-lg-0">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -73,7 +73,7 @@
                     </li>
                     
                 </ul>    
-                <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">                
+                <ul class="navbar-nav nav-pills mt-2 mt-lg-0 ml-auto">                
                     {% if request.user.is_authenticated %} 
                         {% if request.user.is_superuser %}
                             <li class="nav-item">
@@ -179,29 +179,28 @@
     <div class="container-fluid footer">
         <div class="row">
             <div class="col-12 col-lg-4 py-2 footerCol">
-                <img  class="img-fluid w-50 mx-auto d-block" src="/media/secure-payment-stripejpg.jpg" alt="Card image cap" /> 
+                <img  class="img-fluid w-50 mx-auto d-block" src="/media/secure-payment-stripe.png" alt="Card image cap" /> 
                 
             </div>
             <hr>
             <div class="col-12 col-lg-4 py-2 footerCol">
                 <h5>Quick links</h5>
-                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-link" href="{% url 'home2' %}">About</a>
-                <a class="nav-link" href="#">Contact us</a>
-                <a class="nav-link" href="#">Testimonials</a>                 
+                <a class="d-block" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>              
+                <a class="d-block" href="{% url 'products' %}">Products</a>
+                <a class="d-block" href="#">Contact us</a>     
             </div>
             
             <div class="col-12 col-lg-4 py-2 footerCol">
-                <h5 class="">Contacts</h5>               
-                <a class="nav-link" href="#">
-                    <i class="fas fa-phone-square-alt">+353 (0)1 1234567</i>
+                <h5 class="">Contacts</h5>
+                <a class="d-block" href="#">
+                    <i class="fas fa-phone-square-alt"> +353 (0)1 1234567</i>
                 </a>                
-                <a class="nav-link" href="#">
-                    <i class="fab fa-facebook"></i>
-                </a>               
-                <a class="nav-link" href="#">
+                <a class="d-block" href="#">
+                    <i class="fab fa-facebook-square"></i>
+                </a>                
+                <a class="d-block" href="#">
                     <i class="fab fa-twitter-square"></i>
-                </a>
+                </a>                
             </div>
         </div>
     </div>
