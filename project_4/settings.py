@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     # Other
     'crispy_forms',
     'jsonify',
-    'storages'
+    'storages',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
