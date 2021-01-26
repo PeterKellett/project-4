@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib import messages
 
 from products.models import Product
@@ -39,7 +39,8 @@ def add_to_shopping_bag(request, item_id):
         if size in shopping_bag[item_id]['items_by_size'].keys():
             shopping_bag[item_id]['items_by_size'][size] += quantity
             messages.warning(request,
-                             f'You already have this item in your basket. {product.name} {size.upper()}.')
+                             f'You already have this item in your basket. \
+                                 {product.name} {size.upper()}.')
         else:
             shopping_bag[item_id]['items_by_size'][size] = quantity
             messages.success(request,

@@ -175,9 +175,9 @@ header a {
   z-index: 1; /* Stay on top */
   top: 0;
   left: -260px;
-  background-color: #eae2f1; /* Black*/
+  background-color: #eae2f1; 
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 56px; /* Place content 60px from the top */
+  padding-top: 56px; /* Place content 56px from the top to allow for fixed navbar */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
@@ -281,6 +281,16 @@ header a {
 }
 
 /*Products layout*/
+.products-container {
+    margin-left: 25px;
+    }
+@media (min-width: 768px) {
+    .products-container {
+    margin-left: 70px;
+    }
+}
+
+
 .product-card {
     border: 1px solid #995f67;
     /*max-height: 205px;*/

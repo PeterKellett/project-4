@@ -123,7 +123,8 @@ def product_detail(request, product_id):
 @login_required
 def add_product(request):
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry only users with admin rights can access this')
+        messages.error(request,
+                       'Sorry only users with admin rights can access this')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
@@ -146,7 +147,8 @@ def add_product(request):
 @login_required
 def edit_product(request, product_id):
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry only users with admin rights can access this')
+        messages.error(request,
+                       'Sorry only users with admin rights can access this')
         return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
@@ -157,7 +159,9 @@ def edit_product(request, product_id):
                              'You have successfully updated product')
             return redirect(reverse('product_detail', args=[product.id]))
         else:
-            messages.error(request, 'Failed to update product. Please ensure all fields are correct.')
+            messages.error(request,
+                           'Failed to update product. \
+                               Please ensure all fields are correct.')
     else:
         form = ProductForm(instance=product)
         messages.info(request, 'You are editing product.')
@@ -174,7 +178,8 @@ def edit_product(request, product_id):
 @login_required
 def delete_product(request, product_id):
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry only users with admin rights can access this')
+        messages.error(request,
+                       'Sorry only users with admin rights can access this')
         return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
