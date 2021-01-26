@@ -14,7 +14,6 @@ body {
 /* Headers and navbar*/
 h1 {
     font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
 }
 
 .header-container {
@@ -25,8 +24,8 @@ h1 {
     font-family: 'Bangers', cursive;
 }
 
-.navbar a h1 {
-    text-transform: uppercase;
+.navbar-brand:hover {
+    color: #000;
 }
 
 header, .footer {
@@ -39,6 +38,10 @@ header a {
 
 .nav-link {
     font-family: 'Roboto', sans-serif;
+}
+.nav-link:hover {
+    background-color: #985d65;
+    color: #fff;
 }
 
 /*Messages and toasts*/
@@ -109,10 +112,6 @@ header a {
 }
 
 /*Allauth forms*/
-.allauth-form-inner-content {
-    /*border: 2px solid #985d65;*/
-}
-
 .allauth-form-inner-content p {
     margin-top: 1.5rem; /* mt-4 */
     color: #000; /* #6c757d text-secondary */
@@ -233,6 +232,11 @@ header a {
 /* Sidenav checkboxes customised */
 .custom-control-input:focus {
     display: none;
+}
+
+.search-button {
+    background-color: #985d65;
+    color: #fff;
 }
 
 .custom-checkbox {

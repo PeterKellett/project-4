@@ -10,7 +10,7 @@
         <!--Search bar text form-->
             <form class="py-2" method="GET" action="{% url 'products' %}">
                 <input class="" type="text" name="q" placeholder="Search">
-                <span><button class="float-right" type="submit" value="Submit">
+                <span><button class="search-button float-right" type="submit" value="Submit">
                     <i class="fas fa-search"></i>
                 </button></span>
                 {% if search_term != None %}
@@ -131,26 +131,21 @@
         
 {% block postloadjs %}
 <script type="text/javascript">
-    //openNav();
-    console.log("screen width = " + screen.width + "px")
+    //Close the sideMenu();
     document.getElementById("menu-close").style.display = "none";
-    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-    console.log("script loaded")
+
 function openNav() {
-  document.getElementById("SidenavId").style.left = "0";
-  document.getElementById("menu-open").style.display = "none";
-  document.getElementById("menu-close").style.display = "inline-block";
-  //document.getElementById("product-menu").style.width = "400px";
-  console.log("openNav function fired");
+  document.getElementById("SidenavId").style.left = "0"; // Set the margin-left to 0
+  document.getElementById("menu-open").style.display = "none"; //Hide the sideMenu open button
+  document.getElementById("menu-close").style.display = "inline-block"; //Display the sideMenu close button
 }
 
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
 function closeNav() {
-  document.getElementById("SidenavId").style.left = "-260px";
-  document.getElementById("menu-open").style.display = "inline-block";
-  document.getElementById("menu-close").style.display = "none";
-  console.log("closeNav function fired");
+  document.getElementById("SidenavId").style.left = "-260px"; //Set the sideMenu margin-left to -260px (sideMenu width - menu-open button)
+  document.getElementById("menu-open").style.display = "inline-block"; //Display the menu open button
+  document.getElementById("menu-close").style.display = "none"; //Hide the menu-close button
 }
+
 /* Functionality for the all checkbox to be deselected
     when another checbox is deselected */
 $('.check_input').click(function() {

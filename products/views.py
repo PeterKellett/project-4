@@ -3,10 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Category
-from profiles.models import Reviews
 from .forms import ProductForm
-from itertools import chain
-from operator import attrgetter
 
 
 # Create your views here.

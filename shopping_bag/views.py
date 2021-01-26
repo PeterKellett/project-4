@@ -70,9 +70,7 @@ def edit_shopping_bag(request, item_id):
     size = request.POST['product_size']
     redirect_url = request.POST.get('redirect_url')
     shopping_bag = request.session.get('shopping_bag', {})
-    print(shopping_bag)
     shopping_bag[item_id]['items_by_size'].pop(previous_size)
-    print(shopping_bag)
 
     if item_id in list(shopping_bag.keys()):
         if size in shopping_bag[item_id]['items_by_size'].keys():
@@ -117,7 +115,6 @@ def remove_from_shopping_bag(request, item_id):
                          f'Removed {product.name} size {size.upper()}\
                                   from your bag.')
         request.session['shopping_bag'] = shopping_bag
-        print(shopping_bag)
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, f'Error removing item: {e}')
