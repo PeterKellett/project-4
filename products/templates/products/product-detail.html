@@ -21,8 +21,7 @@
             <p class="text-muted small">{{ product.sku }}</p>
 
             <form class="form" action="{% url 'add_to_shopping_bag' product.id %}" method="POST">
-                {% csrf_token %}
-                
+                {% csrf_token %}                
                 <div class="form-group w-100">
                     <label for="id_qty_{{ product.id }}"><strong>Quantity:</strong></label>
                     <div class="input-group">                    
@@ -54,7 +53,7 @@
                                 </span>
                             </button>
                         </div>
-                   
+                
                     </div>
                     <label class="mt-3" for="id_product_size"><strong>Size:</strong></label>
                     <select id="id_product_size" name="product_size" class="form-control" placeholder="Please select an item size" required>
@@ -205,73 +204,7 @@
 {% endblock %}
 {% block postloadjs %}
 
-<script type="text/javascript">
-
-    // Disable +/- buttons outside 1-99 range
-    function handleEnableDisable(itemId) {
-        var currentValue = parseInt($(`#id_qty_${itemId}`).val());
-        var minusDisabled = currentValue < 2;
-        var plusDisabled = currentValue > 98;
-        $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
-        $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
-    }
-
-    // Ensure proper enabling/disabling of all inputs on page load
-    var allQtyInputs = $('.qty_input');
-    for(var i = 0; i < allQtyInputs.length; i++){
-        var itemId = $(allQtyInputs[i]).data('item_id');
-        handleEnableDisable(itemId);
-    }
-
-    // Check enable/disable every time the input is changed
-    $('.qty_input').change(function() {
-        var itemId = $(this).data('item_id');
-        handleEnableDisable(itemId);
-    });
-
-    // Increment quantity
-    $('.increment-qty').click(function(e) {
-       e.preventDefault();
-       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
-       var currentValue = parseInt($(closestInput).val());
-       $(closestInput).val(currentValue + 1);
-       var itemId = $(this).data('item_id');
-       handleEnableDisable(itemId);
-    });
-
-    // Decrement quantity
-    $('.decrement-qty').click(function(e) {
-       e.preventDefault();
-       var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
-       var currentValue = parseInt($(closestInput).val());
-       $(closestInput).val(currentValue - 1);
-       var itemId = $(this).data('item_id');
-       handleEnableDisable(itemId);
-    });
-
-    function getScrollHeight(elm){
-  var savedValue = elm.value
-  elm.value = ''
-  elm._baseScrollHeight = elm.scrollHeight
-  elm.value = savedValue
-}
-
-function onExpandableTextareaInput({ target:elm }){
-  // make sure the input event originated from a textarea and it's desired to be auto-expandable
-  if( !elm.classList.contains('autoExpand') || !elm.nodeName == 'TEXTAREA' ) return
-  
-  var minRows = elm.getAttribute('data-min-rows')|0, rows;
-  !elm._baseScrollHeight && getScrollHeight(elm)
-
-  elm.rows = minRows
-  rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
-  elm.rows = minRows + rows
-}
-
-
-// global delegated event listener
-document.addEventListener('input', onExpandableTextareaInput)
-
-</script>
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
 
 {% endblock %}
