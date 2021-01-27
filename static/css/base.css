@@ -251,7 +251,6 @@ header a {
     background-color: #985d65;
     color: #985d65;
     border-color: #985d65;
-    /* background-color: #007bff; */
 }
 
 .btn-file {
@@ -284,6 +283,7 @@ header a {
 .products-container {
     margin-left: 25px;
     }
+
 @media (min-width: 768px) {
     .products-container {
     margin-left: 70px;

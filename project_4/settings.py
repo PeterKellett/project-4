@@ -109,7 +109,7 @@ SITE_ID = 1
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = 'blackhillsjerseys@example.com'
+    DEFAULT_FROM_EMAIL = 'blackhillsjerseys@gmail.com'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = TrueEMAIL_PORT = 587
