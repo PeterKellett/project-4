@@ -100,3 +100,26 @@
 7. Load the data
    - python3 manage.py loaddata products
 8. Customise the admin of the categories model in products/admin.py  
+
+## CSS stylesheets
+1. mkdir static
+2. mkdir static/css
+3. Connect these new folders in settings.py
+   - STATIC_URL = '/static/'
+   - STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  
+
+## Media files
+1. mkdir media
+2. Connect the media folder in settings.py
+   - MEDIA_URL = '/media/'
+   - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+3. Add the following to the root urls.py file
+   - from django.conf import settings
+   - from django.conf.urls.static import static
+   - '+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
+
+## Crispy form  
+1. pip3 install django-crispy-forms
+2. Add this install to settings.py INSTALLED_APPS
+3. CRISPY_TEMPLATE_PACK = 'bootstrap4'
+4. Add to templates-builtins in settings.py
