@@ -1,5 +1,5 @@
 <img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611675581/project-4/blackhillls_logo_qgtqtm.png" style="height: 100px"><img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611676527/project-4/jerseys-transparent-bg_2_yi6org.png" style="height: 100px">
-
+[title](https://www.example.com)
 # PeterKellett - Milestone Project 4
 ## Introduction
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
@@ -37,6 +37,12 @@ The two main colours used on this site #d0b3b7 and #985d65.
 ### Typography
 The main fonts used are Bangers and Roboto from Google Fonts. Bangers is the style of the brand logo so it is continued in a descrete fashion throughout the site on the buttons which bring the user through the full visit and checkout experience. It was chosen as it reflects a casual yet sharp style. Roboto is used for all other text as it is a clean well spaced font and easy on the eye.
 
+### Source libraries  
+1. Django framework
+2. Bootstrap4 
+3. Fontawesome  
+4. Stripe javascript  
+5. jQuery  
 
 ## Models  
 ![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
@@ -165,8 +171,6 @@ Block sections added are:
 Django Allauth is used for controlling user registration, login verification, and password encryption.   
 - pip3 install django-allauth  
 - Set up reference guide https://django-allauth.readthedocs.io/en/latest/installation.html  
-
-
 ### Home App  
 This app holds the files for any static pages on the site such as the home page and any other generic pages such as Terms and Conditions, Privacy Policy if applicable. In this project the only Home page is held in this app folder.   
 
@@ -267,7 +271,6 @@ The Stripe payment gateway requires a 2 character abbreviation for the country f
 - pip3 install django-Countries
 - pip3 freeze > requirements.txt
 
-
 ### Profiles App  
 The profiles app contains the files for storing users personal credentials.  
 
@@ -285,34 +288,88 @@ Profiles app url's:
 - path('edit_review/<review_id>/', views.edit_review, name='edit_review')
 - path('delete_review/<review_id>/', views.delete_review, name='delete_review')
 
+## CSS stylesheets  
+In development environment: 
+CSS stylesheets can be kept locally or globally. Global CSS stylesheets are held in the root level static folder. Local CSS stylesheets can be held in the App static folders.  
+In production environment: 
+All stylesheet files are held in the AWS project bucket/static.
+
+## Media files  
+In development environment: 
+Media files are held in the root level media folder.
+In production environment: 
+All media files are held in the AWS project bucket/media. 
+
+## Testing  
+### Testing the templates  
+Go to each page in turn and verify the page and contents display correctly.
+1. / Verify the home page is displayed  
+2. /products Verify the products page is displayed  
+3. /product/<productid> Verify the product details page is displayed  
+4. /bag Verify the Shopping bag page is displayed  
+5. /profile Verify the profile page is displayed  
+6. /checkout 
+7. /login Verify the login page is displayed  
+8. /Register Verify the register page is displayed  
+
+### Testing functionality  
+#### allAuth Registration test 
+1. Go to registration page and submit login form.
+2. Verify email verification page is displayed.
+3. Verify verification email is received.
+4. Verify visiting the link in the email completes the registration process.  
+
+#### allAuth Login/logout test
+1. Go to login in page and submit the form.
+2. Verify user is logged in correctly.  
+3. Click logout link in navbar and verify user is logged out correctly.
+
+#### Sidebar filter tests
+1. Go to products page and verify sidebar triggers correctly.  
+2. Verify all checkboxes are ticked by default and all products are displayed.
+3. Uncheck some of the checkboxes and verify the products are filtered out correctly.  
+4. Verify the All checkbox checks and unchecks all other checkboxes in the sidebar menu.  
+
+#### Product details test  
+1. Go to product details of a product.  
+2. Verify a user can select quantities and size of a particular product.  
+
+#### Reviews  
+1. Verify the reviews modal on a product with reviews opens and closes.
+2. Verify all reviews for that product are listed on the modal.  
+
+#### Shopping bag test
+1. Add several items of various sizes and quantities of each.
+2. Click on the shopping bag icon in the navbar to go to the shopping bag page.  
+3. Verify size, quantities and subtotals are correct for each item added.
+4. Verify total, delivery, and grand totals are correct.  
+5. Verify a user can edit and delete any item in their shopping bag. 
+
+#### Checkout test  
+1. Go to checkout page and submit the form using a Stripe test card number.  
+    - https://stripe.com/docs/testing  
+2. Verify the user is brought to the checkout success page with the order details displayed.  
+3. Go to Stripe dashboard > Developers > logs and verify a payment intent was created, the payment was charged, and the payment was successful.  
+
+#### Checkout Stripe webhook test  
+In case there is a problem with the connection between the server and the user and a Stripe callback cannot be made at the time of payment execution a Stripe webhook is used to complete the payment and safely store the order to the database.  
+The Stripe webhook endpoint can be tested in 2 ways:  
+1. By ommitting the form.send() command on the checkout page. This will force the server to initiate the callback using the webhook endpoint.  
+2. Webhook endpoints can be manually triggered from the Stripe dashboard > webhooks. This will trigger a generic callback response to the endpoint provided.  
+
+#### Securing the views test (Restricting certain functionality to registered users only)  
+@login_required from django.contrib.auth.decorators  
+Restricted content and functionality includes:  
+- Functionality of adding, editing, or deleting a review.  
+- Access to the Profile page.  
+- Access to order_history content.  
+- Access to Product Management pages. 
+1. Log out and manually force a url to restricted content.  
+2. Verify the content access is denied and the user is brought to the home page with an error message displayed. 
+3. Verify that only the superuser has access to the Product Management page. 
 
 
-
-#### Source libraries
-1. Bootstrap4 starter template with css and js option 2 chosen.
-
-## CSS stylesheet
-1. mkdir static
-2. mkdir static/css
-3. Connect these new folders in settings.py
-   - STATIC_URL = '/static/'
-   - STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-## Media files
-1. mkdir media
-2. Connect the media folder in settings.py
-   - MEDIA_URL = '/media/'
-   - MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-3. Add the following to the root urls.py file
-   - from django.conf import settings
-   - from django.conf.urls.static import static
-   - '+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'
-
-## Crispy form  
-1. pip3 install django-crispy-forms
-2. Add this install to settings.py INSTALLED_APPS
-3. CRISPY_TEMPLATE_PACK = 'bootstrap4'
-4. Add to templates-builtins in settings.py
+--------------------------------------------------------------------------------------------
 
 ## Django email  
 ### Set up  
@@ -323,25 +380,13 @@ Profiles app url's:
     - from django.core.mail import send_mail
     - from django.template.loader import render_to_string  
     
-## Securing the views (Restricting edit and delete functionality to superusers)  
+## Securing the views (Restricting certain functionality to registered users only)  
 - Use the decorator @login_required from django.contrib.auth.decorators  
 
 ## Customising the product image input (django widgets)
 - https://github.com/django/django/tree/master/django/forms/templates/django/forms/widgets  
 - Create a new file products/widgets.py  
-- 
- 
 
-## Checkout App
-- uuid  
-
-### Checkout models  
-- Order  
-- OrderLineItem  
-
-### Checkout admin models  
-- OrderLineItemAdminInline  
-- OrderAdmin  
 
 ### Checkout Signals checkout/signals.py
 - post save
