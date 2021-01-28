@@ -1,5 +1,4 @@
-<img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611675581/project-4/blackhillls_logo_qgtqtm.png" style="height: 100px"><img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611676527/project-4/jerseys-transparent-bg_2_yi6org.png" style="height: 100px">  
-
+<img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611675581/project-4/blackhillls_logo_qgtqtm.png" style="height: 50px">
 # PeterKellett - Milestone Project 4
 ## Introduction
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
