@@ -1,4 +1,7 @@
-## Project initial set up
+# Project set up  
+This document outlines the various steps taken during the development of this project.  
+
+## Initial set up 
 1. Install Django
    - pip3 install django (v20.2.4 installed)
 2. Create the project root files
@@ -51,7 +54,15 @@
    - CLI: cp -r ../.pip-modules/lib/python3.8/site-packages/allauth/templates/\* ./templates/allauth
 4. Remove openid and tests folders as they are not required.
 
-
+## Django email  
+### Set up  
+1. Create new text files for the email subject and body content in the apps static folder  
+2. In the Stripe webhook handler define a new class _send_confirmation_email  
+3. Imports  
+    - from django.core.mail import send_mail  
+    - from django.core.mail import send_mail
+    - from django.template.loader import render_to_string  
+ 
 ## Home App
 1. Create app
    - python3 manage.py startapp home
