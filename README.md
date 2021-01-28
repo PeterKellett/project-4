@@ -1,5 +1,5 @@
-<img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611675581/project-4/blackhillls_logo_qgtqtm.png" style="height: 100px"><img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611676527/project-4/jerseys-transparent-bg_2_yi6org.png" style="height: 100px">
-[title](https://www.example.com)
+<img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611675581/project-4/blackhillls_logo_qgtqtm.png" style="height: 100px"><img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611676527/project-4/jerseys-transparent-bg_2_yi6org.png" style="height: 100px">  
+
 # PeterKellett - Milestone Project 4
 ## Introduction
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
@@ -230,8 +230,8 @@ Checkout app url's:
 - path('cache_checkout_data/', views.cache_checkout_data, name='cache_checkout_data')
 - path('WH/', webhook, name='webhook')
 
-## Checkout App order number generator  
-To generate a unique order number for each order uuid is used.  
+## Checkout App order number generator (uuid)  
+To generate a unique order number for each order Django uuid is used. This will give a random string of 32 characters as a unique identifier to each order submitted.  
 
 ### Stripe checkput
 1. The checkout view creates a Stripe paymentIntent  
@@ -246,7 +246,7 @@ To generate a unique order number for each order uuid is used.
     - Payment failed/declined
 3. Add a URL path to this file in checkout/urls.py and import the webhooks function from .webhooks  
 4. Create a new file checkout/webhooks.py to listen for Stripe Webhooks
-https://stripe.com/docs/payments/handling-payment-events  
+    [Stripe docs - Payment intents](https://stripe.com/docs/payments/handling-payment-events)  
 5. In settings.py set the stripe webhook secret key from the environment variables  
 6. Add a webhook endpoint in Stripe dashboard/Developers/webhooks/add endpoint 
     - endpoint url: https://8000-c613707c-ac21-4c3b-9ef3-d0af7fd6591c.ws-eu03.gitpod.io/checkout/WH/  
@@ -296,21 +296,21 @@ All stylesheet files are held in the AWS project bucket/static.
 
 ## Media files  
 In development environment: 
-Media files are held in the root level media folder.
+Media files are held in the root level media folder.  
 In production environment: 
 All media files are held in the AWS project bucket/media. 
 
 ## Testing  
 ### Testing the templates  
 Go to each page in turn and verify the page and contents display correctly.
-1. / Verify the home page is displayed  
-2. /products Verify the products page is displayed  
-3. /product/<productid> Verify the product details page is displayed  
-4. /bag Verify the Shopping bag page is displayed  
-5. /profile Verify the profile page is displayed  
-6. /checkout 
-7. /login Verify the login page is displayed  
-8. /Register Verify the register page is displayed  
+1. / - Verify the home page is displayed  
+2. /products - Verify the products page is displayed  
+3. /product/<productid> - Verify the product details page is displayed  
+4. /bag - Verify the Shopping bag page is displayed  
+5. /profile - Verify the profile page is displayed  
+6. /checkout - Verify the checkout page is displayed. 
+7. /login - Verify the login page is displayed  
+8. /Register - Verify the register page is displayed  
 
 ### Testing functionality  
 #### allAuth Registration test 
@@ -338,6 +338,14 @@ Go to each page in turn and verify the page and contents display correctly.
 1. Verify the reviews modal on a product with reviews opens and closes.
 2. Verify all reviews for that product are listed on the modal.  
 
+#### Add/Edit/Delete reviews test  
+1. Verify a user must be logged in to be able to add a review.
+2. Log in and add a review to a product.  
+3. Go to profile page, edit and verify the review can be edited and deleted.  
+4. Add another review and log out.
+5. Verify the review added cannot be edited by entering /edit_review/<review_id> in the url.  
+6. Verify the review added cannot be deleted by entering /delete_review/<review_id> in the url.  
+
 #### Shopping bag test
 1. Add several items of various sizes and quantities of each.
 2. Click on the shopping bag icon in the navbar to go to the shopping bag page.  
@@ -347,7 +355,7 @@ Go to each page in turn and verify the page and contents display correctly.
 
 #### Checkout test  
 1. Go to checkout page and submit the form using a Stripe test card number.  
-    - https://stripe.com/docs/testing  
+    - [Stripe docs - Testing](https://stripe.com/docs/testing)
 2. Verify the user is brought to the checkout success page with the order details displayed.  
 3. Go to Stripe dashboard > Developers > logs and verify a payment intent was created, the payment was charged, and the payment was successful.  
 
@@ -368,36 +376,24 @@ Restricted content and functionality includes:
 2. Verify the content access is denied and the user is brought to the home page with an error message displayed. 
 3. Verify that only the superuser has access to the Product Management page. 
 
+## Deployment  
+This projects repository is held in GitHub and is hosted with Heroku Apps. Deployment to Heroku Apps is done from the GitHub master branch.
 
---------------------------------------------------------------------------------------------
+GitHub repository: https://github.com/PeterKellett/project-3
+Deployment procedure to implement new functionality
+Go to project repository above and create a new upstream branch or raise an issue, this will also create an upstream branch.
+Open this branch or issue in code editor. For this project GitPod was used.
+Add and commit code to this branch until satisfied code can be merged with the main branch.
+Send a pull request to GitHub requesting the branch can be merged.
+If there are no conflicts raised this branch or issue can then be closed by performing a merge onto the main branch. A merge can also be performed from GitPod.
+This GitHub repository master branch is automatically connected to Heroku through Heroku settings so any merges to the GitHub master branch are automatically deployed and built in Heroku.
+Deployment procedure to clone this project
+Go to project repository above and click 'Code' button
 
-## Django email  
-### Set up  
-1. Create new text files for the email subject and body content in the apps static folder  
-2. In the Stripe webhook handler define a new class _send_confirmation_email  
-3. Imports  
-    - from django.core.mail import send_mail  
-    - from django.core.mail import send_mail
-    - from django.template.loader import render_to_string  
-    
-## Securing the views (Restricting certain functionality to registered users only)  
-- Use the decorator @login_required from django.contrib.auth.decorators  
-
-## Customising the product image input (django widgets)
-- https://github.com/django/django/tree/master/django/forms/templates/django/forms/widgets  
-- Create a new file products/widgets.py  
+Copy the url (see image below and for full instructions see https://docs.github.com/en/enterprise/2.13/user/articles/cloning-a-repository) Screenshot  
 
 
-### Checkout Signals checkout/signals.py
-- post save
-- post delete
-
-### Checkout forms checkout/forms.py
-- OrderForm  
-
-
-# Deployment  
-- Using AWS s3 
+### Using AWS s3 
 1. Create an Heroku App  
     - project-4-blackhills-jerseys  
 2. Initiate a Postgres database in the heroku app Resources tab  
@@ -485,5 +481,26 @@ Add the required project images to this folder and grand public read permissions
 Set the Stripe secret keys to Heroku Config Vars  
 - STRIPE_PUBLIC_KEY
 - STRIPE_SECRET_KEY  
+
+A full project set up procedure can be seen here:  
+[Full project set up procedure](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)  
+
+--------------------------------------------------------------------------------------------
+
+   
+
+## Customising the product image input (django widgets)
+- [Django docs - widgets](https://github.com/django/django/tree/master/django/forms/templates/django/forms/widgets) 
+- Create a new file products/widgets.py  
+
+
+### Checkout Signals checkout/signals.py
+- post save
+- post delete
+
+### Checkout forms checkout/forms.py
+- OrderForm  
+
+
 
 # Email setup  
