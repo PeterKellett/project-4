@@ -7,6 +7,8 @@ from products.models import Product
 def shopping_bag_contents(request):
     shopping_bag_items = []
     total = 0
+    registered_discount = settings.REGISTERED_DISCOUNT
+    discount = 0
     gross_total = 0
     product_count = 0
     shopping_bag = request.session.get('shopping_bag', {})
@@ -38,19 +40,21 @@ def shopping_bag_contents(request):
                 total += sub_total
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE/100)
-        free_delivery_delta = settings.FREE_DELIVERY_THRESHOLD - total
     else:
         delivery = 0
-        free_delivery_delta = 0
 
-    gross_total = delivery + total
+    if request.user.is_authenticated:
+        discount = (
+            total * Decimal(registered_discount/100))
+    gross_total = delivery + total - discount
 
     context = {
         'shopping_bag_items': shopping_bag_items,
         'total': total,
         'product_count': product_count,
         'delivery': delivery,
-        'free_delivery_delta': free_delivery_delta,
+        'registered_discount': registered_discount,
+        'discount': discount,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'gross_total': gross_total,
     }
