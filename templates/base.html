@@ -170,6 +170,17 @@
 
 	{% block page_header %}{% endblock %}
     <main class="container-fluid p-0">
+        {% if request.user.is_authenticated %}
+            
+        {% else %}
+            <div class="row">
+                <div class="col">
+                    <p class="text-center discount-banner">Sign up to get {{ registered_discount }}% discount<a href="{% url 'account_signup' %}" class="btn btn-sm text-uppercase rounded-0">        
+                        Sign up <i class="fas fa-angle-double-right"></i>                      
+                    </a></p>
+                </div>
+            </div>
+        {% endif %}
 	{% block content %}{% endblock %}
     </main>
     <div class="container-fluid footer">
