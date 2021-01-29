@@ -65,7 +65,7 @@
                         <a class="nav-link" href="{% url 'products' %}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact us</a>
+                        <a class="nav-link" href="#">About us</a>
                     </li>
                     
                 </ul>    
@@ -170,7 +170,7 @@
 
 	{% block page_header %}{% endblock %}
     <main class="container-fluid p-0">
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_not_authenticated %}
             
         {% else %}
             <div class="row">

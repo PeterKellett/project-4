@@ -174,10 +174,9 @@ header a {
 	color: #17a2b8; /* text-info */
 }
 
-/*----Products page--*/
+/*----Products page-----------------------------------------*/
 
 /*----W3 sidebar----*/
-
 .sidenav {
   height: 100%; /* 100% Full-height */  
   margin-left: 0;
@@ -304,7 +303,6 @@ header a {
 .product-card {
     border: 1px solid #995f67;
     background-color: #fff;
-    /*max-height: 205px;*/
 }
 
 .product-card img {
@@ -322,8 +320,6 @@ header a {
 }
 
 .card-footer {
-    /*position: relative;
-    bottom: 10px;*/
     width: 100%;
     background-color: inherit;
     border-top: none;
@@ -342,7 +338,8 @@ header a {
 }
 /* When you mouse over the navigation links, change their color */
 .products-button:hover {
-  border: 2px solid #985d65;
+  color: #fff;
+    background-color: #985d65;
 }
 
 .modal-button {
@@ -350,12 +347,9 @@ header a {
     background-color: #d0b2b6f7;
     border: 1px solid transparent;
 }
+
 .modal-button:hover {
-  border: 1px solid #985d65;
-}
-button[type='submit']:hover {
-    color: #fff;
-    background-color: #985d65;
+    border: 1px solid #985d65;
 }
 
 .review-comment {
