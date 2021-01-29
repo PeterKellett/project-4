@@ -5,8 +5,7 @@
   </div>
 </div>
 {% endblock %} {% block content %}
-
-<div class="container p-0">
+<div class="container">
 	<div class="row my-4">               
         <div class="col-12 col-md-6">
             {% if product.image %}                      
@@ -18,7 +17,6 @@
             <h4 class="">€{{ product.price }}</h4>           
             <p class="">{{ product.description }}</p>
             <p class="text-muted small">{{ product.sku }}</p>
-
             <form class="form" action="{% url 'add_to_shopping_bag' product.id %}" method="POST">
                 {% csrf_token %}                
                 <div class="form-group w-100">
@@ -100,10 +98,10 @@
             </form>
             <hr>
             <div class="row mb-2">
-                <div class="col">
+                <div class="col align-middle">
                     {% if product.number_of_reviews != None %}                             
                         <i class="far fa-comments"></i><p class="small d-inline">Reviews ({{ total_reviews }})</p>
-                        <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
+                        <button type="button" class="btn reviews-button btn-sm d-inline mb-1" data-toggle="modal" data-target="#reviews-model">
                             View all
                         </button>                                      
                         <table class="table table-sm">
@@ -127,42 +125,38 @@
                             {% endfor%}
                         </table>
                     {% else %}
-                        <i class="far fa-comments"></i>
-                        
+                        <i class="far fa-comments"></i>                        
                         <button type="button" class="btn reviews-button btn-sm d-inline" data-toggle="modal" data-target="#reviews-model">
                             Leave review
                         </button> 
                         <p class="small">There are no reviews for this item.</p>
                     {% endif %}
-                </div>
-                
+                </div>                
             </div>
             <!--Reviews model start-->
             <div class="modal fade" id="reviews-model" tabindex="-1" role="dialog" aria-labelledby="reviews" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        
+                    <div class="modal-content">                        
                         <div class="modal-header">
                             <h5 class="modal-title" id="reviews">Reviews ({{ total_reviews }})</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                            </button>
-                            
+                            </button>                            
                         </div>
                         <div>
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    {% if request.user.is_authenticated %} 
-                                    <form action="{% url 'add_review' product.id %}" method="POST">
-                                    {% csrf_token %}
-                                        <i class="far fa-comments"></i>
-                                        <textarea name="comment" class="autoExpand w-75" rows="1" data-min-rows="1" placeholder="Leave a review" required></textarea>    
-                                        <span><button class="btn btn-sm modal-button float-right mr-2" type="submit" value="Submit">Submit</button></span>
-                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                    </form>
-                                    {% endif %}
-                                </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                {% if request.user.is_authenticated %} 
+                                <form action="{% url 'add_review' product.id %}" method="POST">
+                                {% csrf_token %}
+                                    <i class="far fa-comments align-top"></i>
+                                    <textarea name="comment" class="autoExpand w-sm-50 w-lg-75" rows="1" data-min-rows="1" placeholder="Leave a review" required></textarea>    
+                                    <span><button class="btn btn-sm modal-button float-right mr-2" type="submit" value="Submit">Submit</button></span>
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </form>
+                                {% endif %}
                             </div>
+                        </div>
                             
                         </div>
                         <div class="modal-body">                            
