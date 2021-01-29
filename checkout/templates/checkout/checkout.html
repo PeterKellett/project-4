@@ -13,7 +13,7 @@
     <div class="row">    
         <div class="col">
         <hr>
-            <h1 class="text-center m-2">Checkout</h1>
+            <h1 class="m-2">Checkout</h1>
          <hr>
         </div>   
     </div>
@@ -75,7 +75,7 @@
                 
                     <div class="col py-3 w-25">
                         <button id="checkout-button" class="btn btn-lg products-button w-100">
-							<span class="font-weight-bold">Complete Order</span>
+							<span>Pay Now</span>
 							<span class="icon">
 								<i class="fas fa-lock"></i>
 							</span>
@@ -84,7 +84,7 @@
 							<span class="icon">
 								<i class="fas fa-exclamation-circle"></i>
 							</span>
-							<span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
+							<span>Your card will be charged <strong>${{ gross_total|floatformat:2 }}</strong></span>
 						</p>
                     </div>
                 </div>
@@ -124,11 +124,13 @@
             <div class="row text-black text-right">
                 <div class="col-7 offset-2">
                     <p class="my-0">Order Total:</p>
+                    <p class="my-0">Discount:</p>
                     <p class="my-0">Delivery:</p>
                     <p class="my-0">Grand Total:</p>
                 </div>
                 <div class="col-3">
                     <p class="my-0">${{ total | floatformat:2 }}</p>
+                    <p class="my-0">-€{{ discount| floatformat:2 }}</p>
                     {% if delivery == 0 %}
                         <p class="my-0">Free</p>
                     {% else %}
