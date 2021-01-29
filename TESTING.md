@@ -36,6 +36,7 @@ Go to each page in turn and verify the page and contents display correctly.
 #### Product details test  
 1. Go to product details of a product.  
 2. Verify a user can select quantities and size of a particular product.  
+3. Verify a user can submit the form to the shopping bag.  
 
 #### Reviews  
 1. Verify the reviews modal on a product with reviews opens and closes.
