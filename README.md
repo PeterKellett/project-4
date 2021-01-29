@@ -305,7 +305,31 @@ In production environment:
 All media files are held in the AWS project bucket/media. 
 
 ## Testing  
-[Manual testing]()
+[Manual testing](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
+
+## Bugs and troubleshooting  
+### HTML and CSS  
+Most html and css bugs related to alignment, paddings and margins. These were resolved using the browser development tools to inspect the page to see the respective html elements and so could adjust accordingly.  
+Particular elements that took time to get right was the sidebar on the products page and styling the sidebar checkboxes.  
+[Dev tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611953708/project-4/readme/dev_tools-screenshot_i6abxu.jpg)
+
+### JavaScript  
+JavaScript bugs were mostly resolved using the console.log to print a statement to the console as a visual check on whether the code is being executed along with using the browser debug tools.  
+[Debug tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611954062/project-4/readme/debug_tool-screenshot_xpnekq.jpg)
+
+### Python 
+Jinja template errors   
+With debug set to True in the development environment any template syntax errors are displayed in the browser. This will give the type of error and the line of code producing the error.    
+[Template syntax error screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611956571/project-4/readme/template_errors-screenshot_sennqu.jpg)  
+
+Python variables errors  
+Variable errors can be diagnosed in the same fashion by using the debug tool to show the variables available in the browser errors.  
+[Template variables error screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611956571/project-4/readme/template_errors-screenshot_sennqu.jpg)  
+The python print statement was also used to debug the key value pairs of objects and dictionaries by printing the contents to the terminal. In this way the type and format can easily be seen and inspected thus making any errors in them easier to debug.  
+[Terminal window screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611958396/project-4/readme/terminal_print-screenshot_dakax1.jpg)
+
+Django context_processor omission for media files  
+On deployment to AWS S3 storage the media files were not being rendered on the deployed site. I was unable to diagnose and fix this bug as there were no errors as such. I had to contact tutor support who were quick to advise me that the media context_processor was not automatically added to the Django contexts_processors list in settings.py.  
 
 ## Deployment  
 This projects repository is held in GitHub and is hosted with Heroku Apps. Deployment to Heroku Apps is done from the GitHub master branch.
@@ -318,10 +342,11 @@ GitHub repository: https://github.com/PeterKellett/project-3
 - Send a pull request to GitHub requesting the branch can be merged.  
 - If there are no conflicts raised this branch or issue can then be closed by performing a merge onto the main branch. A merge can also be performed from GitPod.  
 - This GitHub repository master branch is automatically connected to Heroku through Heroku settings so any merges to the GitHub master branch are automatically deployed and built in Heroku.  
+
 ### Deployment procedure to clone this project
 - Go to project repository above and click 'Code' button
 - Copy the url as shown  
-![](https://res.cloudinary.com/dfboxofas/image/upload/v1601037183/Project-3-readMe%20images/clone_screenshot_i5mgip.png)  
+![Screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1601037183/Project-3-readMe%20images/clone_screenshot_i5mgip.png)  
 - Install the cloned repository by running git clone and the code snippet copied above.
 
 ### Deployment to Heroku
@@ -342,7 +367,7 @@ GitHub repository: https://github.com/PeterKellett/project-3
 11. Deploy to Heroku
 
 ## Django secret key generator.  
-- https://miniwebtool.com/django-secret-key-generator/  
+[Django secret key generator](https://miniwebtool.com/django-secret-key-generator/)  
 1. Generate a random secret key and add this to Heroku Config Vars SECRET_KEY =  
 2. Change the SECRET_KEY setting in setting.py to read it from the os environment Config Vars  
 3. Set the DEBUG flag to True only if DEVELOPMENT is in the environment  
@@ -416,6 +441,14 @@ Set the Stripe secret keys to Heroku Config Vars
 A full project set up procedure can be seen here:  
 [Full project set up procedure](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)  
 
+## Credits  
+[W3Schools.com](https://www.w3schools.com/w3css/w3css_sidebar.asp) for the functionality of the sidebar menu. Styling of the sidebar was carried out by me.  
+[ckz8780](https://github.com/ckz8780) from Code Institute course tutorials for the product quantity functionality and styling.  
+[codepen](https://codepen.io/vsync/pen/frudD) for the expandable textarea used in the reviews models.  
+
+## Acknowledgements  
+
+
 --------------------------------------------------------------------------------------------
 
    
@@ -431,7 +464,5 @@ A full project set up procedure can be seen here:
 
 ### Checkout forms checkout/forms.py
 - OrderForm  
-
-
 
 # Email setup  
