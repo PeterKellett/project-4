@@ -35,7 +35,6 @@ def cache_checkout_data(request):
 
 # Create your views here.
 def checkout(request):
-    print("checkout")
     # Stripe paymentIntent
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -108,7 +107,6 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print(intent)
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
@@ -188,5 +186,4 @@ def checkout_success(request, order_number):
     context = {
         'order': order,
     }
-    print("checkout success")
     return render(request, template, context)

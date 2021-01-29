@@ -56,11 +56,8 @@ def order_history(request, order_number):
 def add_review(request, product_id):
     redirect_url = request.POST.get('redirect_url')
     comment = request.POST.get('comment')
-    print("comment = ", comment)
     profile = get_object_or_404(UserProfile, user=request.user)
-    print("profile = ", profile)
     product = get_object_or_404(Product, pk=product_id)
-    print("product = ", product)
     review = Reviews(
                     user_profile=profile,
                     product=product,
@@ -68,7 +65,6 @@ def add_review(request, product_id):
                 )
     review.save()
     number_of_reviews = product.reviews.count()
-    print('number_of_reviews', number_of_reviews)
     product.number_of_reviews = number_of_reviews
     product.save()
     messages.success(request, 'You have successfully added a review.')

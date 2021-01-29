@@ -12,7 +12,6 @@ def view_shopping_bag(request):
 
 
 def add_to_shopping_bag(request, item_id):
-    print("add_to_shopping_bag")
     # Get the product from the Product model \
     # using the item_id as the primary key
     product = get_object_or_404(Product, pk=item_id)
@@ -21,7 +20,6 @@ def add_to_shopping_bag(request, item_id):
     # Obtain the size value from the form
     size = request.POST['product_size']
     redirect_url = request.POST.get('redirect_url')
-    print('redirect_url', redirect_url)
     # For storing the shopping_bag contents to the session
     """
     1. Request the shopping_bag from the session variables
@@ -98,7 +96,6 @@ def edit_shopping_bag(request, item_id):
         else:
             messages.info(request,
                           "It's ok, you have not made any changes.")
-    print(shopping_bag)
 
     request.session['shopping_bag'] = shopping_bag
     return redirect(redirect_url)
