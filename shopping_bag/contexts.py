@@ -15,7 +15,6 @@ def shopping_bag_contents(request):
 
     for item_id, item_data in shopping_bag.items():
         if isinstance(item_data, int):
-            print("if")
             product = get_object_or_404(Product, pk=item_id)
             total += item_data * product.price
             product_count += item_data
@@ -42,7 +41,6 @@ def shopping_bag_contents(request):
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE/100)
     else:
         delivery = 0
-
     if request.user.is_authenticated:
         discount = (
             total * Decimal(registered_discount/100))
