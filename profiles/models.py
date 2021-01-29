@@ -14,8 +14,8 @@ class UserProfile(models.Model):
                                   null=True,
                                   blank=True)
     last_name = models.CharField(max_length=20,
-                                  null=True,
-                                  blank=True)
+                                 null=True,
+                                 blank=True)
     default_phone_number = models.CharField(max_length=20,
                                             null=True,
                                             blank=True)
@@ -63,10 +63,10 @@ class Reviews(models.Model):
                                      blank=True,
                                      related_name='reviews')
     product = models.ForeignKey(Product,
-                                   null=True,
-                                   blank=True,
-                                   on_delete=models.SET_NULL,
-                                   related_name='reviews')
+                                null=True,
+                                blank=True,
+                                on_delete=models.SET_NULL,
+                                related_name='reviews')
     comment = models.TextField(default=False,
                                null=False,
                                blank=False)

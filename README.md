@@ -300,6 +300,11 @@ In production environment:
 All media files are held in the AWS project bucket/media. 
 
 ## Testing  
+### Code validation  
+The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
+- [W3C Markup Validator](https://validator.w3.org/)
+- [W3C CSS Validator](http://www.css-validator.org/)
+
 ### Testing the templates  
 Go to each page in turn and verify the page and contents display correctly.
 1. / - Verify the home page is displayed  

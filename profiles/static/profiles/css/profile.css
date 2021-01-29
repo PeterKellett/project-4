@@ -1,7 +1,6 @@
 textarea {  
   display: block;
-  overflow: hidden;
-    
+  overflow: hidden;  
   padding: 10px;
   width: 100%;
   font-size: 14px;

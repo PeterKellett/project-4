@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import (
+    render, redirect, reverse, HttpResponse, get_object_or_404)
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
@@ -20,7 +21,8 @@ def cache_checkout_data(request):
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'shopping_bag': json.dumps(request.session.get('shopping_bag', {})),
+            'shopping_bag': (
+                json.dumps(request.session.get('shopping_bag', {}))),
             'save_info': request.POST.get('save-info'),
             'username': request.user
         })
@@ -70,7 +72,8 @@ def checkout(request):
                         )
                         order_line_item.save()
                     else:
-                        for size, quantity in item_data['items_by_size'].items():
+                        for size, \
+                                quantity in item_data['items_by_size'].items():
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
@@ -79,10 +82,9 @@ def checkout(request):
                             )
                             order_line_item.save()
                 except Product.DoesNotExist:
-                    messages.error(request, (
-                        "One of the items in your shopping bag wasn't \
-                            found in our database. Please try again."
-                    ))
+                    messages.error(request,
+                                   "One of the items in your shopping bag wasn't \
+                                   found in our database. Please try again.")
                     order.delete()
                     return redirect(reverse('view_bag'))
             request.session['save_info'] = 'save-info' in request.POST

@@ -78,8 +78,10 @@ class StripeWH_Handler:
                 profile.default_country = shipping_details.address.country
                 profile.default_postcode = shipping_details.address.postal_code
                 profile.default_town_or_city = shipping_details.address.city
-                profile.default_street_address1 = shipping_details.address.line1
-                profile.default_street_address2 = shipping_details.address.line2
+                profile.default_street_address1 = (
+                    shipping_details.address.line1)
+                profile.default_street_address2 = (
+                    shipping_details.address.line2)
                 profile.default_county = shipping_details.address.state
                 profile.save()
 
@@ -123,7 +125,9 @@ class StripeWH_Handler:
             # and return a 200 Http response to Stripe
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=f'Payment succeeded Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Payment succeeded Webhook received: \
+                    {event["type"]} | SUCCESS: Verified order \
+                        already in database',
                 status=200
             )
         else:
@@ -150,35 +154,38 @@ class StripeWH_Handler:
             # of the shopping bag in the paymentIntent as though to submit
             # the OrderLineItem's
                 for item_id, item_data in json.loads(shopping_bag).items():
-                        product = Product.objects.get(id=item_id)
-                        if isinstance(item_data, int):
+                    product = Product.objects.get(id=item_id)
+                    if isinstance(item_data, int):
+                        order_line_item = OrderLineItem(
+                            order=order,
+                            product=product,
+                            quantity=item_data,
+                        )
+                        order_line_item.save()
+                    else:
+                        for size, \
+                          quantity in item_data['items_by_size'].items():
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
-                                quantity=item_data,
+                                quantity=quantity,
+                                product_size=size,
                             )
                             order_line_item.save()
-                        else:
-                            for size, quantity in item_data['items_by_size'].items():
-                                order_line_item = OrderLineItem(
-                                    order=order,
-                                    product=product,
-                                    quantity=quantity,
-                                    product_size=size,
-                                )
-                                order_line_item.save()
-            # If there is a problem with the recreating the Order
+            # If there is a problem with recreating the Order
             # then delete this recreated Order and return this error to
             # Stripe and Stripe will try again later
             except Exception as e:
                 if order:
                     order.delete()
                 return HttpResponse(
-                    content=f'Payment succeeded Webhook received: {event["type"]} | ERROR: {e}',
+                    content=f'Payment succeeded Webhook received: \
+                        {event["type"]} | ERROR: {e}',
                     status=500)
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Payment succeeded Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=f'Payment succeeded Webhook received: \
+                {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):
