@@ -5,19 +5,17 @@
   </div>
 </div>
 {% endblock %} {% block content %}
-<section>
-    <div class="container p-0">
-        <div class="row">    
-            <div class="col">
-                <hr>
-                    <h1 class="m-2">Shopping Bag</h1>
-                <hr>
-            </div>  
-        </div>
-    </div>    
-
+<section class="container">   
+    <div class="row">    
+        <div class="col">
+            <hr>
+                <h1 class="m-2">Shopping Bag</h1>
+            <hr>
+        </div>  
+    </div>
+    
     {% if shopping_bag_items %}
-        <div class="container d-none d-md-block">
+        <div class="container d-none d-lg-block">
             <div class="row text-center">                      
                 <div class="col">
                     
@@ -45,8 +43,8 @@
             <hr>
         </div>                          
         {% for item in shopping_bag_items %}
-        <!--Products display layout on medium and up-->
-            <div class="container d-none d-md-block">
+        <!--Products display layout on large and up-->
+            <div class="container d-none d-lg-block">
                 <div class="row mt-2">
                     <div class="col">
                         {% if item.product.image %}
@@ -55,7 +53,7 @@
                     </div>
                     <div class="col">
                         <p class="my-0"><strong>{{ item.product.name }}</strong> - {{ item.product.category.friendly_name }}</p>                    
-                        <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
+                       
                     </div>
                     <div class="col">
                         <p class="my-0 text-center">{{ item.size.title }}</p> 
@@ -73,9 +71,9 @@
                     </div>
                     <div class="col">
                         <!-- Button trigger Edit modal -->
-                        <button type="button" class="btn modal-button btn-sm d-inline w-50 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>                        
+                        <button type="button" class="btn modal-button btn-sm d-inline w-45 float-left" data-toggle="modal" data-target="#editLineItemModal_{{ item.item_id }}_{{ item.size }}">Edit</button>                        
                         <!-- Button Remove Product -->
-                        <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Delete</button></a>
+                        <a href="" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}"><button type="button" class="btn btn-danger btn-sm d-inline w-50 float-right">Remove</button></a>
                     </div>
                 </div>
                 <hr>  
@@ -202,7 +200,7 @@
                 </div>
             </div>
             <!--Products display layout on small and down-->
-            <div class="d-md-none">
+            <div class="container d-lg-none">
                 <div class="row mt-2">
                     <div class="col-6 p-1">
                         {% if item.product.image %}
@@ -210,11 +208,10 @@
                         {% endif %}
                     </div>
                     <div class="col-6 p-1">
-                        <p class="my-0"><strong>{{ item.product.name }}</strong> - {{ item.product.category.friendly_name }}</p>       
-                        <p class="my-0 text-muted"><small>SKU: {{ item.product.sku|upper }}</small></p>
+                        <p class="my-0"><strong>{{ item.product.name }}</strong> - {{ item.product.category.friendly_name }}</p>
                         <p class="my-0">Size: {{ item.size.title }}</p> 
                         <p class="my-0">Qty: {{ item.quantity }} @ €{{ item.product.price }}</p>
-                        <p class="">Sub-total: €{{ item.total }}</p>
+                        <p class="">Sub-total: €{{ item.sub_total }}</p>
                         
                         <div class="row">
                             <!-- Button trigger Edit modal -->
@@ -224,7 +221,7 @@
                             <!-- Button Remove Product -->
                             <div class="col-6">
                                 <a href="{% url 'remove_from_shopping_bag' item.item_id %}" id="remove_{{ item.item_id }}" class="remove-product" data-product_size="{{ item.size }}">
-                                    <button type="button" class="btn btn-danger btn-sm w-100t">Delete</button></a>
+                                    <button type="button" class="btn btn-danger btn-sm w-100">Delete</button></a>
                             </div>
                         </div>                        
                     </div>
@@ -235,6 +232,7 @@
         {% endfor %}
         <div class="container pt-2 p-0">
             <p class="text-right"><strong>Total:</strong> €{{ total|floatformat:2 }}</p>
+            <p class="text-right"><strong>Discount:</strong> €{{ registered_discount|floatformat:2 }}</p>
             <p class="text-right"><strong>Delivery:</strong> €{{ delivery|floatformat:2 }}</p>
             <p class="text-right"><strong>Grand Total:</strong> €{{ gross_total|floatformat:2 }}</p>
         </div>
@@ -248,6 +246,8 @@
         </div>   
     </div>
     {% endif %} 
+        
+
     
 <!--Secure checkout and keep shopping buttons-->
     <div class="container p-0 mb-2">
