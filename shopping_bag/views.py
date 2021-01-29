@@ -38,18 +38,19 @@ def add_to_shopping_bag(request, item_id):
     if item_id in list(shopping_bag.keys()):
         if size in shopping_bag[item_id]['items_by_size'].keys():
             shopping_bag[item_id]['items_by_size'][size] += quantity
-            messages.warning(request,
-                             f'You already have this item in your basket. \
-                                 {product.name} {size.upper()}.')
+            messages.success(request,
+                             f'You have increased the number \
+                                 of {size.title()} {product.name} \
+                                     by {quantity}.')
         else:
             shopping_bag[item_id]['items_by_size'][size] = quantity
             messages.success(request,
-                             f'Added size {size.upper()}\
+                             f'Added size {size.title()}\
                              {product.name} to your bag.')
     else:
         shopping_bag[item_id] = {'items_by_size': {size: quantity}}
         messages.success(request,
-                         f'Added size {size.upper()}\
+                         f'Added size {size.title()}\
                          {product.name} to your bag.')
 
     """
