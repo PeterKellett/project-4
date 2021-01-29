@@ -23,15 +23,19 @@ To do this I have developed an e-commerce store for sports jerseys with a user r
 6. As an owner I would like the finished products and the client testimonial to be automatically added to the site showcase area.  
 
 ## Wireframes  
-![home page large and up](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/Home-large-and-up_hltnla.jpg)  
-![Products page large and up](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/Products-large-and-up_osxxsr.jpg)  
-![Products card](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/Products-card_vg18up.jpg)  
-![Products details page](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/product-detail-large-and-up_eblblf.jpg)  
-![Shopping bag page large and up](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/shopping-basket-large-and-up_vjbyhb.jpg)  
+[home page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949285/project-4/readme/Homepage-wireframes_et9y77.jpg)  
+[Products page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949286/project-4/readme/Productspage-wireframe_drjrmw.jpg)  
+[Products card](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/Products-card_vg18up.jpg)  
+[Product details page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949286/project-4/readme/product_details-wireframe_jpzpov.jpg)  
+[Shopping bag page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949286/project-4/readme/shopping_bag-wireframes_cbmwai.jpg)  
+[Checkout page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949286/project-4/readme/checkoutpage-wireframe_tsyuai.jpg)
 
 ## Design
 ### Colour Scheme
 The two main colours used on this site #d0b3b7 and #985d65.  
+The navbar transitions between #d0b3b7 and #985d65.
+The page background color chosen is #efefef.
+
 
 ### Typography
 The main fonts used are Bangers and Roboto from Google Fonts. Bangers is the style of the brand logo so it is continued in a descrete fashion throughout the site on the buttons which bring the user through the full visit and checkout experience. It was chosen as it reflects a casual yet sharp style. Roboto is used for all other text as it is a clean well spaced font and easy on the eye.
@@ -44,7 +48,7 @@ The main fonts used are Bangers and Roboto from Google Fonts. Bangers is the sty
 5. jQuery  
 
 ## Models  
-![home page wireframe](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
+![Models diagram](https://res.cloudinary.com/dfboxofas/image/upload/v1606741313/project-4/readme/project-4_models-v2_xqh5jg.png)  
 
 ### Products model   
 Fields | Type | Max Length | Null | Blank |  
@@ -141,7 +145,7 @@ comment | Text | 254 | False | False
 
 
 ## Project level base templates  
-### Site base.html template
+### base.html template
 This holds the code for:
 - {% load static %}
 - The head tags
@@ -170,6 +174,7 @@ Block sections added are:
 Django Allauth is used for controlling user registration, login verification, and password encryption.   
 - pip3 install django-allauth  
 - Set up reference guide https://django-allauth.readthedocs.io/en/latest/installation.html  
+
 ### Home App  
 This app holds the files for any static pages on the site such as the home page and any other generic pages such as Terms and Conditions, Privacy Policy if applicable. In this project the only Home page is held in this app folder.   
 
@@ -229,7 +234,7 @@ Checkout app url's:
 - path('cache_checkout_data/', views.cache_checkout_data, name='cache_checkout_data')
 - path('WH/', webhook, name='webhook')
 
-## Checkout App order number generator (uuid)  
+### Checkout App order number generator (uuid)  
 To generate a unique order number for each order Django uuid is used. This will give a random string of 32 characters as a unique identifier to each order submitted.  
 
 ### Stripe checkput
@@ -256,7 +261,7 @@ To generate a unique order number for each order Django uuid is used. This will 
 8. Use the wehooks listener to map the webhook and event type and pass it to the webhook handler  
 9. Create the necessary database objects in the webhook handler
     - In stripe_elements.js add the billing details and shipping details from the form to the Stripe.confirmCardPayment method 
-    so they can be passed to Stripe to be included in the webhook response  
+    so they can be passed to Stripe to be included in the webhook response 
 10. Cache checkout data if user checks save info box  
     - Create a new view cache_checkout_data in order to modify the payment intent and add some metadata to it.
     - Pass the client_secret from the payment intent  
@@ -300,104 +305,26 @@ In production environment:
 All media files are held in the AWS project bucket/media. 
 
 ## Testing  
-### Code validation  
-The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
-- [W3C Markup Validator](https://validator.w3.org/)
-- [W3C CSS Validator](http://www.css-validator.org/)
-
-### Testing the templates  
-Go to each page in turn and verify the page and contents display correctly.
-1. / - Verify the home page is displayed  
-2. /products - Verify the products page is displayed  
-3. /product/<productid> - Verify the product details page is displayed  
-4. /bag - Verify the Shopping bag page is displayed  
-5. /profile - Verify the profile page is displayed  
-6. /checkout - Verify the checkout page is displayed. 
-7. /login - Verify the login page is displayed  
-8. /Register - Verify the register page is displayed  
-
-### Testing functionality  
-#### allAuth Registration test 
-1. Go to registration page and submit login form.
-2. Verify email verification page is displayed.
-3. Verify verification email is received.
-4. Verify visiting the link in the email completes the registration process.  
-
-#### allAuth Login/logout test
-1. Go to login in page and submit the form.
-2. Verify user is logged in correctly.  
-3. Click logout link in navbar and verify user is logged out correctly.
-
-#### Sidebar filter tests
-1. Go to products page and verify sidebar triggers correctly.  
-2. Verify all checkboxes are ticked by default and all products are displayed.
-3. Uncheck some of the checkboxes and verify the products are filtered out correctly.  
-4. Verify the All checkbox checks and unchecks all other checkboxes in the sidebar menu.  
-
-#### Product details test  
-1. Go to product details of a product.  
-2. Verify a user can select quantities and size of a particular product.  
-
-#### Reviews  
-1. Verify the reviews modal on a product with reviews opens and closes.
-2. Verify all reviews for that product are listed on the modal.  
-
-#### Add/Edit/Delete reviews test  
-1. Verify a user must be logged in to be able to add a review.
-2. Log in and add a review to a product.  
-3. Go to profile page, edit and verify the review can be edited and deleted.  
-4. Add another review and log out.
-5. Verify the review added cannot be edited by entering /edit_review/<review_id> in the url.  
-6. Verify the review added cannot be deleted by entering /delete_review/<review_id> in the url.  
-
-#### Shopping bag test
-1. Add several items of various sizes and quantities of each.
-2. Click on the shopping bag icon in the navbar to go to the shopping bag page.  
-3. Verify size, quantities and subtotals are correct for each item added.
-4. Verify total, delivery, and grand totals are correct.  
-5. Verify a user can edit and delete any item in their shopping bag. 
-
-#### Checkout test  
-1. Go to checkout page and submit the form using a Stripe test card number.  
-    - [Stripe docs - Testing](https://stripe.com/docs/testing)
-2. Verify the user is brought to the checkout success page with the order details displayed.  
-3. Go to Stripe dashboard > Developers > logs and verify a payment intent was created, the payment was charged, and the payment was successful.  
-
-#### Checkout Stripe webhook test  
-In case there is a problem with the connection between the server and the user and a Stripe callback cannot be made at the time of payment execution a Stripe webhook is used to complete the payment and safely store the order to the database.  
-The Stripe webhook endpoint can be tested in 2 ways:  
-1. By ommitting the form.send() command on the checkout page. This will force the server to initiate the callback using the webhook endpoint.  
-2. Webhook endpoints can be manually triggered from the Stripe dashboard > webhooks. This will trigger a generic callback response to the endpoint provided.  
-
-#### Securing the views test (Restricting certain functionality to registered users only)  
-@login_required from django.contrib.auth.decorators  
-Restricted content and functionality includes:  
-- Functionality of adding, editing, or deleting a review.  
-- Access to the Profile page.  
-- Access to order_history content.  
-- Access to Product Management pages. 
-1. Log out and manually force a url to restricted content.  
-2. Verify the content access is denied and the user is brought to the home page with an error message displayed. 
-3. Verify that only the superuser has access to the Product Management page. 
+[Manual testing]()
 
 ## Deployment  
 This projects repository is held in GitHub and is hosted with Heroku Apps. Deployment to Heroku Apps is done from the GitHub master branch.
 
-GitHub repository: https://github.com/PeterKellett/project-3
-Deployment procedure to implement new functionality
-Go to project repository above and create a new upstream branch or raise an issue, this will also create an upstream branch.
-Open this branch or issue in code editor. For this project GitPod was used.
-Add and commit code to this branch until satisfied code can be merged with the main branch.
-Send a pull request to GitHub requesting the branch can be merged.
-If there are no conflicts raised this branch or issue can then be closed by performing a merge onto the main branch. A merge can also be performed from GitPod.
-This GitHub repository master branch is automatically connected to Heroku through Heroku settings so any merges to the GitHub master branch are automatically deployed and built in Heroku.
-Deployment procedure to clone this project
-Go to project repository above and click 'Code' button
+GitHub repository: https://github.com/PeterKellett/project-3  
+### Deployment procedure to implement new functionality
+- Go to project repository above and create a new upstream branch or raise an issue, this will also create an upstream branch.  
+- Open this branch or issue in code editor. For this project GitPod was used.  
+- Add and commit code to this branch until satisfied code can be merged with the main branch.
+- Send a pull request to GitHub requesting the branch can be merged.  
+- If there are no conflicts raised this branch or issue can then be closed by performing a merge onto the main branch. A merge can also be performed from GitPod.  
+- This GitHub repository master branch is automatically connected to Heroku through Heroku settings so any merges to the GitHub master branch are automatically deployed and built in Heroku.  
+### Deployment procedure to clone this project
+- Go to project repository above and click 'Code' button
+- Copy the url as shown  
+![](https://res.cloudinary.com/dfboxofas/image/upload/v1601037183/Project-3-readMe%20images/clone_screenshot_i5mgip.png)  
+- Install the cloned repository by running git clone and the code snippet copied above.
 
-Copy the url (see image below and for full instructions see https://docs.github.com/en/enterprise/2.13/user/articles/cloning-a-repository) Screenshot  
-
-
-### Using AWS s3 
+### Deployment to Heroku
 1. Create an Heroku App  
     - project-4-blackhills-jerseys  
 2. Initiate a Postgres database in the heroku app Resources tab  
