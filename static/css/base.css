@@ -5,7 +5,7 @@ main {
 }
 
 body {
-    background-color: #f5f1e2;
+    background-color: #efefef;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -80,9 +80,18 @@ header a {
 }
 
 /*Home page*/
-.banner {
+.discount-banner {
     background-color: black;
     color: white;
+    padding: 5px;
+    margin: 0;
+}
+
+.discount-banner a {
+    color: #000;    
+    font-weight: 700;
+    background-color: #fff;
+    margin: 5px;
 }
 
 .hero-image {
@@ -281,6 +290,7 @@ header a {
 }
 
 /*Products layout*/
+/* Adjust the left margin to allow for sidebar activator on different screen sizes*/
 .products-container {
     margin-left: 35px;
     }
@@ -293,6 +303,7 @@ header a {
 
 .product-card {
     border: 1px solid #995f67;
+    background-color: #fff;
     /*max-height: 205px;*/
 }
 
@@ -382,7 +393,7 @@ button[type='submit']:hover {
 }
 
 .modal-content {
-    background-color: #f1eee1f0;
+    background-color: #fff;
 }
 
 .modal-header {
@@ -399,6 +410,7 @@ button[type='submit']:hover {
 .modal-footer {
     border: none;
 }
+
 /*----Footer--*/
 .footer {
     z-index: 2;
