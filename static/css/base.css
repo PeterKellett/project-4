@@ -8,6 +8,7 @@ body {
     background-color: #efefef;
     display: flex;
     min-height: 100vh;
+    
     flex-direction: column;
 }
 
@@ -171,17 +172,29 @@ header a {
 }
 
 .allauth-form-inner-content a {
-	color: #17a2b8; /* text-info */
+	color: #985d65; /* text-info */
 }
 
 /*Google map */
-#map {
-    height: auto;
-    /* The height is 400 pixels */
-    width: 100%;
-    /* The width is the width of the web page */
-    }
+.map {
+    width: 100%; 
+    height: 100%;
+    margin-bottom: 5px;
+    border: 1px solid #985d65;
+}
 
+.building-image {
+    font-family:  'Roboto', sans-serif;
+    padding: 5px;
+    width: 40%;
+    float: right;
+}
+
+.mission-statement {
+    font-family: 'Bangers', cursive;
+    font-size: 2rem;
+    color: #985d65;
+}
 /*----Products page-----------------------------------------*/
 
 /*----W3 sidebar----*/
