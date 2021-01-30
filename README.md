@@ -125,13 +125,6 @@ default_county | Char | 80 | True | True
 default_postcode | Char | 20 | True | True 
 default_country | Char | 30 | True | True  
 
-
-### EmailSubscriptions model  
-Fields | Type | Max Length | Null | Blank | Other
--------|------|------|----------|------|------
-Primary_key | Int | Auto increment | False | False  
-user_id | ForeignKey(UserProfile) |  | False | False 
-
 ### ProductComment model  
 Fields | Type | Max Length | Null | Blank | Other
 -------|------|------|----------|------|------
@@ -246,11 +239,11 @@ To generate a unique order number for each order Django uuid is used. This will 
     - Payment succeeded
     - Payment failed/declined
 3. Add a URL path to this file in checkout/urls.py and import the webhooks function from .webhooks  
-4. Create a new file checkout/webhooks.py to listen for Stripe Webhooks
-    [Stripe docs - Payment intents](https://stripe.com/docs/payments/handling-payment-events)  
+4. Create a new file checkout/webhooks.py to listen for Stripe Webhooks  
+[Stripe docs - Payment intents](https://stripe.com/docs/payments/handling-payment-events)  
 5. In settings.py set the stripe webhook secret key from the environment variables  
 6. Add a webhook endpoint in Stripe dashboard/Developers/webhooks/add endpoint 
-    - endpoint url: https://8000-c613707c-ac21-4c3b-9ef3-d0af7fd6591c.ws-eu03.gitpod.io/checkout/WH/  
+    - endpoint url: site_url + /checkout/WH/  
     - Select 'Receive all events'
     - Click 'Add endpoint'
 7. Copy the signing secret key and export it to the project using the terminal.
@@ -298,20 +291,18 @@ All stylesheet files are held in the AWS project bucket/static.
 ## Media files  
 All images are image responsive and keep their aspect ratio. 
 
-In development environment: 
-Media files are held in the root level media folder.  
-In production environment: 
-All media files are held in the AWS project bucket/media. 
+In development environment all media files are held in the root level media folder.  
+In production environment all media files are held in the AWS project bucket/media.  
 
 ## Testing  
-[Manual tests](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
+[TESTING.md](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
 
 ## Bugs and troubleshooting  
 ### HTML and CSS  
 Most html and css bugs related to alignment, paddings and margins. These were resolved using the browser development tools to inspect the page to see the respective html elements and so could adjust accordingly.  
 Particular elements that took time to get right was the sidebar on the products page and styling the sidebar checkboxes.  
 A fix was also required to prevent horizontal scrolling which was acheived by adding max-width:100% and overflow-x: hidden body css element.  
-[Horizontal scroll screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1612004911/project-4/readme/horizontal_scroll_bug-screenshot_cutrpo.jpg)
+[Horizontal scroll screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1612004911/project-4/readme/horizontal_scroll_bug-screenshot_cutrpo.jpg)  
 [Dev tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611953708/project-4/readme/dev_tools-screenshot_i6abxu.jpg)  
 
 ### JavaScript  
@@ -333,8 +324,8 @@ The python print statement was also used to debug the key value pairs of objects
 On deployment to AWS S3 storage the media files were not being rendered on the deployed site. I was unable to diagnose and fix this bug as there were no errors as such. I had to contact tutor support who were quick to advise me that the media context_processor was not automatically added to the Django contexts_processors list in settings.py. Simply by adding a media context_processor to this list fixed the bug. 
 
 ## Deployment  
-This projects repository is held in GitHub and is hosted with Heroku Apps. Deployment to Heroku Apps is done from the GitHub master branch.
-GitHub repository: https://github.com/PeterKellett/project-3  
+This projects repository is held in GitHub and is hosted with Heroku Apps. Deployment to Heroku Apps is done from the GitHub master branch.  
+[GitHub repository](https://github.com/PeterKellett/project-4)  
 
 ### Deployment procedure to implement new functionality
 1. Go to project repository above and create a new upstream branch or raise an issue, this will also create an upstream branch.  
@@ -448,6 +439,6 @@ The full project set up procedure can be seen here:
 
 ## Acknowledgements  
 - My mentor Gerard McBride for his help and advice throughout this project.  
-- Tutor support at Code Institute for their support.
+- Tutor support at Code Institute for their support with troubleshooting.  
 
 --------------------------------------------------------------------------------------------
