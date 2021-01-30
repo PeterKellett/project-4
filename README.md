@@ -3,7 +3,10 @@
 ## Introduction  
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
 To do this I have developed an e-commerce store for sports jerseys with a user registration and checkout facilities.  
-[View the live website here](https://project-4-blackhills-jerseys.herokuapp.com/)
+[View the live website here](https://project-4-blackhills-jerseys.herokuapp.com/)  
+See also:  
+- [TESTING.md](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
+- [PROJECTSETUP.md](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)
 
 ## User stories
 ### As a User
@@ -290,7 +293,6 @@ All stylesheet files are held in the AWS project bucket/static.
 
 ## Media files  
 All images are image responsive and keep their aspect ratio. 
-
 In development environment all media files are held in the root level media folder.  
 In production environment all media files are held in the AWS project bucket/media.  
 
@@ -424,10 +426,17 @@ This tells the environment where to store static and media files using S3Boto£S
 Create a folder 'media' in the project AWS bucket.
 Add the required project images to this folder and grand public read permissions  
 
-## Adding Stripe secret keys  
-Set the Stripe secret keys to Heroku Config Vars  
-- STRIPE_PUBLIC_KEY
-- STRIPE_SECRET_KEY  
+## Environment variables required  
+The environment configuration variables required to run this site are:
+- AWS_ACCESS_KEY_ID  
+- AWS_SECRET_ACCESS_KEY  
+- DATABASE_URL  
+- EMAIL_HOST_PASS  
+- EMAIL_HOST_USER  
+- SECRET_KEY  
+- STRIPE_PUBLIC_KEY  
+- STRIPE_WH_SECRET1
+- USE_AWS (Set to 'True' only in live environment) 
 
 The full project set up procedure can be seen here:  
 [Full project set up procedure](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)  
@@ -436,6 +445,10 @@ The full project set up procedure can be seen here:
 [W3Schools.com](https://www.w3schools.com/w3css/w3css_sidebar.asp) for some of the functionality of the sidebar menu. Styling of the sidebar was carried out by me the site developer.  
 [ckz8780](https://github.com/ckz8780) from Code Institute course tutorials for the product quantity functionality and styling.  
 [codepen](https://codepen.io/vsync/pen/frudD) for the expandable textarea used in the reviews models.  
+
+## Media accreditation  
+The images used for the jerseys were sourced from O'Neils.com and kcsports.com.  
+All other images used were sourced by the developer.  
 
 ## Acknowledgements  
 - My mentor Gerard McBride for his help and advice throughout this project.  
