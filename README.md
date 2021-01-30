@@ -3,9 +3,9 @@
 ## Introduction  
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
 To do this I have developed an e-commerce store for sports jerseys with a user registration and checkout facilities.  
+[View the live website here](https://project-4-blackhills-jerseys.herokuapp.com/)
 
 ## User stories
-
 ### As a User
 1. As a user I would like to view a nicely designed site with logical navigation applied.
 2. As a user I would like to view products in a nice concise manner.
@@ -20,10 +20,12 @@ To do this I have developed an e-commerce store for sports jerseys with a user r
 3. As an owner I would like to be able to contact the person who submitted the order.
 4. As an owner I would like top be able to keep the final product secure until a verified payment is made whereby the final product is immediately released to the client.
 5. As an owner I would like to be able to gather a testimonials from our clients.
-6. As an owner I would offer a discount to encourage visitors to register their details with the site.  
+6. As an owner I would offer a discount to encourage visitors to register their details with the site. 
+7. As an owner I can offer free delivery on orders over a certain value. 
 
 ## Wireframes  
 [home page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949285/project-4/readme/Homepage-wireframes_et9y77.jpg)  
+[About us page](https://res.cloudinary.com/dfboxofas/image/upload/v1612016177/project-4/readme/about_us-wireframe_jqz3rf.jpg)
 [Products page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949286/project-4/readme/Productspage-wireframe_drjrmw.jpg)  
 [Products card](https://res.cloudinary.com/dfboxofas/image/upload/v1611686272/project-4/readme/Products-card_vg18up.jpg)  
 [Product details page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949286/project-4/readme/product_details-wireframe_jpzpov.jpg)  
@@ -175,10 +177,10 @@ This app holds the files for any static pages on the site such as the home page 
 
 Home app views:
 - index  
-
+- about
 Home app url's:
 - path('', views.index, name='home')
-- path('home2/', views.home2, name='home2')  
+- path('about/', views.about, name='about')  
 
 ### Products App  
 This app holds the files for all the product applications such as the Products page and Product Details page. It also contains the files for the Admin Product Management for adding, editing, deleting Products from the site.  
@@ -306,24 +308,26 @@ All media files are held in the AWS project bucket/media.
 ### HTML and CSS  
 Most html and css bugs related to alignment, paddings and margins. These were resolved using the browser development tools to inspect the page to see the respective html elements and so could adjust accordingly.  
 Particular elements that took time to get right was the sidebar on the products page and styling the sidebar checkboxes.  
-[Dev tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611953708/project-4/readme/dev_tools-screenshot_i6abxu.jpg)
+A fix was also required to prevent horizontal scrolling which was acheived by adding max-width:100% and overflow-x: hidden body css element.  
+[Horizontal scroll screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1612004911/project-4/readme/horizontal_scroll_bug-screenshot_cutrpo.jpg)
+[Dev tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611953708/project-4/readme/dev_tools-screenshot_i6abxu.jpg)  
 
 ### JavaScript  
 JavaScript bugs were resolved using the browser debug tools along with using the console.log() command placed in the script to print a statement to the console as a confirmation check on whether the code is being executed or not.  
 [Debug tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611954062/project-4/readme/debug_tool-screenshot_xpnekq.jpg)
 
 ### Python 
-Jinja template errors   
+- Jinja template errors:   
 With debug set to True in the development environment any template syntax errors are displayed in the browser. This will give the type of error and the line of code producing the error.    
 [Template syntax error screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611956571/project-4/readme/template_errors-screenshot_sennqu.jpg)  
 
-Python variables errors  
+- Python variables errors:  
 Variable errors can be diagnosed in the same fashion by using the debug tool to show the variables available in the browser errors.  
 [Template variables error screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611956571/project-4/readme/template_errors-screenshot_sennqu.jpg)  
 The python print statement was also used to debug the key value pairs of objects and dictionaries by printing the contents to the terminal. In this way the type and format can easily be seen and inspected thus making any errors in them easier to debug.  
 [Terminal window screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611958396/project-4/readme/terminal_print-screenshot_dakax1.jpg)
 
-Django context_processor omission for media files  
+- Django context_processor omission for media files:  
 On deployment to AWS S3 storage the media files were not being rendered on the deployed site. I was unable to diagnose and fix this bug as there were no errors as such. I had to contact tutor support who were quick to advise me that the media context_processor was not automatically added to the Django contexts_processors list in settings.py. Simply by adding a media context_processor to this list fixed the bug. 
 
 ## Deployment  
@@ -441,22 +445,7 @@ A full project set up procedure can be seen here:
 [codepen](https://codepen.io/vsync/pen/frudD) for the expandable textarea used in the reviews models.  
 
 ## Acknowledgements  
-
+- My mentor Gerard McBride for his help and advice throughout this project.  
+- Tutor support at Code Institute for their support.
 
 --------------------------------------------------------------------------------------------
-
-   
-
-## Customising the product image input (django widgets)
-- [Django docs - widgets](https://github.com/django/django/tree/master/django/forms/templates/django/forms/widgets) 
-- Create a new file products/widgets.py  
-
-
-### Checkout Signals checkout/signals.py
-- post save
-- post delete
-
-### Checkout forms checkout/forms.py
-- OrderForm  
-
-# Email setup  
