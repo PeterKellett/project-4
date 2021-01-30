@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'base.html' %} {% load static %} {% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <hr>
+                <h1>About Us</h1>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row">    
+        <div class="col-12 col-lg-6">                   
+            <img src="{{ MEDIA_URL }}building-frontage.jpg" class="img-fluid mx-auto m-2 d-block" alt="Blackhills Jerseys office">
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div id="map"></div>
+        </div>
+  </div>
+  
+</section>
+<script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        const uluru = { lat: -25.344, lng: 131.036 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+        });
+      }
+    </script>
+
+
+{% endblock %}

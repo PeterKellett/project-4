@@ -300,7 +300,7 @@ In production environment:
 All media files are held in the AWS project bucket/media. 
 
 ## Testing  
-[Manual testing](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
+[Manual tests](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
 
 ## Bugs and troubleshooting  
 ### HTML and CSS  
@@ -309,7 +309,7 @@ Particular elements that took time to get right was the sidebar on the products 
 [Dev tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611953708/project-4/readme/dev_tools-screenshot_i6abxu.jpg)
 
 ### JavaScript  
-JavaScript bugs were mostly resolved using the console.log to print a statement to the console as a visual check on whether the code is being executed along with using the browser debug tools.  
+JavaScript bugs were resolved using the browser debug tools along with using the console.log() command placed in the script to print a statement to the console as a confirmation check on whether the code is being executed or not.  
 [Debug tools screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611954062/project-4/readme/debug_tool-screenshot_xpnekq.jpg)
 
 ### Python 
@@ -324,25 +324,25 @@ The python print statement was also used to debug the key value pairs of objects
 [Terminal window screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1611958396/project-4/readme/terminal_print-screenshot_dakax1.jpg)
 
 Django context_processor omission for media files  
-On deployment to AWS S3 storage the media files were not being rendered on the deployed site. I was unable to diagnose and fix this bug as there were no errors as such. I had to contact tutor support who were quick to advise me that the media context_processor was not automatically added to the Django contexts_processors list in settings.py.  
+On deployment to AWS S3 storage the media files were not being rendered on the deployed site. I was unable to diagnose and fix this bug as there were no errors as such. I had to contact tutor support who were quick to advise me that the media context_processor was not automatically added to the Django contexts_processors list in settings.py. Simply by adding a media context_processor to this list fixed the bug. 
 
 ## Deployment  
 This projects repository is held in GitHub and is hosted with Heroku Apps. Deployment to Heroku Apps is done from the GitHub master branch.
-
 GitHub repository: https://github.com/PeterKellett/project-3  
+
 ### Deployment procedure to implement new functionality
-- Go to project repository above and create a new upstream branch or raise an issue, this will also create an upstream branch.  
-- Open this branch or issue in code editor. For this project GitPod was used.  
-- Add and commit code to this branch until satisfied code can be merged with the main branch.
-- Send a pull request to GitHub requesting the branch can be merged.  
-- If there are no conflicts raised this branch or issue can then be closed by performing a merge onto the main branch. A merge can also be performed from GitPod.  
-- This GitHub repository master branch is automatically connected to Heroku through Heroku settings so any merges to the GitHub master branch are automatically deployed and built in Heroku.  
+1. Go to project repository above and create a new upstream branch or raise an issue, this will also create an upstream branch.  
+Open this branch or issue in code editor. For this project GitPod was used.  
+2. Add and commit code to this branch until satisfied code can be merged with the main branch.
+3. Send a pull request to GitHub requesting the branch can be merged.  
+4. If there are no conflicts raised this branch or issue can then be closed by performing a merge onto the main branch. A merge can also be performed from GitPod.  
+5. This GitHub repository master branch is automatically connected to Heroku through Heroku settings so any merges to the GitHub master branch are automatically deployed and built in Heroku.  
 
 ### Deployment procedure to clone this project
-- Go to project repository above and click 'Code' button
-- Copy the url as shown  
+1. Go to project repository above and click 'Code' button
+2. Copy the url as shown  
 ![Screenshot](https://res.cloudinary.com/dfboxofas/image/upload/v1601037183/Project-3-readMe%20images/clone_screenshot_i5mgip.png)  
-- Install the cloned repository by running git clone and the code snippet copied above.
+3. Install the cloned repository by running git clone and the code snippet copied above.
 
 ### Deployment to Heroku
 1. Create an Heroku App  
@@ -367,9 +367,8 @@ GitHub repository: https://github.com/PeterKellett/project-3
 2. Change the SECRET_KEY setting in setting.py to read it from the os environment Config Vars  
 3. Set the DEBUG flag to True only if DEVELOPMENT is in the environment  
 
-
 # AWS
-1. Create a new AWS s3 bucket  
+1. Create a new AWS s3 bucket to store static and media files.  
 
 ## Configure bucket settings  
 1. In Properties, turn on Static website hosting. 
