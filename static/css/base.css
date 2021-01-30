@@ -321,7 +321,7 @@ header a {
     max-width: 100%;
 }
 .product-card .card-text {
-    font-family: "Poppins";
+    font-family: 'Roboto', sans-serif;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -420,12 +420,14 @@ header a {
 /*----Footer--*/
 .footer {
     z-index: 2;
+    
 }
 
 .footerCol {
     border-bottom: 2px solid #d0b3b7;
 }
 .footer a {
-    color: #000;   
+    color: #000;  
+    font-family: 'Roboto', sans-serif; 
 }
 
