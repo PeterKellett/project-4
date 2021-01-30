@@ -4,6 +4,7 @@
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
 To do this I have developed an e-commerce store for sports jerseys with a user registration and checkout facilities.  
 [View the live website here](https://project-4-blackhills-jerseys.herokuapp.com/)  
+[GitHub repository](https://github.com/PeterKellett/project-4)  
 See also:  
 - [TESTING.md](https://github.com/PeterKellett/project-4/blob/master/TESTING.md)  
 - [PROJECTSETUP.md](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)
