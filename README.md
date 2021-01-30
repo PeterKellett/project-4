@@ -1,6 +1,6 @@
 <img src="https://res.cloudinary.com/dfboxofas/image/upload/v1611675581/project-4/blackhillls_logo_qgtqtm.png" style="height: 50px">
-# PeterKellett - Milestone Project 4
-## Introduction
+# PeterKellett - Milestone Project 4  
+## Introduction  
 This project forms the 4th milestone project of the Code Institute Full Stack Developer module and is to demonstrate my ability and knowledge of the Django framework.  
 To do this I have developed an e-commerce store for sports jerseys with a user registration and checkout facilities.  
 
@@ -20,7 +20,7 @@ To do this I have developed an e-commerce store for sports jerseys with a user r
 3. As an owner I would like to be able to contact the person who submitted the order.
 4. As an owner I would like top be able to keep the final product secure until a verified payment is made whereby the final product is immediately released to the client.
 5. As an owner I would like to be able to gather a testimonials from our clients.
-6. As an owner I would like the finished products and the client testimonial to be automatically added to the site showcase area.  
+6. As an owner I would offer a discount to encourage visitors to register their details with the site.  
 
 ## Wireframes  
 [home page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949285/project-4/readme/Homepage-wireframes_et9y77.jpg)  
@@ -123,11 +123,6 @@ default_county | Char | 80 | True | True
 default_postcode | Char | 20 | True | True 
 default_country | Char | 30 | True | True  
 
-### Subscription model  
-Fields | Type | max Length | Null | Blank |  
--------|------|------|----------|------| 
-Primary_key | Int | Auto increment | False | False  
-name | Char | 254 | False | False 
 
 ### EmailSubscriptions model  
 Fields | Type | Max Length | Null | Blank | Other
