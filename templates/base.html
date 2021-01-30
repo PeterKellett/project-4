@@ -71,9 +71,9 @@
                 </ul>    
                 <ul class="navbar-nav nav-pills mt-2 mt-lg-0 ml-auto">                
                     {% if request.user.is_authenticated %} 
-                        {% if request.user.is_superuser %}
+                        {% if request.user.is_staff %}
                             <li class="nav-item">
-                                <a href="{% url 'add_product' %}" class="nav-link">Product Management</a>
+                                <a href="{% url 'site_management' %}" class="nav-link">Product Management</a>
                             </li>
                         {% endif %}
                         
@@ -170,9 +170,7 @@
 
 	{% block page_header %}{% endblock %}
     <main class="container-fluid p-0">
-        {% if request.user.is_authenticated %}
-            
-        {% else %}
+        {% if not request.user.is_authenticated %}
             <div class="row">
                 <div class="col">
                     <p class="text-center discount-banner">Sign up to get {{ registered_discount }}% discount<a href="{% url 'account_signup' %}" class="btn btn-sm text-uppercase rounded-0">        

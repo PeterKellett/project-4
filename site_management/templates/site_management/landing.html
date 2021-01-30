@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% load static %}
+
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<section class="container">
+    <div class="row">    
+        <div class="col">
+        <hr>
+            <h1>Site Management</h1>
+         <hr>
+        </div>   
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'site_management_products' %}">
+                <div class="btn btn-lg products-button">
+                    Products
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="">
+                <div class="btn btn-lg products-button">
+                    Orders
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="">
+                <div class="btn btn-lg products-button">
+                    Reviews
+                </div>
+            </a>
+        </div>
+
+    </div>        
+ 
+</section>
+{% endblock %}
