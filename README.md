@@ -433,7 +433,7 @@ The full project set up procedure can be seen here:
 [Full project set up procedure](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)  
 
 ## Credits  
-[W3Schools.com](https://www.w3schools.com/w3css/w3css_sidebar.asp) for the functionality of the sidebar menu. Styling of the sidebar was carried out by me.  
+[W3Schools.com](https://www.w3schools.com/w3css/w3css_sidebar.asp) for some of the functionality of the sidebar menu. Styling of the sidebar was carried out by me the site developer.  
 [ckz8780](https://github.com/ckz8780) from Code Institute course tutorials for the product quantity functionality and styling.  
 [codepen](https://codepen.io/vsync/pen/frudD) for the expandable textarea used in the reviews models.  
 

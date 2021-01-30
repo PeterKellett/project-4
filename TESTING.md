@@ -2,7 +2,12 @@
 ### Code validation  
 The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
 - [W3C Markup Validator](https://validator.w3.org/)
-- [W3C CSS Validator](http://www.css-validator.org/)
+- [W3C CSS Validator](http://www.css-validator.org/)  
+- Lighthouse browser test gave the following results  
+    - Performance: 98  
+    - Accessibility: 97  
+    - Best Practices: 100  
+    - SEO: 90  
 
 ### Testing the templates  
 Go to each page in turn and verify the page and contents display correctly.
