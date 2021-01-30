@@ -9,6 +9,20 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
     - Best Practices: 100  
     - SEO: 90  
 
+### Testing the user stories  
+- As a user:  
+As a user upon entering the site I can see an illustration of the products, the company slogan with an obvious button to lead into the site proper. There is a navbar which is positioned sticky top so is always visible to the user with site navigation links provided.  
+On entering the site proper, the products are clearly displayed in an organised manner with a neat sidebar available to be able to filter the products accordingly. All relevant details of each product are clearly displayed on each product card with an obvious button to view the product in more detail.  
+The product details page has the form to add it to the shopping bag with a toast shown which provides feedback to the user on whether this action was carried out or not and also the shopping bag value in the navbar is updated to reflect this action.  
+The shopping basket neatly lists each item in the shopping basket with the ability to add or remove quantities without the need to go back to the products page.  
+The checkout page is neatly arranged with the field inputs clearly defined and labelled with only the necessary information required.  
+Upon registering with the site I have the ability to be able to save my delivery details to prevent having to resubmit my details on subsequent purchases.   
+  
+- As an owner:  
+As an owner I can see all the products are showcased in an organised tidy format. I can see there is a contrasting banner displayed beneath the navbar inviting users to register to avail of a discount.  
+I can view all orders submitted with all the necessary order information  through the site admin which can only be accessed with my password.  
+I can add, edit and delete products easily through the site admin with all changes being immediately made without delay.  
+
 ### Testing the templates  
 Go to each page in turn and verify the page and contents display correctly.
 1. / - Verify the home page is displayed  

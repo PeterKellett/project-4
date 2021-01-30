@@ -22,10 +22,9 @@ See also:
 1. As an owner I would like to be able to showcase our products to our customers.
 2. As an owner I would like to be notified of any orders submitted and be able view them as a superuser and that they are not accessible to anybody else.
 3. As an owner I would like to be able to contact the person who submitted the order.
-4. As an owner I would like top be able to keep the final product secure until a verified payment is made whereby the final product is immediately released to the client.
-5. As an owner I would like to be able to gather a testimonials from our clients.
-6. As an owner I would offer a discount to encourage visitors to register their details with the site. 
-7. As an owner I can offer free delivery on orders over a certain value. 
+4. As an owner I would like to be able to gather a testimonials from our clients.
+5. As an owner I would offer a discount to encourage visitors to register their details with the site. 
+6. As an owner I can offer free delivery on orders over a certain value. 
 
 ## Wireframes  
 [home page](https://res.cloudinary.com/dfboxofas/image/upload/v1611949285/project-4/readme/Homepage-wireframes_et9y77.jpg)  
@@ -442,9 +441,15 @@ The environment configuration variables required to run this site are:
 The full project set up procedure can be seen here:  
 [Full project set up procedure](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)  
 
+## Functionality not completed  
+- Deleting a user profile.  
+I completely overlooked adding this functionality but in this time of GDPR it would be vital that this ability is integrated into the site.  
+- Product owner email notifications.  
+The product owner is not currently notified of any orders submitted so an email trigger would need to be set up to allow for this.  
+
 ## Credits  
 [W3Schools.com](https://www.w3schools.com/w3css/w3css_sidebar.asp) for some of the functionality of the sidebar menu. Styling of the sidebar was carried out by me the site developer.  
-[ckz8780](https://github.com/ckz8780) from Code Institute course tutorials for the product quantity functionality and styling.  
+[ckz8780](https://github.com/ckz8780) from Code Institute course tutorials for the product management page and for the product quantity inputs functionality and styling.  
 [codepen](https://codepen.io/vsync/pen/frudD) for the expandable textarea used in the reviews models.  
 
 ## Media accreditation  
