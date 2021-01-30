@@ -296,6 +296,8 @@ In production environment:
 All stylesheet files are held in the AWS project bucket/static.
 
 ## Media files  
+All images are image responsive and keep their aspect ratio. 
+
 In development environment: 
 Media files are held in the root level media folder.  
 In production environment: 
@@ -436,7 +438,7 @@ Set the Stripe secret keys to Heroku Config Vars
 - STRIPE_PUBLIC_KEY
 - STRIPE_SECRET_KEY  
 
-A full project set up procedure can be seen here:  
+The full project set up procedure can be seen here:  
 [Full project set up procedure](https://github.com/PeterKellett/project-4/blob/master/PROJECTSETUP.md)  
 
 ## Credits  

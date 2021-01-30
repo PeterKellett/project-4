@@ -77,5 +77,20 @@ Restricted content and functionality includes:
 - Access to order_history content.  
 - Access to Product Management pages. 
 1. Log out and manually force a url to restricted content.  
-2. Verify the content access is denied and the user is brought to the home page with an error message displayed. 
+2. Verify access to requested url is denied and the user is brought to the home page with an error message displayed. 
 3. Verify that only the superuser has access to the Product Management page. 
+
+### Other tests  
+#### Testing the discount banner and discount calculation.  
+- User logged out  
+1. Verify the discount banner is displayed on all pages.    
+2. Add some products to the shopping bag and verify that no discount value is being applied on the checkout page.  
+  
+- User logged in  
+1. Verify the discount banner is hidden on all pages.  
+2. Add some products to the shopping bag and verify that a discount percentage of 15% is being applied to the total less delivery charge on the checkout page.  
+
+#### Testing the delivery threshold and delivery calculation  
+1. Add a product to the shopping bag and verify that a delivery charge of 10% is applied to the order total.  
+2. Verify the delivery charge is free once the order total exceeds €50.  
+
