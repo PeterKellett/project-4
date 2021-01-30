@@ -1,6 +1,22 @@
 # Project set up  
 This document outlines the various steps taken during the development of this project.  
 
+### Pypi installs required  
+The following pip3 installs are required:  
+- django  
+- django-allauth  
+- django-crispy-forms  
+- dj-database-url
+- django-countries
+- django-crispy-forms
+- django-jsonify
+- django-storages
+- gunicorn
+- Pillow
+- psycopg2-binary
+- boto3
+- stripe==2.55.1
+
 ## Initial set up 
 1. Install Django
    - pip3 install django (v20.2.4 installed)
@@ -81,7 +97,6 @@ This document outlines the various steps taken during the development of this pr
       os.path.join(BASE_DIR, 'templates', 'allauth'),
       ],
 
-
 ## Adding Categories
 1. Create a new app Products
 2. Add a new folder fixtures
@@ -133,4 +148,4 @@ This document outlines the various steps taken during the development of this pr
 1. pip3 install django-crispy-forms
 2. Add this install to settings.py INSTALLED_APPS
 3. CRISPY_TEMPLATE_PACK = 'bootstrap4'
-4. Add to templates-builtins in settings.py
+4. Add to templates-builtins in settings.py  
