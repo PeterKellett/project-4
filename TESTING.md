@@ -13,7 +13,7 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 Go to each page in turn and verify the page and contents display correctly.
 1. / - Verify the home page is displayed  
 2. /products - Verify the products page is displayed  
-3. /product/<productid> - Verify the product details page is displayed  
+3. /product/product_id - Verify the product details page is displayed  
 4. /bag - Verify the Shopping bag page is displayed  
 5. /profile - Verify the profile page is displayed  
 6. /checkout - Verify the checkout page is displayed. 
@@ -87,15 +87,15 @@ Restricted content and functionality includes:
 
 ### Other tests  
 #### Testing the discount banner and discount calculation.  
-- User logged out  
+- With user logged out  
 1. Verify the discount banner is displayed on all pages.    
 2. Add some products to the shopping bag and verify that no discount value is being applied on the checkout page.  
   
-- User logged in  
+- With user logged in  
 1. Verify the discount banner is hidden on all pages.  
 2. Add some products to the shopping bag and verify that a discount percentage of 15% is being applied to the total less delivery charge on the checkout page.  
 
-#### Testing the delivery threshold and delivery calculation  
+#### Testing the delivery threshold and delivery cost calculation  
 1. Add a product to the shopping bag and verify that a delivery charge of 10% is applied to the order total.  
 2. Verify the delivery charge is free once the order total exceeds €50.  
 
