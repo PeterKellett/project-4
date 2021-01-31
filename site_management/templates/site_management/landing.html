@@ -15,33 +15,28 @@
          <hr>
         </div>   
     </div>
-</section>
-
-<section class="container">
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-start">
+        <div class="col-2">
             <a href="{% url 'site_management_products' %}">
                 <div class="btn btn-lg products-button">
                     Products
                 </div>
             </a>
         </div>
-        <div class="col">
-            <a href="">
+        <div class="col-2">
+            <a href="{% url 'site_management_orders' %}">
                 <div class="btn btn-lg products-button">
                     Orders
                 </div>
             </a>
         </div>
-        <div class="col">
-            <a href="">
+        <div class="col-2">
+            <a href="{% url 'site_management_reviews' %}">
                 <div class="btn btn-lg products-button">
                     Reviews
                 </div>
             </a>
         </div>
-
     </div>        
- 
 </section>
 {% endblock %}
