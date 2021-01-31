@@ -46,7 +46,7 @@
 </head>
 
 <body>
-	<header class="container-fluid fixed-top">
+	<header class="container-fluid fixed-top p-0">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand p-0" href="{% url 'home' %}">
                 <img src="{{ MEDIA_URL }}blackhills-logo.png" width="40" height="40" class="d-inline-block align-top" alt="Blackhills jerseys logo" loading="lazy">
@@ -71,9 +71,9 @@
                 </ul>    
                 <ul class="navbar-nav nav-pills mt-2 mt-lg-0 ml-auto">                
                     {% if request.user.is_authenticated %} 
-                        {% if request.user.is_staff %}
+                        {% if request.user.is_superuser %}
                             <li class="nav-item">
-                                <a href="{% url 'site_management' %}" class="nav-link">Product Management</a>
+                                <a href="{% url 'add_product' %}" class="nav-link">Product Management</a>
                             </li>
                         {% endif %}
                         
@@ -197,8 +197,8 @@
             
             <div class="col-12 col-md-3 col-lg-4 py-2 footerCol">
                 <h5 class="">Contacts</h5>               
-                <i class="fas fa-phone-square-alt"></i>  +353 (0)1 1234567               
-                <i class="fas fa-envelope-square"></i> info@blackhillsjerseys.com                                                       
+                <p><i class="fas fa-phone-square-alt"></i> +353 (0)1 1234567</p>               
+                <p><i class="fas fa-envelope-square"></i> info@blackhillsjerseys.com</p>                                                       
             </div>
         </div>
     </div>

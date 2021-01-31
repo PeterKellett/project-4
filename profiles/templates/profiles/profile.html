@@ -19,6 +19,7 @@
     </div>
 
     <div class="row">
+        <!--Delivery info-->
         <div class="col-12 col-lg-6">
             <p>Default Delivery Information</p>
             <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
@@ -28,6 +29,7 @@
             </form>
             <hr>
         </div>
+        <!--Reviews table-->
         <div class="col-12 col-lg-6">
             <div class="row align-items-center">
                 <div class="col">
@@ -117,6 +119,7 @@
             </table>
             
             <hr>
+            <!--Orders table-->
             <div class="row align-items-center">
                 <div class="col">
                     <p class="text-muted d-inline mb-1">Order History ({{ total_orders }})</p>
@@ -125,54 +128,55 @@
                     </button> 
                 </div>
             </div>
-            
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                    <th scope="col">Order number</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Items</th>
-                    <th scope="col">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders %}
-                        {% if forloop.counter <= 3 %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'order_history' order.order_number %}"
-                                        title="{{ order.order_number }}" class="">                      
-                                        {{ order.order_number|truncatechars:10 }}
-                                    </a>
-                                </td>
-                                <td>{{ order.date }}</td>
-                                <td>
-                                    {% for item in order.lineitems.all %}
-                                    <p class="">{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
-                                    {% endfor %}   
-                                </td>
-                                <td>€{{ order.grand_total }}</td>
-                            </tr>    
-                        {% else %}
-                            <tr class="orders" style="display: none">
-                                <td>
-                                    <a href="{% url 'order_history' order.order_number %}"
-                                        title="{{ order.order_number }}" class="">                      
-                                        {{ order.order_number|truncatechars:10 }}
-                                    </a>
-                                </td>
-                                <td>{{ order.date }}</td>
-                                <td>
-                                    {% for item in order.lineitems.all %}
-                                    <p class="">{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
-                                    {% endfor %}   
-                                </td>
-                                <td>€{{ order.grand_total }}</td>
-                            </tr>    
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                        <th scope="col">Order number</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Items</th>
+                        <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            {% if forloop.counter <= 3 %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'order_history' order.order_number %}"
+                                            title="{{ order.order_number }}">                      
+                                            {{ order.order_number|truncatechars:10 }}
+                                        </a>
+                                    </td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        {% for item in order.lineitems.all %}
+                                        <p>{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
+                                        {% endfor %}   
+                                    </td>
+                                    <td>€{{ order.grand_total }}</td>
+                                </tr>    
+                            {% else %}
+                                <tr class="orders" style="display: none">
+                                    <td>
+                                        <a href="{% url 'order_history' order.order_number %}"
+                                            title="{{ order.order_number }}">                      
+                                            {{ order.order_number|truncatechars:10 }}
+                                        </a>
+                                    </td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        {% for item in order.lineitems.all %}
+                                        <p>{{ item.product.size|title }} {{ item.product.name }} x {{ item.quantity }}</p>
+                                        {% endfor %}   
+                                    </td>
+                                    <td>€{{ order.grand_total }}</td>
+                                </tr>    
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             <hr class="my-0">      
         </div>
     </div>        

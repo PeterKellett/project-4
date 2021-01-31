@@ -148,7 +148,8 @@ def add_product(request):
 def edit_product(request, product_id):
     if not request.user.is_superuser:
         messages.error(request,
-                       'Sorry only users with admin rights can access this')
+                       'Sorry only users with admin \
+                            rights can access this')
         return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
@@ -179,7 +180,8 @@ def edit_product(request, product_id):
 def delete_product(request, product_id):
     if not request.user.is_superuser:
         messages.error(request,
-                       'Sorry only users with admin rights can access this')
+                       'Sorry only users with admin \
+                            rights can access this')
         return redirect(reverse('home'))
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
