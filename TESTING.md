@@ -20,7 +20,7 @@ Upon registering with the site I have the ability to be able to save my delivery
   
 - As an owner:  
 As an owner I can see all the products are showcased in an organised tidy format. I can see there is a contrasting banner displayed beneath the navbar inviting users to register to avail of a discount.  
-I can view all orders submitted with all the necessary order information  through the site admin which can only be accessed with my password.  
+I can view all orders submitted with all the necessary order information  through the site admin which can only be accessed with my login credentials.  
 I can add, edit and delete products easily through the site admin with all changes being immediately made without delay.  
 
 ### Testing the templates  
@@ -31,8 +31,8 @@ Go to each page in turn and verify the page and contents display correctly.
 4. /bag - Verify the Shopping bag page is displayed  
 5. /profile - Verify the profile page is displayed  
 6. /checkout - Verify the checkout page is displayed. 
-7. /login - Verify the login page is displayed  
-8. /Register - Verify the register page is displayed  
+7. /accounts/login - Verify the login page is displayed  
+8. /accounts/Register - Verify the register page is displayed  
 
 ### Testing functionality  
 #### allAuth Registration test 

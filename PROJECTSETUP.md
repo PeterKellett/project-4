@@ -79,23 +79,17 @@ The following pip3 installs are required:
     - from django.core.mail import send_mail
     - from django.template.loader import render_to_string  
  
-## Home App
-1. Create app
-   - python3 manage.py startapp home
-2. Add a templates/home folder inside this app folder
-   - mkdir -p home/templates/home
-3. Add an index.html file to this directory.
-   - This is for all the home page content.
-4. Add a view for this page in views.py
-   - def index view and return the index.html page
-5. In the home app create a new file urls.py and set the imports and url pattern to the home page
-6. Return to root level urls.py file to include the home urls
-7. Add the home app to our INSTALLED_APPS list in settings.py
-8. Add the templates for the root level templates directory and the allauth directory to TEMPLATES DIRS settings
-   - 'DIRS': [
-      os.path.join(BASE_DIR, 'templates'),
-      os.path.join(BASE_DIR, 'templates', 'allauth'),
-      ],
+## Creating Apps
+1. Initiate the app
+   - python3 manage.py startapp appname
+2. Add a templates/appname folder inside this app folder
+   - mkdir -p appname/templates/appname
+3. Add html files related to this app in this directory.
+4. Add a view for these pages in views.py
+5. Write the controller logic for each of these views in views.py file. 
+6. In the app create a new file urls.py and set the imports and url pattern for each file path required
+7. Return to root level urls.py file to include the root path to the app urls
+7. Add the appname to the list INSTALLED_APPS in settings.py
 
 ## Adding Categories
 1. Create a new app Products
